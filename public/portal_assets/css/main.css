@@ -1,0 +1,22 @@
+body,a,p,.header,.footer{position: relative;font-family: "微軟正黑體";font-size: 14px;}
+
+.header {position: fixed;width: 100%;height: 50px;top: 0;background-color: #585555;z-index: 100;}
+.header .logo {position: relative;width: 200px;margin: auto;}
+.header .logo img{width:100%;max-height: 50px;}
+.header .menuBtn {position: absolute;}
+.header .menuBtn a,.header .menuBtn a:active{font-size: 30px;color: #fff;line-height: 50px;margin: auto 10px;text-decoration: none;}
+
+.mainContent{position: absolute;width: 100%;height: 100%;background-color: #fff;}
+.content{margin: 50px 0 68px;}
+.footer {position: fixed;width: 100%;bottom: 0px;color: #aaa;background-color: #585555;padding: 20px 0;text-align: center;}
+
+.titleImg,.desc,.btnGroup,.logoArea{margin-bottom: 10px;}
+.titleImg{max-width: 400px;margin: auto;}
+.titleImg img{width: 100%;}
+
+.btnGroup .btn a{color: #fff;padding: 6px;}
+#menu a.la{font-size: 22px;}
+
+@media screen and (max-width: 480px) {
+
+}
