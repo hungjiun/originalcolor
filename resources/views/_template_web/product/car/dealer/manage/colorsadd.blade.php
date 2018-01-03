@@ -119,7 +119,9 @@ $(document).ready(function() {
         $('input:checkbox:checked[name="colors"]', rows).each(function(){
             valuelist += $(this).val() + ",";
         });
-            
+
+        //console.log(valuelist);
+        
         $.ajax({
             url : "{{ url('web/product/car/dealer/manage/docolorsadd')}}",
             data : {"iDealerId": iDealerId,"colors":valuelist,"_token":"{{ csrf_token() }}"},

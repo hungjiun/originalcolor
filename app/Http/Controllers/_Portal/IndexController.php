@@ -42,6 +42,18 @@ class IndexController extends _PortalController
 
         $this->view = View()->make( "_template_portal.description" );
 
+        $sysDealer = session ()->has ( 'sysDealer' ) ? session ()->get ( 'sysDealer' ) : 0;
+
+        $mapDealer['iId'] = $sysDealer;
+        $mapDealer['iStatus'] = 1;
+        $DaoSysDealer = SysDealer::where($mapDealer)->first();
+        if(!$DaoSysDealer) {
+            return redirect('');
+        }
+
+        $DaoSysDealer->vDealerImg = $this->_getFilePathById($DaoSysDealer->vDealerImg);
+
+        $this->view->with ( 'sysDealer', $DaoSysDealer );
         return $this->view;
     }
 
@@ -54,6 +66,19 @@ class IndexController extends _PortalController
 
         $this->view = View()->make( "_template_portal.color_card" );
 
+        $sysDealer = session ()->has ( 'sysDealer' ) ? session ()->get ( 'sysDealer' ) : 0;
+
+        $mapDealer['iId'] = $sysDealer;
+        $mapDealer['iStatus'] = 1;
+        $DaoSysDealer = SysDealer::where($mapDealer)->first();
+        if(!$DaoSysDealer) {
+            return redirect('');
+        }
+
+        $DaoSysDealer->vDealerImg = $this->_getFilePathById($DaoSysDealer->vDealerImg);
+
+        $this->view->with ( 'sysDealer', $DaoSysDealer );
+
         return $this->view;
     }
 
@@ -65,6 +90,19 @@ class IndexController extends _PortalController
         $this->_init();
 
         $this->view = View()->make( "_template_portal.qa" );
+
+        $sysDealer = session ()->has ( 'sysDealer' ) ? session ()->get ( 'sysDealer' ) : 0;
+
+        $mapDealer['iId'] = $sysDealer;
+        $mapDealer['iStatus'] = 1;
+        $DaoSysDealer = SysDealer::where($mapDealer)->first();
+        if(!$DaoSysDealer) {
+            return redirect('');
+        }
+
+        $DaoSysDealer->vDealerImg = $this->_getFilePathById($DaoSysDealer->vDealerImg);
+
+        $this->view->with ( 'sysDealer', $DaoSysDealer );
 
         return $this->view;
     }

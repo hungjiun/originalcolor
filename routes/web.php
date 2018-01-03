@@ -63,7 +63,8 @@ Route::group(
                 return abort( 503 );
             } );
         } );
-
+        Route::get( 'carmodels', 'DealerController@carModels' );
+        Route::get( 'carcolors', 'DealerController@carColors' );
         Route::get( '', 'DealerController@index' );
         Route::get( '{error}', function() {
             return abort( 503 );

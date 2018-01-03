@@ -4,19 +4,32 @@
 @section('page-css')
     <!--  -->
     <style>
-    .table {
-        max-width: 1400px;
-    }
     table img {
         width: 40px;
         height: auto;
     }
+    .table-bordered > tbody {
+        max-height: 350px;
+        overflow-y: scroll;
+        display: block;
+    }
+    .table-bordered thead, tbody tr {
+        width: 100%;
+        display: table;
+        table-layout: fixed;
+    }
+    .table-bordered thead {
+        width: calc(100% - 17px);
+    }
     .table-bordered > thead > tr > th {
         border: 1px solid #ddd;
+        width: 100px;
     }
     .table-bordered > tbody > tr > td {
         border: 1px solid #ddd;
+        width: 100px;
     }
+    
     </style>
 @endsection
 <!-- ================== /page-css ================== -->
@@ -52,26 +65,28 @@
                             </div>
                         </div>
                         <br><br>
-                        <table class="table table-bordered" id="model-colors">
-                            <thead>
-                                <tr>
-                                    <th style="width: 100px;">車廠</th>
-                                    <th style="width: 100px;">色碼</th>
-                                    <th style="width: 100px;">國際色碼</th>
-                                    <th style="width: 100px;"></th>
-                                    <th style="width: 100px;"></th>
-                                </tr>
-                            </thead> 
-                            <tbody>                           
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div class="table table-responsive">
+                            <table class="table table-bordered scrolltable" id="model-colors">
+                                <thead>
+                                    <tr>
+                                        <th>車廠</th>
+                                        <th>色碼</th>
+                                        <th>國際色碼</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
+                                </thead> 
+                                <tbody>                           
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer clearfix">
@@ -150,9 +165,9 @@
                             if(carBrand) {
                                 $('#model-colors').empty();
                                 html_str += '<thead><tr>';
-                                html_str += '<th style="width: 100px">'+carBrand['vCarBrandName']+'</th>';
-                                html_str += '<th style="width: 100px">色碼</th>';
-                                html_str += '<th style="width: 100px">國際色碼</th>';
+                                html_str += '<th>'+carBrand['vCarBrandName']+'</th>';
+                                html_str += '<th>色碼</th>';
+                                html_str += '<th>國際色碼</th>';
                                 for (var key in carModels) {
                                    html_str += '<th style="width: 100px">'+carModels[key]['vCarModelName']+'</th>'; 
                                 }
@@ -161,9 +176,9 @@
                                 html_str += '<tbody>';
                                 for (var key1 in carModelColors) {
                                     html_str += '<tr>';
-                                    html_str += '<td style="width: 100px">'+carModelColors[key1]['vCarColorName']+'</td>';
-                                    html_str += '<td style="width: 100px">'+carModelColors[key1]['vCarColorCode']+'</td>';
-                                    html_str += '<td style="width: 100px">'+carModelColors[key1]['vCarColorNationalCode']+'</td>';
+                                    html_str += '<td>'+carModelColors[key1]['vCarColorName']+'</td>';
+                                    html_str += '<td>'+carModelColors[key1]['vCarColorCode']+'</td>';
+                                    html_str += '<td>'+carModelColors[key1]['vCarColorNationalCode']+'</td>';
 
                                     for (var key2 in carModels) {
                                         result = $.map(carModelColors[key1]['CarModelColors'], function(item, index) {
@@ -194,19 +209,19 @@
                             } else {
                                 $('#model-colors').empty();
                                 html_str += '<tr>';
-                                html_str += '<th style="width: 100px">車廠</th>';
-                                html_str += '<th style="width: 100px">色碼</th>';
-                                html_str += '<th style="width: 100px">國際色碼</th>';
-                                html_str += '<th style="width: 100px"></th>'; 
-                                html_str += '<th style="width: 100px"></th>'; 
+                                html_str += '<th>車廠</th>';
+                                html_str += '<th>色碼</th>';
+                                html_str += '<th>國際色碼</th>';
+                                html_str += '<th></th>'; 
+                                html_str += '<th></th>'; 
                                 html_str += '</tr>';
 
                                 html_str += '<tr>';
-                                html_str += '<td style="width: 100px"></td>';
-                                html_str += '<td style="width: 100px"></td>';
-                                html_str += '<td style="width: 100px"></td>';
-                                html_str += '<td style="width: 100px"></td>';
-                                html_str += '<td style="width: 100px"></td>';
+                                html_str += '<td></td>';
+                                html_str += '<td></td>';
+                                html_str += '<td></td>';
+                                html_str += '<td></td>';
+                                html_str += '<td></td>';
                                 html_str += '</tr>';
 
                                 $('#model-colors').append(html_str);

@@ -130,7 +130,7 @@
                 data.iCarBrandId = $('#iCarBrandId').val();
                 data.vCarModelName = $('#vCarModelName').val();
                 data.iCarModelType = $('#iCarModelType').val();
-                data.vCarModelImg = $('#vCarModelImg').val();
+                data.vCarModelImg = $('#Image').attr('data-id');
                 data.vCarModelAge = $('#vCarModelAge').val();
                 data.vSummary = $('#vSummary').val();
                 data.vCarModelUrl = $('#vCarModelUrl').val();

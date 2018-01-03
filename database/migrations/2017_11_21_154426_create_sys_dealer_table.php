@@ -24,6 +24,7 @@ class CreateSysDealerTable extends Migration
                 $table->string( 'vDealerNameE' )->nullable();
                 $table->string( 'vUrlName' )->nullable();
                 $table->string( 'vDealerImg' )->nullable();
+                $table->string( 'vDealerIcon' )->nullable();
                 $table->string( 'vDealerTel' )->nullable();
                 $table->string( 'vDealerFax' )->nullable();
                 $table->string( 'vDealerEmail' )->nullable();

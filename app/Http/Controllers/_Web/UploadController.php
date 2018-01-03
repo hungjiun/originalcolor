@@ -45,8 +45,8 @@ class UploadController extends Controller
         $filesizes = $image['size'];
 
         //$filename = date( 'YmdHis' ) . uniqid() . '.jpg';
-        $filePath = env( 'UPLOAD_PATH', dirname( $_SERVER ['SCRIPT_FILENAME'] ) . '/' ) . config ()->get ( 'config.path.userdata' ) . session ()->get ( 'member.vUserCode' ) . "/" . date ( "Ymd" ) . "/";
-        
+        //$filePath = env( 'UPLOAD_PATH', dirname( $_SERVER ['SCRIPT_FILENAME'] ) . '/' ) . config ()->get ( 'config.path.userdata' ) . session ()->get ( 'member.vUserCode' ) . "/" . date ( "Ymd" ) . "/";
+        $filePath = env( 'UPLOAD_PATH', dirname( $_SERVER ['SCRIPT_FILENAME'] ) . '/' ) . config ()->get ( 'config.path.userdata' );
         if ( !file_exists( $filePath )) {
             mkdir( $filePath, 0777, true );
         }
@@ -80,7 +80,7 @@ class UploadController extends Controller
         $Dao->iType = 1;
         $Dao->vFileType = $filetypes[0];
         $Dao->vFileServer = $this->_get_full_url() . "/";
-        $Dao->vFilePath = config()->get( 'config.path.userdata' ) . session()->get( 'member.vUserCode' ) . "/" . date( "Ymd" ) . "/";
+        $Dao->vFilePath = config()->get( 'config.path.userdata' );
         $Dao->vFileName = $filename;
         $Dao->vOrigName = $filenames[0];
         $Dao->iFileSize = $filesizes[0];

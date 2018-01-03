@@ -4,7 +4,7 @@
 @section('page-css')
     <!--  -->
     <link type="text/css" rel="stylesheet" href="/portal_assets/css/index.css" />
-    <link type="text/css" rel="stylesheet" href="/portal_assets/css/3dlogo.css" />
+    <link type="text/css" rel="stylesheet" href="/portal_assets/css/carType.css" />
 @endsection
 <!-- ================== /page-css ================== -->
 
@@ -23,6 +23,12 @@
 			    </div>
 
 			    <div class="logoArea">
+			    	@foreach($dealerCarBrand as $key => $var)
+			    	<div class="logoBlock col-md-3 col-sm-4 col-xs-6">
+			        	<div class="thumbnail"><a href="{{url('dealer/carmodels')}}?iCarBrandId={{$var->iId}}"><img src="{{$var->vCarBrandImg}}" alt="logo toyota"></a></div>
+			        </div>
+			    	@endforeach
+			    	<!--
 			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
 			        	<div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_toyota.png" alt="logo toyota"></a></div>
 			        </div>
@@ -83,6 +89,7 @@
 			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
 			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_infiniti.png" alt="logo infiniti"></a></div>
 			        </div>
+			    	-->
 			    </div>
 			</div>
         </div> 
