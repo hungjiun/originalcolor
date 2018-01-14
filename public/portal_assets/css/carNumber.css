@@ -1,0 +1,8 @@
+.logoArea{float: left;margin-top: 20px;}
+.logoArea .thumbnail{border-color: #fff;padding: 10px;transition: all 0.5s;cursor: pointer;}
+.logoArea .thumbnail small{margin-left:5px;padding: 0px 10px;background-color: #f28706;border-radius: 10px;color:#fff;}
+.logoArea .thumbnail:hover{border-color: #ddd;box-shadow: 3px 3px 3px #ddd;}
+
+.logoBlock img{width: 100%;}
+.logoBlock .title{border-bottom: 1px #ddd solid;}
+.logoBlock .desc{margin:20px auto;color: #fff;background-color: #3a3a3a;width: 60%;height: 100px;line-height: 100px;border-radius: 10px;font-size: 24px;}

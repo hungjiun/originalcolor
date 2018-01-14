@@ -1,0 +1,3 @@
+.logoArea{float: left;margin-top: 20px;}
+.logoArea .thumbnail{border-color: #fff;padding: 10px;transition: all 0.5s;cursor: pointer;}
+.logoArea .thumbnail:hover{border-color: #ddd;box-shadow: 3px 3px 3px #ddd;}

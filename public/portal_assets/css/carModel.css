@@ -1,0 +1,4 @@
+.logoArea{float: left;margin-top: 20px;}
+.logoArea .thumbnail{border-color: #fff;padding: 10px;transition: all 0.5s;color: #6a6a6a;cursor: pointer;}
+.logoArea .thumbnail small{margin-left:5px;padding: 0px 10px;background-color: #f28706;border-radius: 10px;color:#fff;}
+.logoArea .thumbnail:hover{border-color: #ddd;box-shadow: 3px 3px 3px #ddd;}
