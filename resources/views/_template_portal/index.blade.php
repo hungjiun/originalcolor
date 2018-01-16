@@ -28,68 +28,6 @@
 			        	<div class="thumbnail"><a href="{{url('dealer/carmodels')}}?iCarBrandId={{$var->iId}}"><img src="{{$var->vCarBrandImg}}" alt="logo toyota"></a></div>
 			        </div>
 			    	@endforeach
-			    	<!--
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			        	<div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_toyota.png" alt="logo toyota"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_mazda.png" alt="logo mazda"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_mitsubishi.png" alt="logo mitsubishi"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_ford.png" alt="logo ford"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_honda.png" alt="logo honda"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_lexus.png" alt="logo lexus"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_vw.png" alt="logo vw"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_hyundai.png" alt="logo hyundai"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_luxgen.png" alt="logo luxgen"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_nissan.png" alt="logo nissan"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_subaru.png" alt="logo subaru"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_skoda.png" alt="logo skoda"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_bmw.png" alt="logo bmw"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_benz.png" alt="logo benz"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_citroen.png" alt="logo citroen"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_kia.png" alt="logo kia"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_audi.png" alt="logo audi"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_volvo.png" alt="logo volvo"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_suzuki.png" alt="logo suzuki"></a></div>
-			        </div>
-			        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-			            <div class="thumbnail"><a href="#"><img src="/portal_assets/images/logo/3d_infiniti.png" alt="logo infiniti"></a></div>
-			        </div>
-			    	-->
 			    </div>
 			</div>
         </div> 
@@ -100,7 +38,6 @@
 <!-- ================== page-js ================== -->
 @section('page-js')
     <!--  -->
-    <script type="text/javascript" src="/portal_assets/js/index.js"></script>
 @endsection
 <!-- ================== /page-js ================== -->
 <!-- ================== inline-js ================== -->

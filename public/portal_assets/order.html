@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>訂單系統 - 原色車漆</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+	<meta name="viewport" content="user-scalable=no, width=device-width, maximum-scale=1, initial-scale=1"/>
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<link rel="stylesheet" type="text/css" href="css/reset.css"/>
+	<link rel="shortcut icon" href="images/favicon.ico"/>
+
+	<link type="text/css" rel="stylesheet" href="jQuery.mmenu-master/demo/css/demo.css" />
+	<link type="text/css" rel="stylesheet" href="jQuery.mmenu-master/dist/css/jquery.mmenu.all.css" />
+	<link type="text/css" rel="stylesheet" href="css/layout.css">
+
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+	<script type="text/javascript" src="jQuery.mmenu-master/dist/js/jquery.mmenu.min.all.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$('nav#menu').mmenu();
+		});
+	</script>		
+
+	<!--Password Tip=alert-->
+	<script type="text/javascript">
+		function tip_alert(){
+			alert("老闆四碼生日")
+		}
+	</script>
+	
+	<!--All Cancel =confirem
+	<script type="text/javascript">
+		function reset_confirm(){
+			confirm("確定是否要整份刪除?")
+		}
+	</script>
+-->
+<style>
+body{
+	font-family: Microsoft JhengHei;
+}
+input,select{
+	appearance:menulist;
+	-webkit-appearance:menulist;
+	-moz-appearance:menulist;
+	-o-appearance:menulist;
+	background-color: rgba(200,200,200,0.5);
+	border: none;
+	height: auto;
+	margin: 0;
+	padding: 5px 5px;
+	width: 100%;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+	font-size: 15px;
+}
+select{
+	cursor: pointer;
+}
+
+h1{
+	padding-top: 20px;
+	font-size: 2em;
+}
+form{
+	background-color: rgba(180,180,180,0.3);
+	display: block;
+	width: 100%;
+	max-width: 480px;
+	margin: 10px auto;
+	font-size: 1.5em;
+}
+fieldset{
+	display: block;
+	width: 50%;
+	margin: 15px auto;
+}
+label{
+	display: block;
+	margin: 10px auto;
+}
+#tip{
+	background: url(images/tip.svg) no-repeat center center rgba(0,90,255,0.6);
+	display: block;	
+	width: 20px;
+	height: 20px;
+	border-radius: 15px;
+	text-align: center;
+	float: left;
+	margin: 11px;
+	cursor: pointer;
+}
+#tip:hover{
+	background-color: rgba(0,150,255,1);
+}
+#tip:active{
+	background-color: #fff;
+}
+
+#number{
+	width: 55px;
+}
+
+#amount{
+	width: 55px;
+}
+.buttonset{
+	width: 100%;
+	margin: 20px auto;
+	max-width: 280px;
+	text-align: center;
+}
+.button{
+	display: block;
+	width: 42%;
+	max-width: 200px;
+	margin: 0 11px;
+	padding: 5px;
+	font-size: 20px;
+	color: #fff;
+	background-color: rgba(0,150,255,1);
+	border: 1px solid #0095FF;
+	border-radius: 8px;
+	float: left;
+	cursor: pointer;
+}
+.button:hover{
+	background-color: rgba(83,184,255,1);
+}
+.button:active{
+	background-color: rgba(0,88,150,1);
+	border: 1px solid #0096FF;
+}
+
+button{
+	width: 70px;
+	margin: 0 10px;
+	padding: 2px;
+	font-size: 15px;
+	color: #fff;
+	background-color: rgba(0,150,255,1);
+	border: 1px solid #0095FF;
+	border-radius: 2px;
+	cursor: pointer;
+}
+button:active{
+	background-color: rgba(0,88,150,1);
+	border: 1px solid #0096FF;
+}
+table{
+	width:100%;
+	max-width: 300px;
+	margin: 10px auto;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: center;
+}
+td {
+  padding: 15px 5px;
+  border: none;
+  border-right: 1px solid #000;
+  position: relative;
+}
+
+.cancelbt{
+	position: absolute;
+	display: inline-block;
+	width: 14px;
+	height: 14px;
+	background: red;
+	left: 20px;
+	top: 20px;
+	cursor: pointer;
+}
+.cancelbt:before{
+	content: "";
+	position: absolute;
+	top: 50%;
+	width: 7px;
+	height: 3px;
+	background: #fff;
+	transform: transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+}
+
+.lightbox-target {
+	position: fixed;
+	top: -100%;
+	width: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	opacity: 0;
+	-moz-transition: opacity 0.5s ease-in-out;
+	-o-transition: opacity 0.5s ease-in-out;
+	-webkit-transition: opacity 0.5s ease-in-out;
+	transition: opacity 0.5s ease-in-out;
+	overflow: hidden;
+}
+
+.lightbox-target .content {
+	width: 100%;
+	max-width: 380px;
+	background: #fff;
+	color: #333;
+	margin: auto;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	box-sizing: border-box;
+	-moz-transition: ease-in-out 0.5s;
+	-o-transition: ease-in-out 0.5s;
+	-webkit-transition: ease-in-out 0.5s;
+	transition: ease-in-out 0.5s;
+	font-size: 20px;
+	padding: 100px 50px 50px 50px;
+}
+
+.lightbox-target:target {
+  opacity: 1;
+  top: 0;
+  bottom: 0;
+}
+
+.lightbox-target:target .lightbox-close {
+  top: 5%;
+}
+
+.lightbox-close {
+  display: block;
+  width: 30px;
+  height: 30px;
+  box-sizing: border-box;
+  background: #139dd7;
+  color: #fff;
+  position: absolute;
+  top: 10%;
+  right: 5%;
+  -moz-transition: ease-in-out 0.5s;
+  -o-transition: ease-in-out 0.5s;
+  -webkit-transition: ease-in-out 0.5s;
+  transition: ease-in-out 0.5s;
+}
+.lightbox-close:before, .lightbox-close:after {
+  content: " ";
+  display: block;
+  height: 30px;
+  width: 1px;
+  background: #fff;
+  position: absolute;
+  left: 15px;
+  top: 0px;
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+.lightbox-close:after {
+  -moz-transform: rotate(-45deg);
+  -ms-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+}
+
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+	<!-- 標頭 -->
+	<header>
+		<div class="side"><a href="#menu"></a></div>
+		<div class="custmer">
+			<a href="originalcolor.html">
+				<img src="images/custmer/originalcolor.svg">
+			</a>
+		</div>
+	</header>
+	<!-- 放LOGO的區塊 -->
+	<h1>訂單系統+lightbox</h1>
+<form>
+	<fieldset>
+		<label for="id">店家</label>
+		<select id="id" name="user_id">
+			<option value="$">請選擇店家編號</option>
+			<optgroup label="板橋">
+				<option value="茂盛車業">01.茂盛車業</option>
+				<option value="卡式汽車美容">02.卡式汽車美容</option>
+				<option value="欣欣洗車美容">03.欣欣洗車美容</option>
+				<option value="魔術專業美容">04.魔術專業美容</option>
+			</optgroup>
+			<optgroup label="土城">
+				<option value="茂盛車業">05.茂盛車業</option>
+				<option value="卡式汽車美容">06.卡式汽車美容</option>
+				<option value="欣欣洗車美容">07.欣欣洗車美容</option>
+				<option value="魔術專業美容">08.魔術專業美容</option>
+			</optgroup>
+		</select>
+
+		<label for="password" style="float: left;">密碼</label>
+		<span id="tip" type="button" onclick="tip_alert()"></span>
+		<input type="password" id="password" name="user_password">
+
+	</fieldset>
+
+	<fieldset>
+		<label for="number">
+			顏色 <select id="number" name="color_number">
+					<option value="02">02</option>
+					<option value="03">03</option>
+					<option value="04">04</option>
+					<option value="05">05</option>
+					<option value="06">06</option>
+					<option value="07">07</option>
+					<option value="08">08</option>
+					<option value="09">09</option>
+					<option value="10">10</option>
+					<option value="11">11</option>
+					<option value="12">12</option>
+					<option value="13">13</option>
+					<option value="14">14</option>
+					<option value="15">15</option>
+					<option value="16">16</option>
+					<option value="17">17</option>
+					<option value="18">18</option>
+					<option value="19">19</option>
+					<option value="20">20</option>
+					<option value="21">21</option>
+					<option value="22">22</option>
+					<option value="23">23</option>
+					<option value="24">24</option>
+					<option value="25">25</option>
+					<option value="26">26</option>
+					<option value="27">27</option>
+					<option value="28">28</option>
+					<option value="29">29</option>
+					<option value="30">30</option>
+					<option value="31">31</option>
+					<option value="32">32</option>
+					<option value="33">33</option>
+					<option value="34">34</option>
+					<option value="35">35</option>
+					<option value="36">36</option>
+					<option value="37">37</option>
+					<option value="38">38</option>
+					<option value="39">39</option>
+					<option value="40">40</option>
+					<option value="41">41</option>
+					<option value="42">42</option>
+					<option value="43">43</option>
+					<option value="44">44</option>
+					<option value="45">45</option>
+					<option value="46">46</option>
+					<option value="47">47</option>
+					<option value="48">48</option>
+					<option value="49">49</option>
+					<option value="50">50</option>
+					<option value="51">51</option>
+					<option value="52">52</option>
+					<option value="53">53</option>
+					<option value="54">54</option>
+					<option value="55">55</option>
+					<option value="56">56</option>
+					<option value="57">57</option>
+					<option value="58">58</option>
+					<option value="59">59</option>
+					<option value="60">60</option>
+					<option value="61">61</option>
+					<option value="62">62</option>
+					<option value="63">63</option>
+					<option value="64">64</option>
+					<option value="65">65</option>
+					<option value="66">66</option>
+					<option value="67">67</option>
+					<option value="68">68</option>
+					<option value="69">69</option>
+					<option value="70">70</option>
+					<option value="71">71</option>
+					<option value="72">72</option>
+					<option value="73">73</option>
+					<option value="74">74</option>
+					<option value="75">75</option>
+					<option value="76">76</option>
+					<option value="77">77</option>
+					<option value="78">78</option>
+					<option value="79">79</option>
+					<option value="80">80</option>
+					<option value="81">81</option>
+				</select> 號
+		</label>
+
+		<label for="amount">
+			數量 <input type="text" id="amount" name="color_amount"> 支
+		</label>
+
+	</fieldset>
+
+	<div class="buttonset">
+		<a class="button">重填此筆</a>
+		<a class="button">新增此筆</a>
+	</div>
+
+	<h2 style="margin:5% 10%; margin-top: 90px;">檢視：</h2>
+	<table>
+	  <tr>
+	    <th>色號</th>
+	    <th>數量</th>  
+	  </tr>
+	  <tr>
+	  	<td>
+	    	<span class="cancelbt"></span>
+	    	16號
+	    </td>
+	    <td>2支</td>  
+	  </tr>
+	  <tr>
+	    <td>
+	    	<span class="cancelbt"></span>
+	    	10號
+	    </td>
+	    <td>3支</td>  
+	  </tr>
+	  <tr>
+	    <td>
+	    	<span class="cancelbt"></span>
+	    	2號
+    	</td>
+	    <td>1支</td>  
+	  </tr>
+	</table>
+
+	<div class="buttonset">
+		<a class="button" href="#reset">重置訂單</a>
+		<a class="button" href="#send">送出訂單</a>
+	</div>
+</form>
+
+<!--Reset Confirm-->
+<div class="lightbox-target" id="reset">
+  <div class="content">
+		<p style="position: relative; top: -50px;">確定要刪除整份訂單?</p>
+		<button>取消</button>
+		<button type="reset">確定</button>
+  </div>
+  <a class="lightbox-close" href="#"></a>
+</div>
+
+<!--Send Completed-->
+<div class="lightbox-target" id="send">
+  <div class="content">
+		<p style="position: relative; top: -50px;">訂單已送出</p>
+		<button>確定</button>
+  </div>
+  <a class="lightbox-close" href="#"></a>
+</div>
+
+</div>
+	<nav id="menu">
+		<ul>
+			<li><a href="http://www.originalcolor.com.tw">公司連結</a></li>
+			<li><a target="frame" href="3dlogos.html">回主頁</a></li>
+			<li><a target="frame" href="description.html">使用步驟說明</a></li>
+			<li><a target="frame" href="qa.html">故障問題排除</a></li>
+			<li><a target="frame" href="color_card.html">色卡比對資料</a></li>
+		</ul>
+	</nav>
+</body>
+</html>

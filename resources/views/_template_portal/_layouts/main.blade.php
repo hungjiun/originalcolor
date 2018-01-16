@@ -73,6 +73,29 @@
             ga('create', 'UA-81433617-1', 'auto');
             ga('send', 'pageview');
         </script>
+
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $("nav#menu").mmenu({
+                   "extensions": [
+                      "pagedim-black",
+                      "theme-dark"
+                   ],
+                   "navbars": [
+                      {
+                         "position": "bottom",
+                         "content": [
+                            /*
+                            "<a class='la la-envelope' href='#/'></a>",
+                            "<a class='la la-twitter' href='#/'></a>",
+                            "<a class='la la-facebook' href='#/'></a>"
+                            */
+                         ]
+                      }
+                   ]
+                });
+            });
+        </script>
         <!-- ================== page-js ================== -->
         @yield('page-js')
         <!-- ================== /page-js ================== -->

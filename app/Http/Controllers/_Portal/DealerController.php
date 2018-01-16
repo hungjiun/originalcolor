@@ -410,7 +410,6 @@ class DealerController extends _PortalController
         } )->where($mapDealerCarColors)->select( 
             'car_colors.*'
         )->get();
-        //dd($DaoDealerCarColors);
         foreach ($DaoDealerCarColors as $key => $var) {
             $var->vCarColorImg = $this->_getFilePathById($var->vCarColorImg);
         }

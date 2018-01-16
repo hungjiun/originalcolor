@@ -27,7 +27,6 @@
 <!-- ================== page-js ================== -->
 @section('page-js')
     <!--  -->
-    <script type="text/javascript" src="/portal_assets/js/index.js"></script>
 @endsection
 <!-- ================== /page-js ================== -->
 <!-- ================== inline-js ================== -->

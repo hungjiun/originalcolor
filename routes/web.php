@@ -77,7 +77,7 @@ Route::group(
             'prefix' => 'search',
         ], function() {
         Route::get( '', 'SearchController@index' );
-        Route::get( 'getlist', 'SearchController@getList' );
+        Route::get( 'getcarmodels', 'SearchController@getCarModels' );
         Route::get( '{error}', function() {
             return abort( 503 );
         } );
