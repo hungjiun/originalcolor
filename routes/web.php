@@ -49,6 +49,8 @@ Route::group(
     Route::get( 'waynway.html', 'DealerController@waynway' );
     Route::get( 'autocare.html', 'DealerController@autocare' );
     Route::get( 'autocare_pch.html', 'DealerController@autocare_pch' );
+
+    Route::get( 'article', 'DealerController@article' );
     //
     Route::group(
         [
@@ -65,6 +67,7 @@ Route::group(
         } );
         Route::get( 'carmodels', 'DealerController@carModels' );
         Route::get( 'carcolors', 'DealerController@carColors' );
+        Route::get( 'carnumber', 'DealerController@carColorNumber' );
         Route::get( '', 'DealerController@index' );
         Route::get( '{error}', function() {
             return abort( 503 );
@@ -78,6 +81,9 @@ Route::group(
         ], function() {
         Route::get( '', 'SearchController@index' );
         Route::get( 'getcarmodels', 'SearchController@getCarModels' );
+        Route::post( 'dosearch', 'SearchController@doSearch' );
+        Route::get( 'carColorSearch1', 'SearchController@Search1' );
+        Route::get( 'carColorSearch2', 'SearchController@Search2' );
         Route::get( '{error}', function() {
             return abort( 503 );
         } );

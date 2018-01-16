@@ -39,12 +39,12 @@
                     <div class="form-group">
                         <label for="inputPassword3" class="col-sm-2 control-label">色碼</label>
                         <div class="col-sm-10">
-                            <input class="form-control color-code" type="text">
+                            <input class="form-control color-code" type="text" value="">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                            <button type="submit" class="btn btn-primary btn-search form-control">搜尋</button>
+                            <button type="button" class="btn btn-primary btn-search form-control">搜尋</button>
                         </div>
                     </div>
                 </form>
@@ -65,6 +65,9 @@
 <!--  -->
 <script>
     var url_getcarmodels = "{{url('search/getcarmodels')}}";
+    var url_dosearch = "{{url('search/dosearch')}}";
+    var url_search1 = "{{url('search/carColorSearch1')}}";
+    var url_search2 = "{{url('search/carColorSearch2')}}";
     $(document).ready(function() {
         $('.car-branch').on('change', function() {
             var carBrandId = $(this).val();
@@ -91,10 +94,16 @@
         });
 
         $('.btn-search').on('click', function() {
+            var iCarBrandId = $('.car-branch').val();
+            var iCarModelId = $('.car-model').val();
+            var vCarColorCode = $('.color-code').val();
 
             var data = {
                 "_token": "{{ csrf_token() }}"
             };
+            data.iCarBrandId = iCarBrandId;
+            data.iCarModelId = iCarModelId;
+            data.vCarColorCode = vCarColorCode;
             $.ajax({
                 url: url_dosearch,
                 data: data,
@@ -102,7 +111,11 @@
                 success: function (rtndata) {
                     console.log(rtndata)
                     if (rtndata.status) {
-                        
+                        if( vCarColorCode ) {
+                            location.href = url_search2;    
+                        } else {
+                            location.href = url_search1; 
+                        }
                     } else {
                         swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
                     }

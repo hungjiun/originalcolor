@@ -90,7 +90,7 @@
                 ],
                 "aoColumns": [
                     {"sTitle": "ID", "mData": "iId", "sName": "iId"},
-                    {"sTitle": "經銷商", "mData": "vTitle", "sName": "vDealerName"},
+                    {"sTitle": "經銷商", "mData": "vDealerName", "sName": "vDealerName"},
                     {"sTitle": "文章主題", "mData": "vTitle", "sName": "vDealerTitle"},
                     {
                         "sTitle":"排序",

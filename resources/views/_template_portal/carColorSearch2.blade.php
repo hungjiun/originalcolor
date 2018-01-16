@@ -4,7 +4,7 @@
 @section('page-css')
     <!--  -->
     <link type="text/css" rel="stylesheet" href="/portal_assets/css/index.css" />
-    <link type="text/css" rel="stylesheet" href="/portal_assets/css/carColor.css" />
+    <link type="text/css" rel="stylesheet" href="/portal_assets/css/carNumber.css" />
 @endsection
 <!-- ================== /page-css ================== -->
 
@@ -13,21 +13,17 @@
 <!-- content -->
 @section('content')
 <div class="container text-center">
-	<div class="titleImg"><h1><img src="/portal_assets/images/car_color.svg" alt="補漆筆-車廠查詢"></h1></div>
+	<div class="titleImg"><h1><img src="/portal_assets/images/car_number.svg" alt="補漆筆-車廠查詢"></h1></div>
     <!--<div class="desc">此頁操作步驟：選擇車種，再選擇車型，即可找到您愛車所屬顏色</div>-->
 
-    <div class="logoArea">
-        @foreach($dealerCarColors as $key => $var)
-        <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
-            <div class="thumbnail">
-                <a href="{{url('dealer/carnumber')}}?iCarModelId={{$carModels->iId}}&iCarColorId={{$var->iId}}">
-                    <img src="{{$var->vCarColorImg}}">
-                    <p><h3><small>{{$var->vCarColorName}}</small></h3></p>
-                </a>
-            </div>
+    @foreach($dealerCarColors as $key => $var)
+    <div class="logoBlock">
+        <div class="col-sm-5 col-xs-12">
+            <div class="title"><h2><small> {{$var->vCarColorName}}</small></h2></div>
+            <div class="desc">請選{{$var->iPenNumber}}號</div>
         </div>
-        @endforeach
     </div>
+    @endforeach
 </div>
 @endsection
 <!-- /content -->

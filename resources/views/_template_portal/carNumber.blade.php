@@ -13,16 +13,16 @@
 <!-- content -->
 @section('content')
 <div class="container text-center">
-	<div class="titleImg"><h1><img src="images/car_number.svg" alt="補漆筆-車廠查詢"></h1></div>
-    <div class="desc">此頁操作步驟：選擇車種，再選擇車型，即可找到您愛車所屬顏色</div>
+	<div class="titleImg"><h1><img src="/portal_assets/images/car_number.svg" alt="補漆筆-車廠查詢"></h1></div>
+    <!--<div class="desc">此頁操作步驟：選擇車種，再選擇車型，即可找到您愛車所屬顏色</div>-->
 
     <div class="logoBlock">
         <div class="col-sm-7 col-xs-12">
-            <img src="images/color/audi/a1/a1_01.png">
+            <img src="{{$carModels->vCarModelImg}}">
         </div>
         <div class="col-sm-5 col-xs-12">
-            <div class="title"><h2>Madza3<small>玄武灰</small></h2></div>
-            <div class="desc">請選05號</div>
+            <div class="title"><h2>{{$carModels->vCarModelName}}<small> {{$carColors->vCarColorName}}</small></h2></div>
+            <div class="desc">請選{{$carColors->iPenNumber}}號</div>
         </div>
     </div>
 </div>

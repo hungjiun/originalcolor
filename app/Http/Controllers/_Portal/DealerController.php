@@ -4,10 +4,14 @@ namespace App\Http\Controllers\_Portal;
 
 use App\Http\Controllers\_Portal\_PortalController;
 use App\SysDealer;
+use App\CarBrand;
 use App\CarModels;
+use App\CarColors;
 use App\DealerCarBrand;
 use App\DealerCarModels;
 use App\DealerCarColors;
+use App\ArticleContent;
+use App\ArticleDealer;
 use Illuminate\Http\Request;
 
 class DealerController extends _PortalController
@@ -57,6 +61,8 @@ class DealerController extends _PortalController
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
 
+        $this->getArticle( $DaoSysDealer->iId );
+
         $this->view->with ( 'sysDealer', $DaoSysDealer );
         $this->view->with ( 'dealerCarBrand', isset($DaoDealerCarBrand) ? $DaoDealerCarBrand : [] );
         return $this->view;
@@ -94,6 +100,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+
+        $this->getArticle( $DaoSysDealer->iId );
 
         $this->view->with ( 'sysDealer', $DaoSysDealer );
         $this->view->with ( 'dealerCarBrand', isset($DaoDealerCarBrand) ? $DaoDealerCarBrand : [] );
@@ -133,6 +141,8 @@ class DealerController extends _PortalController
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
 
+        $this->getArticle( $DaoSysDealer->iId );
+
         $this->view->with ( 'sysDealer', $DaoSysDealer );
         $this->view->with ( 'dealerCarBrand', isset($DaoDealerCarBrand) ? $DaoDealerCarBrand : [] );
         return $this->view;
@@ -170,6 +180,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+
+        $this->getArticle( $DaoSysDealer->iId );
 
         $this->view->with ( 'sysDealer', $DaoSysDealer );
         $this->view->with ( 'dealerCarBrand', isset($DaoDealerCarBrand) ? $DaoDealerCarBrand : [] );
@@ -209,6 +221,8 @@ class DealerController extends _PortalController
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
 
+        $this->getArticle( $DaoSysDealer->iId );
+
         $this->view->with ( 'sysDealer', $DaoSysDealer );
         $this->view->with ( 'dealerCarBrand', isset($DaoDealerCarBrand) ? $DaoDealerCarBrand : [] );
         return $this->view;
@@ -246,6 +260,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+
+        $this->getArticle( $DaoSysDealer->iId );
 
         $this->view->with ( 'sysDealer', $DaoSysDealer );
         $this->view->with ( 'dealerCarBrand', isset($DaoDealerCarBrand) ? $DaoDealerCarBrand : [] );
@@ -285,6 +301,8 @@ class DealerController extends _PortalController
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
 
+        $this->getArticle( $DaoSysDealer->iId );
+
         $this->view->with ( 'sysDealer', $DaoSysDealer );
         $this->view->with ( 'dealerCarBrand', isset($DaoDealerCarBrand) ? $DaoDealerCarBrand : [] );
         return $this->view;
@@ -322,6 +340,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+
+        $this->getArticle( $DaoSysDealer->iId );
 
         $this->view->with ( 'sysDealer', $DaoSysDealer );
         $this->view->with ( 'dealerCarBrand', isset($DaoDealerCarBrand) ? $DaoDealerCarBrand : [] );
@@ -365,7 +385,7 @@ class DealerController extends _PortalController
             $var->vCarModelImg = $this->_getFilePathById($var->vCarModelImg);
         }
 
-        session()->put( 'sysDealer', $DaoSysDealer->iId );
+        $this->getArticle( $sysDealer );
 
         $this->view->with ( 'sysDealer', $DaoSysDealer );
         $this->view->with ( 'dealerCarModels', isset($DaoDealerCarModels) ? $DaoDealerCarModels : [] );
@@ -423,7 +443,7 @@ class DealerController extends _PortalController
             $DaoCarModels->vCarModelName = "";
         }
 
-        session()->put( 'sysDealer', $DaoSysDealer->iId );
+        $this->getArticle( $sysDealer );
 
         $this->view->with ( 'sysDealer', $DaoSysDealer );
         $this->view->with ( 'carModels', $DaoCarModels );
@@ -432,16 +452,111 @@ class DealerController extends _PortalController
         return $this->view;
     }
 
+    /*
+     *
+     */
+    public function carColorNumber (Request $request)
+    {
+        $this->_init();
+
+        $this->view = View()->make( "_template_portal.carNumber" );
+
+        $sysDealer = session ()->has ( 'sysDealer' ) ? session ()->get ( 'sysDealer' ) : 0;
+        $iCarModelId = ( $request->exists( 'iCarModelId' ) ) ? $request->input( 'iCarModelId' ) : 0;
+        $iCarColorId = ( $request->exists( 'iCarColorId' ) ) ? $request->input( 'iCarColorId' ) : 0;
+
+        $mapDealer['iId'] = $sysDealer;
+        $mapDealer['iStatus'] = 1;
+        $DaoSysDealer = SysDealer::where($mapDealer)->first();
+        if(!$DaoSysDealer) {
+            return redirect('');
+        }
+
+        $DaoSysDealer->vDealerImg = $this->_getFilePathById($DaoSysDealer->vDealerImg);
+
+        $mapCarModels['iId'] = $iCarModelId;
+        $mapCarModels['bDel'] = 0;
+        $DaoCarModels = CarModels::where( $mapCarModels )->first();
+        if ( !$DaoCarModels) {
+            $DaoCarModels = new CarColors();
+        }
+
+        $DaoCarModels->vCarModelImg = $this->_getFilePathById($DaoCarModels->vCarModelImg);
+
+        /*
+        $mapCarColors['iId'] = $iCarColorId;
+        $mapCarColors['bDel'] = 0;
+        $DaoCarColors = CarColors::where( $mapCarColors )->first();
+        if ( !$DaoCarColors) {
+            $DaoCarColors = new CarColors();
+        }
+        */
+       
+        $mapDealerCarColors['dealer_car_colors.bDel'] = 0;
+        $mapDealerCarColors['dealer_car_colors.iDealerId'] = $DaoSysDealer->iId;
+        $mapDealerCarColors['dealer_car_colors.iCarBrandId'] = $DaoCarModels->iCarBrandId;
+        $mapDealerCarColors['car_colors.iId'] = $iCarColorId;
+        $mapDealerCarColors['car_colors.iStatus'] = 1;
+        $mapDealerCarColors['car_colors.bDel'] = 0;
+        $mapDealerCarColors['car_model_colors.iCarModelId'] = $iCarModelId;
+        $mapDealerCarColors['car_model_colors.iStatus'] = 1;
+        $DaoDealerCarColors = DealerCarColors::join( 'car_colors', function( $join ) {
+            $join->on( 'dealer_car_colors.iCarColorsId', '=', 'car_colors.iId' );
+        } )->join( 'car_model_colors', function( $join ) {
+            $join->on( 'car_model_colors.iCarColorId', '=', 'car_colors.iId' );
+        } )->where($mapDealerCarColors)->select( 
+            'car_colors.*'
+        )->first();
+
+        $this->getArticle( $sysDealer );
+
+        $this->view->with ( 'sysDealer', $DaoSysDealer );
+        $this->view->with ( 'carModels', $DaoCarModels );
+        $this->view->with ( 'carColors', $DaoDealerCarColors );
+        
+        return $this->view;
+    }
 
     /*
      *
      */
-    public function search ()
+    public function article (Request $request)
     {
         $this->_init();
 
-        $this->view = View()->make( "_template_portal.search" );
+        $this->view = View()->make( "_template_portal.article" );
+
+        $sysDealer = session ()->has ( 'sysDealer' ) ? session ()->get ( 'sysDealer' ) : 0;
+        $iArticleId = ( $request->exists( 'iArticleId' ) ) ? $request->input( 'iArticleId' ) : 0;
+
+        $mapDealer['iId'] = $sysDealer;
+        $mapDealer['iStatus'] = 1;
+        $DaoSysDealer = SysDealer::where($mapDealer)->first();
+        if(!$DaoSysDealer) {
+            return redirect('');
+        }
+        
+        $mapArticle['article_dealer.iDealerId'] = $sysDealer;
+        $mapArticle['article_dealer.bDel'] = 0;
+        $mapArticle['sys_dealer.bDel'] = 0;
+        $mapArticle['article_content.iId'] = $iArticleId;
+        $mapArticle['article_content.bDel'] = 0;
+        $DaoArticleContent = ArticleDealer::join( 'sys_dealer', function( $join ) {
+            $join->on( 'article_dealer.iDealerId', '=', 'sys_dealer.iId' );
+        } )->join( 'article_content', function( $join ) {
+            $join->on( 'article_dealer.iArticleId', '=', 'article_content.iId' );
+        } )->where($mapArticle)->select('article_content.*')->first();
+        if(!$DaoArticleContent) {
+            return redirect('');
+        }
+
+        $this->getArticle( $sysDealer );
+
+        $this->view->with ( 'sysDealer', $DaoSysDealer );
+        $this->view->with ( 'articleContent', $DaoArticleContent );
 
         return $this->view;
     }
+
+
 }
