@@ -50,6 +50,9 @@
                 <li><a href="{{url('description')}}" data-href="description">使用步驟說明</a></li>
                 <li><a href="{{url('qa')}}" data-href="qa">故障問題排除</a></li>
                 <li><a href="{{url('color_card')}}" data-href="color_card">色卡比對資料</a></li>
+                @foreach($articleDealer as $key => $var)
+                <li><a href="{{url('article')}}?iArticleId={{$var->iId}}">{{$var->vTitle}}</a></li>
+                @endforeach
             </ul>
         </nav>
 

@@ -163,13 +163,25 @@ class CarSearchController extends _WebController
     public function exportExcel( Request $request ) {
         $iCarBrandId = ( $request->exists( 'iCarBrandId' ) ) ? $request->input( 'iCarBrandId' ) : 0;
 
+        $exportData = [];
+        $header = [];
+
         $mapCarBrand ['iId'] = $iCarBrandId;
         $mapCarBrand ['bDel'] = 0;
         $DaoCarBrand = CarBrand::where( $mapCarBrand )->first();
+        //$exportData[0][] = $DaoCarBrand->vCarBrandName;
+        array_push($header, $DaoCarBrand->vCarBrandName);
+        array_push($header, '色碼');
         
         $mapCarModels ['iCarBrandId'] = $iCarBrandId;
         $mapCarModels ['bDel'] = 0;
         $DaoCarModels = CarModels::where( $mapCarModels )->orderBy('iRank', 'asc')->get();
+        foreach ($DaoCarModels as $key => $var) {
+            //$exportData[0][] = $var->vCarModelName;
+            array_push($header, $var->vCarModelName);
+        }
+
+        array_push($exportData, $header);
         
         $data_arr = [];
         $mapCarColors ['iCarBrandId'] = $iCarBrandId;
@@ -177,36 +189,35 @@ class CarSearchController extends _WebController
         $DaoCarColors = CarColors::where( $mapCarColors )->orderBy('iRank', 'asc')->get();
 
         foreach ($DaoCarColors as $key => $value) {
-            
             $mapCarModelColors ['car_model_colors.iCarBrandId'] = $iCarBrandId;
             $mapCarModelColors ['car_model_colors.iCarColorId'] = $value->iId;
             $mapCarModelColors ['car_model_colors.bDel'] = 0;
-            $mapCarModelColors ['car_models.bDel'] = 0;
-            $DaoCarModelColors = CarModelColors::join( 'car_models', function( $join ) {
-                $join->on( 'car_model_colors.iCarModelId', '=', 'car_models.iId' );
-            } )->where( $mapCarModelColors )->select(
-                'car_model_colors.*', 
-                'car_models.vCarModelName'
-            )->get();
+            
+            $DaoCarModelColors = CarModelColors::where( $mapCarModelColors )->get();
 
             $value->CarModelColors = $DaoCarModelColors;
             $data_arr [ $key ] = $value;
+
         }
-        
-        $exportData = [
-            []
-        ];
-
-        $iCarBrandId = ( Input::has ( 'iCarBrandId' ) ) ? Input::get ( 'iCarBrandId' ) : "";
-
         
 
         foreach ($data_arr as $key => $var) {
-            
-            $exportData[$key+1] = [ 
-                
-            ];
+            $data = [];
+            array_push($data, $var->vCarColorName);
+            array_push($data, $var->vCarColorCode);
+
+            foreach ($DaoCarModels as $key1 => $var1) {
+                if($var['CarModelColors'][$key1]['iStatus'] == 1) {
+                    array_push($data, 1);
+                } else {
+                    array_push($data, 0);
+                }
+            }
+
+            array_push($exportData, $data);
         }
+
+        //dd($exportData);
 
         Excel::create('車色表', function($excel) use ($exportData) {
             $excel->sheet('車色表', function($sheet) use ($exportData) {

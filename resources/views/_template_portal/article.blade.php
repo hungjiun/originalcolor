@@ -13,9 +13,9 @@
     <div class="mainContent">
         <div class="content">
             <div class="container">
-                <div class="title text-center"><h1>{{$articleDealer->vTitle}}</h1></div>
+                <div class="title text-center"><h1>{{$articleContent->vTitle}}</h1></div>
                 <div class="desc">
-                    {!!$articleDealer->vDetail!!}
+                    {!!$articleContent->vDetail!!}
                 </div>
             </div>
         </div> 

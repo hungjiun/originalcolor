@@ -268,6 +268,7 @@ Route::group(
                     Route::get( '', 'CarSearchController@index' );
                     Route::get( 'getlist', 'CarSearchController@getList' );
                     Route::post( 'dosave', 'CarSearchController@doSave' );
+                    Route::get( 'doexport', 'CarSearchController@exportExcel' );
                     Route::get( '{error}', function() {
                         return abort( 503 );
                     } );

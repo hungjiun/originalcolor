@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\_Portal;
 
 use App\Http\Controllers\Controller;
+use App\ArticleContent;
+use App\ArticleDealer;
 
 class _PortalController extends Controller
 {

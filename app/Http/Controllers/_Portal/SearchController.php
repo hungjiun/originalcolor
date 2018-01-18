@@ -113,12 +113,16 @@ class SearchController extends _PortalController
             $join->on( 'dealer_car_colors.iCarColorsId', '=', 'car_colors.iId' );
         } )->join( 'car_model_colors', function( $join ) {
             $join->on( 'car_model_colors.iCarColorId', '=', 'car_colors.iId' );
+        } )->join( 'car_models', function( $join ) {
+            $join->on( 'car_model_colors.iCarModelId', '=', 'car_models.iId' );
         } )->where ( function ($query) use($vCarColorCode) {
             if ($vCarColorCode != "") {
                 $query->Where ( 'car_colors.vCarColorCode', 'like', '%' . $vCarColorCode . '%' );
             }
         } )->where($mapDealerCarColors)->select( 
-            'car_colors.*'
+            'car_colors.*',
+            'car_models.iId as iCarModelId',
+            'car_models.vCarModelName'
         )->get();
         foreach ($DaoDealerCarColors as $key => $var) {
             $var->vCarColorImg = $this->_getFilePathById($var->vCarColorImg);
@@ -133,19 +137,9 @@ class SearchController extends _PortalController
         }
         $DaoSysDealer->vDealerImg = $this->_getFilePathById($DaoSysDealer->vDealerImg);
 
-        $mapCarModels['iId'] = $iCarModelId;
-        $mapCarModels['bDel'] = 0;
-        $mapCarModels['iStatus'] = 1;
-        $DaoCarModels = CarModels::where($mapCarModels)->first();
-        if(!$DaoCarModels) {
-            $DaoCarModels = new CarModels();
-            $DaoCarModels->vCarModelName = "";
-        }
-
         $this->getArticle( $sysDealer );
 
         $this->view->with ( 'sysDealer', $DaoSysDealer );
-        $this->view->with ( 'carModels', $DaoCarModels );
         $this->view->with ( 'dealerCarColors', isset($DaoDealerCarColors) ? $DaoDealerCarColors : [] );
         return $this->view;
     }

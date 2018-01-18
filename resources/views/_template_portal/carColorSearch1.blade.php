@@ -20,9 +20,9 @@
         @foreach($dealerCarColors as $key => $var)
         <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
             <div class="thumbnail">
-                <a href="{{url('dealer/carnumber')}}?iCarModelId={{$carModels->iId}}&iCarColorId={{$var->iId}}">
+                <a href="{{url('dealer/carnumber')}}?iCarModelId={{$var->iCarModelId}}&iCarColorId={{$var->iId}}">
                     <img src="{{$var->vCarColorImg}}">
-                    <p><h3><small>{{$var->vCarColorName}}</small></h3></p>
+                    <p><h4>{{$var->vCarModelName}}<small>{{$var->vCarColorName}}</small></h4></p>
                 </a>
             </div>
         </div>

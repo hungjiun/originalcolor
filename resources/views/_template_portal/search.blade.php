@@ -20,6 +20,7 @@
                         <label for="inputEmail3" class="col-sm-2 control-label">車廠</label>
                         <div class="col-sm-10">
                             <select class="form-control car-branch">
+                                <option value="0"></option>
                                 @foreach( $dealerCarBrand as $key => $var)
                                 <option value="{{$var->iId}}">{{$var->vCarBrandName}}</option>
                                 @endforeach
@@ -30,6 +31,7 @@
                         <label for="inputPassword3" class="col-sm-2 control-label">車款</label>
                         <div class="col-sm-10">
                             <select class="form-control car-model">
+                                <option value="0"></option>
                                 @foreach( $dealerCarModels as $key => $var)
                                 <option value="{{$var->iId}}">{{$var->vCarModelName}}</option>
                                 @endforeach
@@ -83,6 +85,7 @@
                     if (rtndata.status) {
                         var carModels = rtndata.carModels;
                         $('.car-model option').remove();
+                        $('.car-model').append($("<option></option>").attr("value", 0).text(""));
                         for ( var key in carModels ) {
                             $('.car-model').append($("<option></option>").attr("value", carModels[key].iId).text(carModels[key].vCarModelName));
                         }
@@ -111,11 +114,14 @@
                 success: function (rtndata) {
                     console.log(rtndata)
                     if (rtndata.status) {
+                        /*
                         if( vCarColorCode ) {
                             location.href = url_search2;    
                         } else {
                             location.href = url_search1; 
                         }
+                        */
+                        location.href = url_search1; 
                     } else {
                         swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
                     }

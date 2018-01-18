@@ -46,7 +46,7 @@
                         <h3 class="box-title">{{trans("_menu.product.car.search.title")}}</h3>
 
                         <div class="box-tools">
-                            <button type="button" class="btn btn-default">匯出</button>
+                            <button type="button" class="btn btn-default btn-export">匯出</button>
                         </div>
                     </div>
                     <!-- /.box-header -->
@@ -261,6 +261,12 @@
                         }
                     }
                 });
+            });
+
+            $('.btn-export').on('click', function() {
+                var iCarBrandId = $('#BrandSelect').val();
+                console.log(iCarBrandId);
+                window.open("{{url('web/product/car/search/doexport')}}?iCarBrandId="+iCarBrandId, "_blank");
             });
         });
     </script>
