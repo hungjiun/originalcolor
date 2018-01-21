@@ -9,6 +9,7 @@ use App\CarColors;
 use App\CarModelColors;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use Excel;
 
 class CarSearchController extends _WebController
 {
@@ -169,7 +170,6 @@ class CarSearchController extends _WebController
         $mapCarBrand ['iId'] = $iCarBrandId;
         $mapCarBrand ['bDel'] = 0;
         $DaoCarBrand = CarBrand::where( $mapCarBrand )->first();
-        //$exportData[0][] = $DaoCarBrand->vCarBrandName;
         array_push($header, $DaoCarBrand->vCarBrandName);
         array_push($header, '色碼');
         
@@ -177,7 +177,6 @@ class CarSearchController extends _WebController
         $mapCarModels ['bDel'] = 0;
         $DaoCarModels = CarModels::where( $mapCarModels )->orderBy('iRank', 'asc')->get();
         foreach ($DaoCarModels as $key => $var) {
-            //$exportData[0][] = $var->vCarModelName;
             array_push($header, $var->vCarModelName);
         }
 
@@ -216,8 +215,6 @@ class CarSearchController extends _WebController
 
             array_push($exportData, $data);
         }
-
-        //dd($exportData);
 
         Excel::create('車色表', function($excel) use ($exportData) {
             $excel->sheet('車色表', function($sheet) use ($exportData) {

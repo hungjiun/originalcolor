@@ -307,7 +307,7 @@ class SysMenuTableSeeder extends Seeder
             [
                 //網站管理功能
                 "iId" => 7,
-                "vName" => "log",
+                "vName" => "bigdata",
                 "vUrl" => "",
                 "vCss" => "fa-bar-chart",
                 "bSubMenu" => 1,
@@ -319,8 +319,8 @@ class SysMenuTableSeeder extends Seeder
                         [
                             //頁首管理
                             "iId" => 71,
-                            "vName" => "log.action",
-                            "vUrl" => "web/log/action",
+                            "vName" => "bigdata.website",
+                            "vUrl" => "web/bigdata/website",
                             "vCss" => "",
                             "bSubMenu" => 0,
                             "iParentId" => 7,
@@ -330,8 +330,8 @@ class SysMenuTableSeeder extends Seeder
                         [
                             //網站修改紀錄
                             "iId" => 72,
-                            "vName" => "log.product",
-                            "vUrl" => "web/log/product",
+                            "vName" => "bigdata.product",
+                            "vUrl" => "web/bigdata/product",
                             "vCss" => "",
                             "bSubMenu" => 0,
                             "iParentId" => 7,

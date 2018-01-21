@@ -438,6 +438,30 @@ return [
                         ],
                 ],
 
+            "bigdata" =>
+                [
+                    "website" =>
+                        [
+                            "view" => "_template_web.bigdata.website.index",
+                            "menu_access" => "71",
+                            "menu_parent" =>
+                                [
+                                    "7",
+                                    "0"
+                                ],
+                        ],
+                    "product" =>
+                        [
+                            "view" => "_template_web.bigdata.product.index",
+                            "menu_access" => "72",
+                            "menu_parent" =>
+                                [
+                                    "7",
+                                    "0"
+                                ],
+                        ],    
+                ],    
+
             "material" =>
                 [
                     "image" =>

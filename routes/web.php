@@ -427,6 +427,32 @@ Route::group(
             });
         });
 
+        // Website
+        Route::group(
+            [
+                'prefix' => 'bigdata',
+                'namespace' => 'Bigdata',
+            ], function() {
+            Route::group(
+                [
+                    'prefix' => 'website',
+                ], function() {
+                Route::get( '', 'WebsiteController@index' );
+                Route::get( '{error}', function() {
+                    return abort( 503 );
+                });
+            });    
+            Route::group(
+                [
+                    'prefix' => 'product',
+                ], function() {
+                Route::get( '', 'ProductController@index' );
+                Route::get( '{error}', function() {
+                    return abort( 503 );
+                });
+            });
+        });
+
         // Material
         Route::group(
             [

@@ -236,10 +236,10 @@ return [
                 ] 
         ],
 
-    'log' =>
+    'bigdata' =>
         [
             'title' => '數據統計與行為記錄',
-            'action' =>
+            'website' =>
                 [
                     'title' => '網站行為'
                 ],
