@@ -28,7 +28,7 @@ Route::group(
             ],function(){
                 Route::get ( 'browers', 'BrowersController@index' );
                 Route::get ( 'browers/total', 'BrowersController@get_total' );
-                Route::any ( 'getDayForTotal', 'BrowersController@getDayForTotal' );//rock add 日統計
+                Route::any ( 'getDayForTotal', 'BrowersController@getDayForTotal' );
                 Route::any ( 'getMonthForTotal', 'BrowersController@getMonthForTotal' );
                 Route::any ( 'getOnlineTotal', 'BrowersController@getOnlineTotal' );
                 Route::get ( 'online', 'BrowersController@get_online' );
