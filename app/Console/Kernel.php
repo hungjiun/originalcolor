@@ -28,8 +28,8 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
         $schedule->command('idle:kick')->everyFiveMinutes();
-        $schedule->command('UpdateInfo')->everyThirtyMinutes();
-        $schedule->command('Statistics')->cron('31 * * * *');
+        $schedule->command('UpdateInfo')->everyFiveMinutes();
+        $schedule->command('Statistics')->everyThirtyMinutes();
     }
 
     /**
