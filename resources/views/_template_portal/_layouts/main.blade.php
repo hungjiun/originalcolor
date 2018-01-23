@@ -59,6 +59,7 @@
         <script type="text/javascript" src="/portal_assets/js/libs/jquery.min.js"></script>
         <script type="text/javascript" src="/portal_assets/dist/bootstrap/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/portal_assets/dist/mmenu/js/jquery.mmenu.min.all.js"></script>
+        <script src="/js/bigdata.js"></script>
         <script type="text/javascript">
             /*  =============  Google GA  =================  */
             (function(i, s, o, g, r, a, m) {
@@ -75,6 +76,14 @@
 
             ga('create', 'UA-81433617-1', 'auto');
             ga('send', 'pageview');
+        </script>
+
+        <script>
+             //var big = new bigdata("SID","UID","GROUP","MOD","FUNC","ACTION");
+             //var iUserId = "{{Session::has('sysDealer') ? Session::get('sysDealer') : 'guest'}}";
+             //var big = new bigdata("11111", iUserId, "originalcolor");
+             //var big = new bigdata("11111", "guest", "originalcolor");
+             //big.senddata();
         </script>
 
         <script type="text/javascript">

@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         //
+        Commands\IdleKick::class,
     ];
 
     /**
@@ -26,6 +27,9 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+        $schedule->command('idle:kick')->everyFiveMinutes();
+        $schedule->command('UpdateInfo')->everyThirtyMinutes();
+        $schedule->command('Statistics')->cron('31 * * * *');
     }
 
     /**
