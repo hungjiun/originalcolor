@@ -31,11 +31,22 @@
 
 <!-- ================== page-js ================== -->
 @section('page-js')
-    <!--  -->
+<!--  -->
 @endsection
 <!-- ================== /page-js ================== -->
 <!-- ================== inline-js ================== -->
 @section('inline-js')
-    <!--  -->
+<!--  -->
+<script src="/js/bigdata.js"></script>
+<script>
+     //var big = new bigdata("SID","UID","GROUP","MOD","FUNC","ACTION");
+     
+     var SID = {{$sysDealer->iId}};
+     var GROUP = {{$carModels->iCarBrandId}};
+     var MOD = {{$carModels->iId}};
+     var FUNC = {{$carColors->iId}};
+     var big = new bigdata(SID, "guest", GROUP, MOD, FUNC);
+     big.senddata();
+</script>    
 @endsection
 <!-- ================== /inline-js ================== -->

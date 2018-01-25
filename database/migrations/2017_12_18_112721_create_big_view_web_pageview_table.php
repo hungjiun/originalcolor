@@ -23,6 +23,10 @@ class CreateBigViewWebPageviewTable extends Migration
                 $table->string('vUserID')->nullable();
                 $table->text('vReferer')->nullable();
                 $table->text('vReferer2')->nullable();
+                $table->string('vGroup')->nullable();
+                $table->string('vMod')->nullable();
+                $table->string('vFunc')->nullable();
+                $table->string('vAction')->nullable();
                 $table->integer('iStartTime')->default(0);
                 $table->integer('iEndTime')->default(0);
                 $table->integer('iStayTime')->default(0);

@@ -22,6 +22,10 @@ class CreateBigTotalWebPageviewTable extends Migration
                 $table->string('vUserID')->nullable();
                 $table->text('vReferer')->nullable();
                 $table->text('vReferer2')->nullable();
+                $table->string('vGroup')->nullable();
+                $table->string('vMod')->nullable();
+                $table->string('vFunc')->nullable();
+                $table->string('vAction')->nullable();
                 $table->string('vType')->nullable();
                 $table->integer('iTotal')->default(0);
                 $table->integer('iDateTime')->default(0);
