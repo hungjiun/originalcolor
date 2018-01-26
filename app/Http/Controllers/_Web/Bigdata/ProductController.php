@@ -65,11 +65,21 @@ class ProductController extends _WebController {
         $mapCarColors ['bDel'] = 0;
         $DaoCarColors = CarColors::where( $mapCarColors )->orderBy('iRank', 'asc')->get();
 
-        $mapTotalWebPageview[]
-        $total = BigTotalWebPageview::select ( DB::raw ( "SUM( iTotal ) as Total" ) )->where ( $this->defaultmap )->where ( 'vReferer', 'like', 'N/A' )->first ();
+        foreach ($DaoCarColors as $key => $var) {
+
+	        $mapTotalWebPageview ['vGroup'] = $iCarBrandId;
+	        $mapTotalWebPageview ['vFunc'] = $var->iId;
+	        $TotalWebPageview = BigTotalWebPageview::select ( DB::raw ( "SUM( iTotal ) as Total" ) )->where ( $mapTotalWebPageview )->first ();
+	        if($TotalWebPageview) {
+	        	$var->iTotal = $TotalWebPageview->Total;	
+	        } else {
+	        	$var->iTotal = 0;
+	        }
+	        
+        }
 
 		$this->rtndata ['status'] = 1;
-        $this->rtndata ['aaData'] = $data_arr;
+        $this->rtndata ['carColors'] = $DaoCarColors;
 
         return response()->json( $this->rtndata );
 	}
