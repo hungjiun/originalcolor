@@ -79,12 +79,14 @@
                     {y: '2011', a: 75, b: 65},
                     {y: '2012', a: 100, b: 90}
                 */
-                    0    
+                    {y: '', a: 0}    
                 ],
                 barColors: ['#00a65a', '#f56954'],
                 xkey: 'y',
                 ykeys: ['a'],
                 labels: ['Total'],
+                barSizeRatio: 0.4,
+                xLabelAngle: 35,
                 hideHover: 'auto'
             });
 
@@ -99,15 +101,20 @@
                 data: data,
                 type: "GET",
                 success: function (rtndata) {
-                    console.log(rtndata)
+                    //console.log(rtndata)
                     if (rtndata.status) {
                         var carColors = rtndata.carColors;
                         var data = [];
                         for(var key in carColors) {
                             data [ key ] = { y: carColors[key].vCarColorName, a: carColors[key].Total };
                         }
-                        console.log(data);
-                        bar.setData(data);
+                        //console.log(data);
+                        if(data.length > 0) {
+                            bar.setData(data);
+                        } else {
+                            data[0] = {y: '', a: 0};
+                            bar.setData(data);
+                        }
                     } else {
                         swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
                     }

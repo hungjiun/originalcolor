@@ -84,6 +84,7 @@ class ProductController extends _WebController {
 	        	$var->Total = $TotalWebPageview->Total;	
 	        } else {
 	        	$var->Total = 0;
+	        	//$var->Total = $key+1;
 	        }
         }
 

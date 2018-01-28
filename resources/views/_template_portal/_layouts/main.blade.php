@@ -79,9 +79,7 @@
         </script>
 
         <script>
-             //var big = new bigdata("SID","UID","GROUP","MOD","FUNC","ACTION");
-             //var iUserId = "{{Session::has('sysDealer') ? Session::get('sysDealer') : 'guest'}}";
-             //var big = new bigdata("11111", iUserId, "originalcolor");
+             //var SID = "{{Session::has('sysDealer') ? Session::get('sysDealer') : 'guest'}}";
              //var big = new bigdata("11111", "guest", "originalcolor");
              //big.senddata();
         </script>
