@@ -111,35 +111,6 @@
 @section('inline-js')
     <!--  -->
     <script>
-        var url_dosave = "{{ url('web/product/car/search/dosave')}}";
-        
-        function setColor(modelColor) {
-            var id = modelColor.attr('data-id');
-            var data = {
-                "_token": "{{ csrf_token() }}"
-            };
-            data.id = id;
-            data.iStatus = "change";
-            $.ajax({
-                url: url_dosave,
-                data: data,
-                type: "POST",
-                success: function (rtndata) {
-                    if (rtndata.status) {
-                        var colorStatus = rtndata.colorStatus;
-                        swal("{{trans('web.notice')}}", rtndata.message, "success");
-                        if(colorStatus) {
-                            modelColor.html('<i class="fa fa-circle" aria-hidden="true"><i>');
-                        } else {
-                            modelColor.html('');
-                        }
-                    } else {
-                        swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
-                    }
-                }
-            });
-        }
-
         $(document).ready(function () {
             /* BASIC ;*/
             $('#BrandSelect').change(function() {
@@ -147,7 +118,7 @@
                 var data = {};
                 data.iCarBrandId = iCarBrandId;
                 $.ajax({
-                    url: "{{ url('web/product/car/search/getlist')}}",
+                    url: "{{ url('web/dealer/download/getlist')}}",
                     data: data,
                     type: "GET",
                     success: function(rtndata) {
@@ -200,10 +171,6 @@
                                 html_str += '</tbody>';
 
                                 $('#model-colors').append(html_str);
-
-                                $('.model-colors').click(function(){
-                                    setColor($(this));
-                                });
                             } else {
                                 $('#model-colors').empty();
                                 html_str += '<tr>';

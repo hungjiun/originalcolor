@@ -4,6 +4,10 @@ namespace App\Http\Controllers\_Web\Bigdata;
 
 use App\Http\Controllers\_Web\_WebController;
 
+use App\CarBrand;
+use App\CarModels;
+use App\CarColors;
+
 use App\BigWebLimit;
 use App\BigWebPageview;
 use App\BigWebOnline;
@@ -24,6 +28,7 @@ use App\BigTotalWebVisit;
 
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends _WebController {
 	public $module = "bigdata";
@@ -42,6 +47,11 @@ class ProductController extends _WebController {
 
 		$this->func = "web." . $this->module . "." . $this->action;
         $this->__initial();
+
+        $mapCarBrand ['bDel'] = 0;    
+        $DaoCarBrand = CarBrand::where($mapCarBrand)->get();
+
+        $this->view->with ( 'carBrand', $DaoCarBrand );
 
 		return $this->view;
 	}
@@ -70,12 +80,11 @@ class ProductController extends _WebController {
 	        $mapTotalWebPageview ['vGroup'] = $iCarBrandId;
 	        $mapTotalWebPageview ['vFunc'] = $var->iId;
 	        $TotalWebPageview = BigTotalWebPageview::select ( DB::raw ( "SUM( iTotal ) as Total" ) )->where ( $mapTotalWebPageview )->first ();
-	        if($TotalWebPageview) {
-	        	$var->iTotal = $TotalWebPageview->Total;	
+	        if($TotalWebPageview && $TotalWebPageview->Total) {
+	        	$var->Total = $TotalWebPageview->Total;	
 	        } else {
-	        	$var->iTotal = 0;
+	        	$var->Total = 0;
 	        }
-	        
         }
 
 		$this->rtndata ['status'] = 1;

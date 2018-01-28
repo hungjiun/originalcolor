@@ -448,7 +448,7 @@ Route::group(
             });
         });
 
-        // Website
+        // Bigdata
         Route::group(
             [
                 'prefix' => 'bigdata',
@@ -459,6 +459,7 @@ Route::group(
                     'prefix' => 'website',
                 ], function() {
                 Route::get( '', 'WebsiteController@index' );
+                Route::get( 'getdata', 'ProductController@getStatistics' );
                 Route::get( '{error}', function() {
                     return abort( 503 );
                 });
@@ -468,6 +469,7 @@ Route::group(
                     'prefix' => 'product',
                 ], function() {
                 Route::get( '', 'ProductController@index' );
+                Route::get( 'getdata', 'ProductController@getColorStatistics' );
                 Route::get( '{error}', function() {
                     return abort( 503 );
                 });
@@ -499,5 +501,34 @@ Route::group(
                 } );
             } );
         } );
+
+        // Dealer
+        Route::group(
+            [
+                'prefix' => 'dealer',
+                'namespace' => 'Dealer',
+            ], function() {
+            Route::group(
+                [
+                    'prefix' => 'download',
+                ], function() {
+                Route::get( '', 'DownloadController@index' );
+                Route::get( 'getlist', 'DownloadController@getList' );
+                Route::get( '{error}', function() {
+                    return abort( 503 );
+                });
+            });    
+            Route::group(
+                [
+                    'prefix' => 'inquire',
+                ], function() {
+                Route::get( '', 'InquireController@index' );
+                Route::get( 'getlist', 'InquireController@getList' );
+                Route::get( 'getcarmodels', 'InquireController@getCarModels' );
+                Route::get( '{error}', function() {
+                    return abort( 503 );
+                });
+            });
+        });
     });
 });

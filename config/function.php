@@ -494,6 +494,30 @@ return [
                                         ],
                                 ]    
                         ],
-                ],    
+                ],
+
+            "dealer" =>
+                [
+                    "download" =>
+                        [
+                            "view" => "_template_web.dealer.download",
+                            "menu_access" => "81",
+                            "menu_parent" =>
+                                [
+                                    "8",
+                                    "0"
+                                ],
+                        ],
+                    "inquire" =>
+                        [
+                            "view" => "_template_web.dealer.inquire",
+                            "menu_access" => "82",
+                            "menu_parent" =>
+                                [
+                                    "8",
+                                    "0"
+                                ],
+                        ],    
+                ],      
         ],
 ];

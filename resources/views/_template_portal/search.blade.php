@@ -19,7 +19,7 @@
                     <div class="form-group">
                         <label for="inputEmail3" class="col-sm-2 control-label">車廠</label>
                         <div class="col-sm-10">
-                            <select class="form-control car-branch">
+                            <select class="form-control car-brand">
                                 <option value="0"></option>
                                 @foreach( $dealerCarBrand as $key => $var)
                                 <option value="{{$var->iId}}">{{$var->vCarBrandName}}</option>
@@ -71,7 +71,7 @@
     var url_search1 = "{{url('search/carColorSearch1')}}";
     var url_search2 = "{{url('search/carColorSearch2')}}";
     $(document).ready(function() {
-        $('.car-branch').on('change', function() {
+        $('.car-brand').on('change', function() {
             var carBrandId = $(this).val();
             var data = {
                 "iCarBrandId": carBrandId
@@ -97,7 +97,7 @@
         });
 
         $('.btn-search').on('click', function() {
-            var iCarBrandId = $('.car-branch').val();
+            var iCarBrandId = $('.car-brand').val();
             var iCarModelId = $('.car-model').val();
             var vCarColorCode = $('.color-code').val();
 

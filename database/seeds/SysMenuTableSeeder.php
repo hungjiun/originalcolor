@@ -317,7 +317,7 @@ class SysMenuTableSeeder extends Seeder
                 "child" =>
                     [
                         [
-                            //頁首管理
+                            //網站行為
                             "iId" => 71,
                             "vName" => "bigdata.website",
                             "vUrl" => "web/bigdata/website",
@@ -325,10 +325,10 @@ class SysMenuTableSeeder extends Seeder
                             "bSubMenu" => 0,
                             "iParentId" => 7,
                             "vAccess" => "1,2",
-                            "bOpen" => 1,   
+                            "bOpen" => 0,   
                         ],
                         [
-                            //網站修改紀錄
+                            //商品行為
                             "iId" => 72,
                             "vName" => "bigdata.product",
                             "vUrl" => "web/bigdata/product",
