@@ -72,6 +72,7 @@ class Statistics extends Command
         $start_time = mktime ( date ( 'H' ), '0', '0', date ( 'm' ), date ( 'd' ), date ( 'Y' ) );
         
         // VISITOR
+        $mapBigViewWebPageview = [];
         $mapBigViewWebPageview ['big_view_web_pageview.iStates'] = 0;
         $visit_total = BigViewWebPageview::select ( DB::raw ( "DISTINCT big_view_web_pageview.iVisit_id, vSourceID, vUserID,vRemoteAddr" ) )->join ( 'big_view_web_visit_online', function ($join) {
             $join->on ( 'big_view_web_pageview.iVisit_id', '=', 'big_view_web_visit_online.iVisit_id' );
@@ -87,8 +88,10 @@ class Statistics extends Command
             BigTotalWebVisit::insert ( $addinfo );
         }
         
-        $mapBigViewWebPageview ['iStates'] = '0';
-        $updateinfo ['iStates'] = "1";
+        $mapBigViewWebPageview = [];
+        $mapBigViewWebPageview ['iStates'] = 0;
+        $updateinfo = [];
+        $updateinfo ['iStates'] = 1;
         BigViewWebPageview::where ( $mapBigViewWebPageview )->where ( 'iStartTime', '<', $start_time )->update ( $updateinfo );
         
         // PAGEVIEW
@@ -110,8 +113,10 @@ class Statistics extends Command
             BigTotalWebPageview::insert ( $addinfo );
         }
         
-        $mapBigViewWebPageview ['iStates'] = '1';
-        $updateinfo ['iStates'] = "2";
+        $mapBigViewWebPageview = [];
+        $mapBigViewWebPageview ['iStates'] = 1;
+        $updateinfo = [];
+        $updateinfo ['iStates'] = 2;
         BigViewWebPageview::where ( $mapBigViewWebPageview )->where ( 'iStartTime', '<', $start_time )->update ( $updateinfo );
         
         // CLICK
@@ -132,8 +137,10 @@ class Statistics extends Command
             BigTotalWebClick::insert ( $addinfo );
         }
         
-        $mapBigViewWebClick ['iStates'] = '0';
-        $updateinfo ['iStates'] = "1";
+        $mapBigViewWebClick = [];
+        $mapBigViewWebClick ['iStates'] = 0;
+        $updateinfo = [];
+        $updateinfo ['iStates'] = 1;
         BigViewWebClick::where ( $mapBigViewWebClick )->where ( 'iStartTime', '<', $start_time )->update ( $updateinfo );
         
         // AGENT
@@ -155,8 +162,10 @@ class Statistics extends Command
             BigTotalWebAgent::insert ( $addinfo );
         }
         
-        $mapBigViewWebPageview ['iStates'] = '2';
-        $updateinfo ['iStates'] = "3";
+        $mapBigViewWebPageview = [];
+        $mapBigViewWebPageview ['iStates'] = 2;
+        $updateinfo = [];
+        $updateinfo ['iStates'] = 3;
         BigViewWebPageview::where ( $mapBigViewWebPageview )->where ( 'iStartTime', '<', $start_time )->update ( $updateinfo );
         
         // LOCATION
@@ -177,8 +186,10 @@ class Statistics extends Command
             BigTotalWebLocation::insert ( $addinfo );
         }
         
-        $mapBigViewWebPageview ['iStates'] = '3';
-        $updateinfo ['iStates'] = "4";
+        $mapBigViewWebPageview = [];
+        $mapBigViewWebPageview ['iStates'] = 3;
+        $updateinfo = [];
+        $updateinfo ['iStates'] = 4;
         BigViewWebPageview::where ( $mapBigViewWebPageview )->where ( 'iStartTime', '<', $start_time )->update ( $updateinfo );
         
         // ONLINE
@@ -195,8 +206,10 @@ class Statistics extends Command
             BigTotalWebOnline::insert ( $addinfo );
         }
         
-        $mapBigViewWebPageview ['iStates'] = '4';
-        $updateinfo ['iStates'] = "5";
+        $mapBigViewWebPageview = [];
+        $mapBigViewWebPageview ['iStates'] = 4;
+        $updateinfo = [];
+        $updateinfo ['iStates'] = 5;
         BigViewWebPageview::where ( $mapBigViewWebPageview )->where ( 'iStartTime', '<', $start_time )->update ( $updateinfo );
         
         // STAYTIME
@@ -214,8 +227,10 @@ class Statistics extends Command
             BigTotalWebStaytime::insert ( $addinfo );
         }
         
-        $mapBigViewWebPageview ['iStates'] = '5';
-        $updateinfo ['iStates'] = "6";
+        $mapBigViewWebPageview = [];
+        $mapBigViewWebPageview ['iStates'] = 5;
+        $updateinfo = [];
+        $updateinfo ['iStates'] = 6;
         BigViewWebPageview::where ( $mapBigViewWebPageview )->where ( 'iStartTime', '<', $start_time )->update ( $updateinfo );
         
         // BOUNCE
@@ -243,8 +258,10 @@ class Statistics extends Command
             BigTotalWebBounce::insert ( $addinfo );
         }
         
-        $mapBigViewWebPageview ['iStates'] = '6';
-        $updateinfo ['iStates'] = "7";
+        $mapBigViewWebPageview = [];
+        $mapBigViewWebPageview ['iStates'] = 6;
+        $updateinfo = [];
+        $updateinfo ['iStates'] = 7;
         BigViewWebPageview::where ( $mapBigViewWebPageview )->where ( 'iStartTime', '<', $start_time )->update ( $updateinfo );
         
         return response ()->json ( $rtndata );

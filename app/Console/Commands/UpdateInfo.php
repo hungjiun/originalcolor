@@ -155,29 +155,30 @@ class UpdateInfo extends Command
             $mapBigSystemGeoipData ['vIP'] = $var->vRemoteAddr;
             $geoip_data = BigSystemGeoipData::where ( $mapBigSystemGeoipData )->first ();
             
-            if (isset ( $geoip_data ) && $geoip_data) {
-                continue;
-            } else {
+            if ( isset ( $geoip_data ) && $geoip_data ) {
                 continue;
             }
-
-            $location = $geoip->city ( $var->vRemoteAddr );
+            if( $var->vRemoteAddr != '127.0.0.1' ) {
+                $location = $geoip->city ( $var->vRemoteAddr );
+            } else {
+                $location = '';
+            }
             
             $addinfo ['vIP'] = $var->vRemoteAddr;
-            $addinfo ['vISOCode'] = ($location->country->isoCode) ? $location->country->isoCode : "N/A";
-            $addinfo ['vCountry'] = ($location->country->name) ? $location->country->name : "N/A";
-            $addinfo ['vCity'] = ($location->city->name) ? $location->city->name : "N/A";
-            $addinfo ['vState'] = ($location->mostSpecificSubdivision->name) ? $location->mostSpecificSubdivision->name : "N/A";
-            $addinfo ['vPostal_Code'] = ($location->postal->code) ? $location->postal->code : "N/A";
-            $addinfo ['vLat'] = ($location->location->latitude) ? $location->location->latitude : "N/A";
-            $addinfo ['vLon'] = ($location->location->longitude) ? $location->location->longitude : "N/A";
-            $addinfo ['vTimeZone'] = ($location->location->timeZone) ? $location->location->timeZone : "N/A";
-            $addinfo ['vContinent'] = ($location->continent->code) ? $location->continent->code : "N/A";
-            $addinfo ['vISP_domain'] = ($location->traits->domain) ? $location->traits->domain : "N/A";
-            $addinfo ['vISP_autonomousSystemNumber'] = ($location->traits->autonomousSystemNumber) ? $location->traits->autonomousSystemNumber : "N/A";
-            $addinfo ['vISP_organization'] = ($location->traits->organization) ? $location->traits->organization : "N/A";
-            $addinfo ['vISP_isp'] = ($location->traits->isp) ? $location->traits->isp : "N/A";
-            $addinfo ['vISP_autonomousSystemOrganization'] = ($location->traits->autonomousSystemOrganization) ? $location->traits->autonomousSystemOrganization : "N/A";
+            $addinfo ['vISOCode'] = ($location) ? $location->country->isoCode : "N/A";
+            $addinfo ['vCountry'] = ($location) ? $location->country->name : "N/A";
+            $addinfo ['vCity'] = ($location) ? $location->city->name : "N/A";
+            $addinfo ['vState'] = ($location) ? $location->mostSpecificSubdivision->name : "N/A";
+            $addinfo ['vPostal_Code'] = ($location) ? $location->postal->code : "N/A";
+            $addinfo ['vLat'] = ($location) ? $location->location->latitude : "N/A";
+            $addinfo ['vLon'] = ($location) ? $location->location->longitude : "N/A";
+            $addinfo ['vTimeZone'] = ($location) ? $location->location->timeZone : "N/A";
+            $addinfo ['vContinent'] = ($location) ? $location->continent->code : "N/A";
+            $addinfo ['vISP_domain'] = ($location) ? $location->traits->domain : "N/A";
+            $addinfo ['vISP_autonomousSystemNumber'] = ($location) ? $location->traits->autonomousSystemNumber : "N/A";
+            $addinfo ['vISP_organization'] = ($location) ? $location->traits->organization : "N/A";
+            $addinfo ['vISP_isp'] = ($location) ? $location->traits->isp : "N/A";
+            $addinfo ['vISP_autonomousSystemOrganization'] = ($location) ? $location->traits->autonomousSystemOrganization : "N/A";
             BigSystemGeoipData::insert ( $addinfo );
         }
         
@@ -189,6 +190,7 @@ class UpdateInfo extends Command
             $mapBigSystemGeoipData ['vIP'] = $var->vRemoteAddr;
             $geoip_data = BigSystemGeoipData::where ( $mapBigSystemGeoipData )->first ();
             if ($geoip_data) {
+                $addinfo = [];
                 $addinfo ['iVisit_id'] = $var->iId;
                 $addinfo ['vISOCode'] = $geoip_data->vISOCode;
                 $addinfo ['vCountry'] = $geoip_data->vCountry;
@@ -247,7 +249,6 @@ class UpdateInfo extends Command
     public function pageview_info() {
 
         $mapBigWebPageview ['iStates'] = "1";
-        $mapBigWebPageview ['vGroup'] = "N/A";
         $pageview_arr = BigWebPageview::select ( DB::raw ( "iVisit_id, vSourceID, vUserID, vReferer, vReferer2, vGroup, vMod, vFunc, vAction, iDateTime" ) )->where ( $mapBigWebPageview )->where ( 'iDateTime', '<', $this->datetime )->orderBy ( 'iVisit_id', 'ASC' )->orderBy ( 'iDateTime', 'ASC' )->get ();
         
         $staytime = 0;

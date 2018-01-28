@@ -55,7 +55,16 @@
 <!--  -->
 <!-- Morris.js charts -->
 <script src="/web_assets/AdminLTE/bower_components/raphael/raphael.min.js"></script>
-<script src="/web_assets/AdminLTE/bower_components/morris.js/morris.min.js"></script>    
+<script src="/web_assets/AdminLTE/bower_components/morris.js/morris.min.js"></script>  
+
+<!-- FLOT CHARTS -->
+<script src="/web_assets/AdminLTE/bower_components/Flot/jquery.flot.js"></script>
+<!-- FLOT RESIZE PLUGIN - allows the chart to redraw when the window is resized -->
+<script src="/web_assets/AdminLTE/bower_components/Flot/jquery.flot.resize.js"></script>
+<!-- FLOT PIE PLUGIN - also used to draw donut charts -->
+<script src="/web_assets/AdminLTE/bower_components/Flot/jquery.flot.pie.js"></script>
+<!-- FLOT CATEGORIES PLUGIN - Used to draw bar charts -->
+<script src="/web_assets/AdminLTE/bower_components/Flot/jquery.flot.categories.js"></script>  
 @endsection
 <!-- ================== /page-js ================== -->
 <!-- ================== inline-js ================== -->
@@ -63,22 +72,65 @@
     <!--  -->
     <script>
         var url_getdata = "{{ url('web/bigdata/product/getdata')}}";
+
+        function flot_init() {
+            /*
+            var data = [[0, 0]];
+            var dataset = [{ label: "", data: data, color: "#5482FF" }];
+            var ticks = [[0, ""]];
+            */
+
+            var data = [[0, 11],[1, 15],[2, 25],[3, 24],[4, 13],[5, 18]];
+            var dataset = [{ label: "", data: data, color: "#5482FF" }];
+            var ticks = [[0, "London"], [1, "New York"], [2, "New Delhi"], [3, "Taipei"],[4, "Beijing"], [5, "Sydney"]];
+     
+            var options = {
+                series: {
+                    bars: {
+                        show: true
+                    }
+                },
+                bars: {
+                    align: "center",
+                    barWidth: 0.3
+                },
+                xaxis: {
+                    axisLabel: "Color",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Verdana, Arial',
+                    axisLabelPadding: 10,
+                    ticks: ticks
+                },
+                yaxis: {
+                    axisLabel: "Number",
+                    axisLabelUseCanvas: true,
+                    axisLabelFontSizePixels: 12,
+                    axisLabelFontFamily: 'Verdana, Arial',
+                    axisLabelPadding: 3,
+                },
+                legend: {
+                    noColumns: 0,
+                    labelBoxBorderColor: "#000000",
+                    position: "nw"
+                },
+                grid: {
+                    hoverable: true,
+                    borderWidth: 2,
+                    backgroundColor: { colors: ["#ffffff", "#EDF5FF"] }
+                }
+            };
+
+             $.plot($("#bar-chart"), dataset, options);
+        }
         
         $(document).ready(function () {
             //BAR CHART
+            //flot_init();
             var bar = new Morris.Bar({
                 element: 'bar-chart',
                 resize: true,
                 data: [
-                /*
-                    {y: '2006', a: 100, b: 90},
-                    {y: '2007', a: 75, b: 65},
-                    {y: '2008', a: 50, b: 40},
-                    {y: '2009', a: 75, b: 65},
-                    {y: '2010', a: 50, b: 40},
-                    {y: '2011', a: 75, b: 65},
-                    {y: '2012', a: 100, b: 90}
-                */
                     {y: '', a: 0}    
                 ],
                 barColors: ['#00a65a', '#f56954'],
