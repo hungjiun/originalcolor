@@ -54,6 +54,9 @@ class IndexController extends _PortalController
         $DaoSysDealer->vDealerImg = $this->_getFilePathById($DaoSysDealer->vDealerImg);
 
         $this->view->with ( 'sysDealer', $DaoSysDealer );
+
+        $this->getArticle( $sysDealer );
+        
         return $this->view;
     }
 
@@ -79,6 +82,8 @@ class IndexController extends _PortalController
 
         $this->view->with ( 'sysDealer', $DaoSysDealer );
 
+        $this->getArticle( $sysDealer );
+
         return $this->view;
     }
 
@@ -103,6 +108,8 @@ class IndexController extends _PortalController
         $DaoSysDealer->vDealerImg = $this->_getFilePathById($DaoSysDealer->vDealerImg);
 
         $this->view->with ( 'sysDealer', $DaoSysDealer );
+
+        $this->getArticle( $sysDealer );
 
         return $this->view;
     }
