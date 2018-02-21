@@ -47,8 +47,7 @@ class SearchController extends _PortalController
             'car_brand.*'
         )->get();
 
-
-        if($DaoDealerCarBrand) {
+        if( count($DaoDealerCarBrand) > 0 ) {
             $mapDealerCarModels['dealer_car_models.bDel'] = 0;
             $mapDealerCarModels['dealer_car_models.iDealerId'] = $sysDealer;
             $mapDealerCarModels['dealer_car_models.iCarBrandId'] = $DaoDealerCarBrand[0]['iId'];
