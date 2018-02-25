@@ -98,6 +98,7 @@ class DealerController extends _WebController
         $vDealerLink = $request->input( 'vDealerLink' ) ? $request->input( 'vDealerLink' ) : "";
         $vDealerColor = $request->input( 'vDealerColor' ) ? $request->input( 'vDealerColor' ) : "";
         $vDealerFax = $request->input( 'vDealerFax' ) ? $request->input( 'vDealerFax' ) : "";
+        $vDealerCompanyUrl = $request->input( 'vDealerCompanyUrl' ) ? $request->input( 'vDealerCompanyUrl' ) : "";
 
         $DaoSysDealer = new SysDealer ();
         $DaoSysDealer->iType = 0;
@@ -112,6 +113,7 @@ class DealerController extends _WebController
         $DaoSysDealer->vDealerLink = $vDealerLink;
         $DaoSysDealer->vDealerColor = $vDealerColor;
         $DaoSysDealer->vDealerFax = $vDealerFax;
+        $DaoSysDealer->vDealerCompanyUrl = $vDealerCompanyUrl;
         $DaoSysDealer->iCreateTime = $DaoSysDealer->iUpdateTime = time();
         $DaoSysDealer->iStatus = 1;
         $DaoSysDealer->bDel = 0;
@@ -216,6 +218,9 @@ class DealerController extends _WebController
         }
         if ( $request->exists( 'vDealerFax' ) ) {
             $DaoSysDealer->vDealerFax = $request->input( 'vDealerFax' );
+        }
+        if ( $request->exists( 'vDealerCompanyUrl' ) ) {
+            $DaoSysDealer->vDealerCompanyUrl = $request->input( 'vDealerCompanyUrl' );
         }
         if ( $request->exists( 'iStatus' ) ) {
             $DaoSysDealer->iStatus = ( $DaoSysDealer->iStatus ) ? 0 : 1;

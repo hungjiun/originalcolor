@@ -44,8 +44,12 @@
         </div>
         <nav id="menu">
             <ul>
-                <li><a href="http://www.pchome.com.tw" target="_blank" data-href="">公司連結</a></li>
-                <li><a href="{{url('index')}}" data-href="3dlogos">回主頁</a></li>
+                @if(Session::get('sysDealer_company_url'))
+                <li><a href="{{Session::get('sysDealer_company_url')}}" target="_blank" data-href="">公司連結</a></li>
+                @else
+                <li><a href="#" target="_blank" data-href="">公司連結</a></li>
+                @endif
+                <li><a href="{{url(Session::get('sysDealer_url'))}}" data-href="3dlogos">回主頁</a></li>
                 <li><a href="{{url('search')}}" data-href="search">條件搜尋</a></li>
                 <li><a href="{{url('description')}}" data-href="description">使用步驟說明</a></li>
                 <li><a href="{{url('qa')}}" data-href="qa">故障問題排除</a></li>

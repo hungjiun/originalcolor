@@ -51,7 +51,8 @@ return [
                     'email' => '經銷商Email',
                     'address' => '經銷商地址',
                     'color' => '經銷商顏色',
-                    'link' => '經銷商銷售網址'
+                    'link' => '經銷商銷售網址',
+                    'company_url' => '經銷商公司網址'
                 ]    
         ],
     'agree' => '同意',

@@ -57,9 +57,9 @@
 </head>
 <!-- <body class="animated fadeInDown"> -->
 <body class="">
-<header id="header">
+<header id="header" style="height: 150px;">
     <div id="logo-group">
-        <span id="logo"> <img src="/images/logo.png" alt="OriginalColor" style="width: 170px;"></span>
+        <span id="logo"><img src="/portal_assets/images/apple-touch-icon.png" alt="OriginalColor" style="height: 130px;"></span>
     </div>
     <span id="extr-page-header-space">
     {{--<span class="hidden-mobile hiddex-xs">{{trans('web.login.register')}}</span>--}}

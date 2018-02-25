@@ -45,8 +45,8 @@ class UploadController extends Controller
         $filesizes = $image['size'];
 
         //$filename = date( 'YmdHis' ) . uniqid() . '.jpg';
-        //$filePath = env( 'UPLOAD_PATH', dirname( $_SERVER ['SCRIPT_FILENAME'] ) . '/' ) . config ()->get ( 'config.path.userdata' ) . session ()->get ( 'member.vUserCode' ) . "/" . date ( "Ymd" ) . "/";
-        $filePath = env( 'UPLOAD_PATH', dirname( $_SERVER ['SCRIPT_FILENAME'] ) . '/' ) . config ()->get ( 'config.path.userdata' );
+        $filePath = env( 'UPLOAD_PATH', dirname( $_SERVER ['SCRIPT_FILENAME'] ) . '/' ) . config ()->get ( 'config.path.userdata' ) . session ()->get ( 'member.vUserCode' ) . "/" . date ( "Ymd" ) . "/";
+        //$filePath = env( 'UPLOAD_PATH', dirname( $_SERVER ['SCRIPT_FILENAME'] ) . '/' ) . config ()->get ( 'config.path.userdata' );
         if ( !file_exists( $filePath )) {
             mkdir( $filePath, 0777, true );
         }

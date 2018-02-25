@@ -60,6 +60,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+        session()->put( 'sysDealer_url', $DaoSysDealer->vUrlName );
+        session()->put( 'sysDealer_company_url', $DaoSysDealer->vDealerCompanyUrl );
 
         $this->getArticle( $DaoSysDealer->iId );
 
@@ -100,6 +102,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+        session()->put( 'sysDealer_url', $DaoSysDealer->vUrlName );
+        session()->put( 'sysDealer_company_url', $DaoSysDealer->vDealerCompanyUrl );
 
         $this->getArticle( $DaoSysDealer->iId );
 
@@ -140,6 +144,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+        session()->put( 'sysDealer_url', $DaoSysDealer->vUrlName );
+        session()->put( 'sysDealer_company_url', $DaoSysDealer->vDealerCompanyUrl );
 
         $this->getArticle( $DaoSysDealer->iId );
 
@@ -180,6 +186,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+        session()->put( 'sysDealer_url', $DaoSysDealer->vUrlName );
+        session()->put( 'sysDealer_company_url', $DaoSysDealer->vDealerCompanyUrl );
 
         $this->getArticle( $DaoSysDealer->iId );
 
@@ -220,6 +228,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+        session()->put( 'sysDealer_url', $DaoSysDealer->vUrlName );
+        session()->put( 'sysDealer_company_url', $DaoSysDealer->vDealerCompanyUrl );
 
         $this->getArticle( $DaoSysDealer->iId );
 
@@ -260,6 +270,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+        session()->put( 'sysDealer_url', $DaoSysDealer->vUrlName );
+        session()->put( 'sysDealer_company_url', $DaoSysDealer->vDealerCompanyUrl );
 
         $this->getArticle( $DaoSysDealer->iId );
 
@@ -300,6 +312,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+        session()->put( 'sysDealer_url', $DaoSysDealer->vUrlName );
+        session()->put( 'sysDealer_company_url', $DaoSysDealer->vDealerCompanyUrl );
 
         $this->getArticle( $DaoSysDealer->iId );
 
@@ -340,6 +354,8 @@ class DealerController extends _PortalController
         }
 
         session()->put( 'sysDealer', $DaoSysDealer->iId );
+        session()->put( 'sysDealer_url', $DaoSysDealer->vUrlName );
+        session()->put( 'sysDealer_company_url', $DaoSysDealer->vDealerCompanyUrl );
 
         $this->getArticle( $DaoSysDealer->iId );
 

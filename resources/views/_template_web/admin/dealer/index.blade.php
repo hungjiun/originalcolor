@@ -106,6 +106,12 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="col-md-3 control-label">{{trans('web.admin.dealer.company_url')}}</label>
+                            <div class="col-md-9">
+                                <input class="form-control vDealerCompanyUrl" placeholder="{{trans('web.admin.dealer.company_url')}}" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="col-md-3 control-label">{{trans('web.admin.dealer.color')}}</label>
                             <div class="col-md-9">
                                 <input class="form-control vDealerColor" placeholder="{{trans('web.admin.dealer.color')}}" type="text">
@@ -188,6 +194,12 @@
                             <label class="col-md-3 control-label">{{trans('web.admin.dealer.link')}}</label>
                             <div class="col-md-9">
                                 <input class="form-control vDealerLink" placeholder="{{trans('web.admin.dealer.link')}}" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{trans('web.admin.dealer.company_url')}}</label>
+                            <div class="col-md-9">
+                                <input class="form-control vDealerCompanyUrl" placeholder="{{trans('web.admin.dealer.company_url')}}" type="text">
                             </div>
                         </div>
                         <div class="form-group">
@@ -368,6 +380,7 @@
                 modal.find(".vDealerLink").val(current_data[id].vDealerLink);
                 modal.find(".vDealerColor").val(current_data[id].vDealerColor);
                 modal.find(".vDealerFax").val(current_data[id].vDealerFax);
+                modal.find(".vDealerCompanyUrl").val(current_data[id].vDealerCompanyUrl);
                 modal.modal();
             });
             //
@@ -388,6 +401,7 @@
                 data.vDealerFax = modal.find('.vDealerFax').val();
                 data.vDealerLink = modal.find('.vDealerLink').val();
                 data.vDealerColor = modal.find('.vDealerColor').val();
+                data.vDealerCompanyUrl = modal.find('.vDealerCompanyUrl').val();
                 $.ajax({
                     url: url_dosave,
                     type: "POST",

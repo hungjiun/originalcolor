@@ -115,7 +115,7 @@ return [
                         ],
                     'search' =>
                         [
-                            'title' => '車色查詢',
+                            'title' => '車色設定',
                         ],
                     'dealer' =>
                         [
