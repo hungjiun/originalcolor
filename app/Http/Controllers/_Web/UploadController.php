@@ -79,8 +79,8 @@ class UploadController extends Controller
         $Dao->iMemberId = session()->get( 'member.iId' );
         $Dao->iType = 1;
         $Dao->vFileType = $filetypes[0];
-        $Dao->vFileServer = $this->_get_full_url() . "/";
-        $Dao->vFilePath = config()->get( 'config.path.userdata' );
+        $Dao->vFileServer = $this->_get_full_url();
+        $Dao->vFilePath = config()->get( 'config.path.userdata' ) . session ()->get ( 'member.vUserCode' ) . "/" . date ( "Ymd" ) . "/";
         $Dao->vFileName = $filename;
         $Dao->vOrigName = $filenames[0];
         $Dao->iFileSize = $filesizes[0];
