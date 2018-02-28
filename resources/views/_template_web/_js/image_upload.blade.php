@@ -182,7 +182,7 @@
             var form = data.form, files = data.files, extra = data.extra,
                 response = data.response, reader = data.reader;
                 */
-            console.log(data.response); 
+            //console.log(data.response); 
             image_url = data.response.file;
             image_name = data.response.filename;
             image_id = data.response.imageId;

@@ -323,7 +323,7 @@
                     var link = "{{url('')}}/dealer/web"+ url;
                 }
 
-                console.log(link);
+                //console.log(link);
                  
                 copyTextToClipboard(link);
             });
