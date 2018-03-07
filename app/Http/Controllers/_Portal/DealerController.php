@@ -551,6 +551,8 @@ class DealerController extends _PortalController
         if(!$DaoSysDealer) {
             return redirect('');
         }
+
+        $DaoSysDealer->vDealerImg = $this->_getFilePathById($DaoSysDealer->vDealerImg);
         
         $mapArticle['article_dealer.iDealerId'] = $sysDealer;
         $mapArticle['article_dealer.bDel'] = 0;
