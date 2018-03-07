@@ -41,7 +41,7 @@
                                         <label class="col-sm-2 control-label">車色名稱</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="vCarColorName" placeholder="">
+                                            <input type="text" class="form-control" id="vCarColorName" value="{{$carColors->vCarColorName}}">
                                         </div>
                                     </div>
                                     <!-- /.form-group -->
@@ -59,7 +59,7 @@
                                         <label class="col-sm-2 control-label">編碼</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="vCarColorCode" placeholder="">
+                                            <input type="text" class="form-control" id="vCarColorCode" value="{{$carColors->vCarColorCode}}">
                                         </div>
                                     </div>
                                     <!-- /.form-group -->
@@ -67,7 +67,7 @@
                                         <label class="col-sm-2 control-label">國際編碼</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="vCarColorNationalCode" placeholder="">
+                                            <input type="text" class="form-control" id="vCarColorNationalCode" value="{{$carColors->vCarColorNationalCode}}">
                                         </div>
                                     </div>
                                     <!-- /.form-group -->
@@ -75,7 +75,7 @@
                                         <label class="col-sm-2 control-label">補漆筆編號</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="iPenNumber" placeholder="">
+                                            <input type="text" class="form-control" id="iPenNumber" value="{{$carColors->iPenNumber}}">
                                         </div>
                                     </div>
                                     <!-- /.form-group -->
@@ -83,7 +83,7 @@
                                         <label class="col-sm-2 control-label">車色簡介</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="vSummary" placeholder="">
+                                            <input type="text" class="form-control" id="vSummary" value="{{$carColors->vSummary}}">
                                         </div>
                                     </div>
                                     <!-- /.form-group -->
