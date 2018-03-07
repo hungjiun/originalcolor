@@ -65,6 +65,9 @@ class CarSearchController extends _WebController
         $DaoCarColors = CarColors::where( $mapCarColors )->orderBy('iRank', 'asc')->get();
 
         foreach ($DaoCarColors as $key => $value) {
+
+            $value->vCarColorCode = $value->vCarColorCode ? $value->vCarColorCode : "";
+            $value->vCarColorNationalCode = $value->vCarColorNationalCode ? $value->vCarColorNationalCode : "";
             
             $mapCarModelColors ['car_model_colors.iCarBrandId'] = $iCarBrandId;
             $mapCarModelColors ['car_model_colors.iCarColorId'] = $value->iId;
