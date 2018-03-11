@@ -252,6 +252,93 @@ class CarModelsController extends _WebController
     /*
      *
      */
+    public function getModelColorList ( Request $request )
+    {
+        $iCarModelId = $request->input( 'iCarModelId', 0 );
+
+        $mapCarModelColors['iCarModelId'] = $iCarModelId;
+        $DaoCarModelColors = CarModelColors::join( 'car_models', function( $join ) {
+            $join->on( 'car_model_colors.iCarModelId', '=', 'car_models.iId' );
+        } )->join( 'car_colors', function( $join ) {
+            $join->on( 'car_model_colors.iCarColorId', '=', 'car_colors.iId' );
+        } )->where( $mapCarModelColors )->select(
+            'car_model_colors.*', 
+            'car_models.vCarModelName',
+            'car_colors.vCarColorName'
+        )->get();
+
+        foreach ($DaoCarModelColors as $key => $var) {
+            $var->vCarModelImage = $this->_getFilePathById($var->vCarModelImage);
+        }
+
+        $this->rtndata ['status'] = 1;
+        $this->rtndata ['carModelColors'] = $DaoCarModelColors;
+        return response()->json( $this->rtndata );
+    }
+
+    /*
+     *
+     */
+    public function image ( Request $request )
+    {
+        $this->breadcrumb = [
+            $this->module => "#",
+            $this->module . "." . $this->action . ".models.image" => url( 'web/' . $this->module . '/' . $this->action . '/models/image' )
+        ];
+
+        $this->title = $this->module . "." . $this->action . ".models";
+
+        $this->func = "web." . $this->module . "." . $this->action . ".models.image";
+        $this->__initial();
+
+        $iCarModelId = $request->input( 'iCarModelId', 0 );
+
+        $mapCarModelColors['iCarModelId'] = $iCarModelId;
+        $DaoCarModelColors = CarModelColors::join( 'car_models', function( $join ) {
+            $join->on( 'car_model_colors.iCarModelId', '=', 'car_models.iId' );
+        } )->join( 'car_colors', function( $join ) {
+            $join->on( 'car_model_colors.iCarColorId', '=', 'car_colors.iId' );
+        } )->where( $mapCarModelColors )->select(
+            'car_model_colors.*', 
+            'car_models.vCarModelName',
+            'car_colors.vCarColorName'
+        )->get();
+
+        foreach ($DaoCarModelColors as $key => $var) {
+            $var->vImage = $this->_getFilePathById($var->vCarModelImage);
+        }
+
+        $this->view->with ( 'carModelColors', $DaoCarModelColors );
+        return $this->view;
+    }
+
+    /*
+     *
+     */
+    public function doImageSave ( Request $request )
+    {
+        $image = $request->exists( 'image' ) ? $request->input ( 'image' ) : []; 
+
+        foreach ($image as $key => $var) {
+            $map['iId'] = $var['iId'];
+            $DaoCarModelColors = CarModelColors::where($map)->first();
+            if($DaoCarModelColors) {
+                $DaoCarModelColors->vCarModelImage = $var['iImage'];
+                $DaoCarModelColors->save();
+
+                $this->_saveLogAction( $DaoCarModelColors->getTable(), $DaoCarModelColors->iId, 'edit', json_encode( $DaoCarModelColors ) );
+            }
+        }
+
+        $this->rtndata ['status'] = 1;
+        $this->rtndata ['message'] = trans( '_web_message.save_success' );
+        
+        return response()->json( $this->rtndata );
+    }
+
+    /*
+     *
+     */
     public function doColorSave ( Request $request )
     {
         

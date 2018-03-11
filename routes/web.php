@@ -264,6 +264,9 @@ Route::group(
                     Route::post( 'doadd', 'CarModelsController@doAdd' );
                     Route::get( 'edit', 'CarModelsController@edit' );
                     Route::post( 'dosave', 'CarModelsController@doSave' );
+                    Route::get( 'image', 'CarModelsController@image' );
+                    Route::post( 'doimagesave', 'CarModelsController@doImageSave' );
+                    Route::get( 'getmodelcolorlist', 'CarModelsController@getModelColorList' );
                     Route::get( '{error}', function() {
                         return abort( 503 );
                     } );

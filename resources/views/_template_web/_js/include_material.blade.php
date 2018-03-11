@@ -93,19 +93,19 @@ $(document).ready(function() {
         "bServerside": true,
 		"order": [[ 0, "asc" ]],
         "aoColumns": [
-                    {"sTitle":"iId","mData":"iId"},
-                    {"sTitle":"vTitle","mData":"vTitle"},
-                    {"sTitle":"vSummary","mData":"vSummary"},
-                    {
-                        "sTitle":"Action",
-                    	"mRender":function(data,type,row){
-                    		article_data[row.iId] = row.vDetail;
-                        	var btn = "";
-	                        btn += '<button class="btn btn-xs btn-default btn-include" title="加入">加入</button>';
-                    		return btn;
-                    	}
-                    },
-                    ],
+            {"sTitle":"iId","mData":"iId"},
+            {"sTitle":"vTitle","mData":"vTitle"},
+            {"sTitle":"vSummary","mData":"vSummary"},
+            {
+                "sTitle":"Action",
+            	"mRender":function(data,type,row){
+            		article_data[row.iId] = row.vDetail;
+                	var btn = "";
+                    btn += '<button class="btn btn-xs btn-default btn-include" title="加入">加入</button>';
+            		return btn;
+            	}
+            },
+        ],
         "sAjaxSource": "{{ url('web/material/article/getlist')}}",
 		"ajax": "{{ url('web/material/article/getlist')}}",
 		"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
@@ -129,23 +129,23 @@ $(document).ready(function() {
         "bServerside": true,
 		"order": [[ 0, "asc" ]],
         "aoColumns": [
-                    {"sTitle":"iId","mData":"iId"},
-                    {
-                        "sTitle":"vImage","mData":"vImage",
-                        "mRender":function(data,type,row){
-                    		return '<img src="'+ data + '">';
-                    	}
-                    },
-                    {
-                        "sTitle":"Action",
-                    	"mRender":function(data,type,row){
-                    		images_data[row.iId] = row.vImage;
-                        	var btn = "";
-	                        btn += '<button class="btn btn-xs btn-default btn-include" title="加入">加入</button>';
-                    		return btn;
-                    	}
-                    },
-                    ],
+            {"sTitle":"iId","mData":"iId"},
+            {
+                "sTitle":"vImage","mData":"vImage",
+                "mRender":function(data,type,row){
+            		return '<img src="'+ data + '">';
+            	}
+            },
+            {
+                "sTitle":"Action",
+            	"mRender":function(data,type,row){
+            		images_data[row.iId] = row.vImage;
+                	var btn = "";
+                    btn += '<button class="btn btn-xs btn-default btn-include" title="加入">加入</button>';
+            		return btn;
+            	}
+            },
+        ],
         "sAjaxSource": "{{ url('web/material/images/getlist')}}",
 		"ajax": "{{ url('web/material/images/getlist')}}",
 		"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+
@@ -164,26 +164,26 @@ $(document).ready(function() {
 	});
 	/* END BASIC */
 	
-		/* END BASIC */
+	/* END BASIC */
 	var dt_id = "#dt_video";
 	var i=0;
 	var table = $(dt_id).dataTable({
         "bServerside": true,
 		"order": [[ 0, "asc" ]],
         "aoColumns": [
-                    {"sTitle":"iId","mData":"iId"},
-                    {"sTitle":"vTitle","mData":"vTitle"},
-                    {"sTitle":"vSummary","mData":"vSummary"},
-                    {
-                        "sTitle":"Action",
-                    	"mRender":function(data,type,row){
-                    		video_data[row.iId] = row.vDetail;
-                        	var btn = "";
-	                        btn += '<button class="btn btn-xs btn-default btn-include" title="加入">加入</button>';
-                    		return btn;
-                    	}
-                    },
-                    ],
+	        {"sTitle":"iId","mData":"iId"},
+	        {"sTitle":"vTitle","mData":"vTitle"},
+	        {"sTitle":"vSummary","mData":"vSummary"},
+	        {
+	            "sTitle":"Action",
+	        	"mRender":function(data,type,row){
+	        		video_data[row.iId] = row.vDetail;
+	            	var btn = "";
+	                btn += '<button class="btn btn-xs btn-default btn-include" title="加入">加入</button>';
+	        		return btn;
+	        	}
+	        },
+        ],
         "sAjaxSource": "{{ url('web/material/video/getlist')}}",
 		"ajax": "{{ url('web/material/video/getlist')}}",
 		"sDom": "<'dt-toolbar'<'col-xs-12 col-sm-6'f><'col-sm-6 col-xs-12 hidden-xs'l>r>"+

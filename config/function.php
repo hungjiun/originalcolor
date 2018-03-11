@@ -182,7 +182,17 @@ return [
                                                     "2",
                                                     "0"
                                                 ],
-                                        ]    
+                                        ],
+                                    "image" =>
+                                        [
+                                            "view" => "_template_web.product.car.models.image",
+                                            "menu_access" => "23",
+                                            "menu_parent" =>
+                                                [
+                                                    "2",
+                                                    "0"
+                                                ],
+                                        ]         
                                 ],
                             "search" =>
                                 [

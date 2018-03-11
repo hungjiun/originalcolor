@@ -18,7 +18,7 @@
 
     <div class="logoBlock">
         <div class="col-sm-7 col-xs-12">
-            <img src="{{$carModels->vCarModelImg}}">
+            <img src="{{$carColors->vImage}}">
         </div>
         <div class="col-sm-5 col-xs-12">
             <div class="title"><h2>{{$carModels->vCarModelName}}<small> {{$carColors->vCarColorName}}</small></h2></div>

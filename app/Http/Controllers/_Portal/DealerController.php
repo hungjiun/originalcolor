@@ -396,7 +396,7 @@ class DealerController extends _PortalController
             $join->on( 'dealer_car_models.iCarModelsId', '=', 'car_models.iId' );
         } )->where($mapDealerCarModels)->select( 
             'car_models.*'
-        )->get();
+        )->orderBy('car_models.iRank', 'asc')->get();
         foreach ($DaoDealerCarModels as $key => $var) {
             $var->vCarModelImg = $this->_getFilePathById($var->vCarModelImg);
         }
@@ -444,10 +444,12 @@ class DealerController extends _PortalController
         } )->join( 'car_model_colors', function( $join ) {
             $join->on( 'car_model_colors.iCarColorId', '=', 'car_colors.iId' );
         } )->where($mapDealerCarColors)->select( 
-            'car_colors.*'
-        )->get();
+            'car_colors.*',
+            'car_model_colors.vCarModelImage'
+        )->orderBy('car_colors.iRank', 'asc')->get();
         foreach ($DaoDealerCarColors as $key => $var) {
             $var->vCarColorImg = $this->_getFilePathById($var->vCarColorImg);
+            $var->vImage = $this->_getFilePathById($var->vCarModelImage);
         }
 
         $mapCarModels['iId'] = $iCarModelId;
@@ -521,8 +523,12 @@ class DealerController extends _PortalController
         } )->join( 'car_model_colors', function( $join ) {
             $join->on( 'car_model_colors.iCarColorId', '=', 'car_colors.iId' );
         } )->where($mapDealerCarColors)->select( 
-            'car_colors.*'
+            'car_colors.*',
+            'car_model_colors.vCarModelImage'
         )->first();
+        if($DaoDealerCarColors) {
+            $DaoDealerCarColors->vImage = $this->_getFilePathById($DaoDealerCarColors->vCarModelImage);
+        }
 
         $this->getArticle( $sysDealer );
 

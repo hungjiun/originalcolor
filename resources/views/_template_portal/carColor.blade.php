@@ -21,7 +21,7 @@
         <div class="logoBlock col-md-3 col-sm-4 col-xs-6">
             <div class="thumbnail">
                 <a href="{{url('dealer/carnumber')}}?iCarModelId={{$carModels->iId}}&iCarColorId={{$var->iId}}">
-                    <img src="{{$var->vCarColorImg}}">
+                    <img src="{{$var->vImage}}">
                     <p><h3><small>{{$var->vCarColorName}}</small></h3></p>
                 </a>
             </div>

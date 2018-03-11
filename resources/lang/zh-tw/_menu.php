@@ -99,7 +99,11 @@ return [
                             'edit' => 
                                 [
                                     'title' => '編輯車款'
-                                ]
+                                ],
+                            'image' => 
+                                [
+                                    'title' => '編輯車款圖片'
+                                ]    
                         ],
                     'colors' =>
                         [

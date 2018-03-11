@@ -50,7 +50,7 @@
 
                                         <div class="col-sm-10">
                                             <select class="form-control select2" style="width: 100%;" id="iCarModelType">
-                                                <option selected="selected" value=""></option>
+                                                <option selected="selected" value="0"></option>
                                             </select>
                                         </div>
                                     </div>

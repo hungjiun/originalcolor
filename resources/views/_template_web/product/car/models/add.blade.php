@@ -55,6 +55,7 @@
                                         </div>
                                     </div>
                                     <!-- /.form-group -->
+                                    <!--
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">車款圖片</label>
 
@@ -64,6 +65,7 @@
                                             </a>
                                         </div>
                                     </div>
+                                    -->
                                     <!-- /.form-group -->
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">車款年份</label>
@@ -118,7 +120,6 @@
 <!-- ================== /page-js ================== -->
 <!-- ================== inline-js ================== -->
 @section('inline-js')
-    @include('_template_web._js.image_upload')
     <!--  -->
     <script>
         var url_doadd = "{{ url('web/product/car/models/doadd')}}";
@@ -130,7 +131,7 @@
                 data.iCarBrandId = $('#iCarBrandId').val();
                 data.vCarModelName = $('#vCarModelName').val();
                 data.iCarModelType = $('#iCarModelType').val();
-                data.vCarModelImg = $('#Image').attr('data-id');
+                //data.vCarModelImg = $('#Image').attr('data-id');
                 data.vCarModelAge = $('#vCarModelAge').val();
                 data.vSummary = $('#vSummary').val();
                 data.vCarModelUrl = $('#vCarModelUrl').val();

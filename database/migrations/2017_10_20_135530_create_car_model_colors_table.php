@@ -22,6 +22,7 @@ class CreateCarModelColorsTable extends Migration
                 $table->integer( 'iCarBrandId' )->default( 0 )->comment('車廠ID');
                 $table->integer( 'iCarModelId' )->default( 0 )->comment('車款ID');
                 $table->integer( 'iCarColorId' )->default( 0 )->comment('車色ID');
+                $table->string( 'vCarModelImage' )->nullable()->comment('車款圖片');
                 $table->integer( 'iRank' )->default( 0 );
                 $table->integer( 'iCreateTime' )->default( 0 );
                 $table->integer( 'iUpdateTime' )->default( 0 );
