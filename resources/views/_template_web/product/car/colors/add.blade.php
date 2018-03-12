@@ -75,7 +75,7 @@
                                         <label class="col-sm-2 control-label">台灣編號</label>
 
                                         <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="iPenNumber" placeholder="">
+                                            <input type="text" class="form-control" id="vPenNumber" placeholder="">
                                         </div>
                                     </div>
                                     <!-- /.form-group -->
@@ -130,7 +130,7 @@
                 data.vCarColorImg = $('#Image').attr('data-id');
                 data.vCarColorCode = $('#vCarColorCode').val();
                 data.vCarColorNationalCode = $('#vCarColorNationalCode').val();
-                data.iPenNumber = $('#iPenNumber').val();
+                data.vPenNumber = $('#vPenNumber').val();
                 data.vSummary = $('#vSummary').val();
                 $.ajax({
                     url: url_doadd,

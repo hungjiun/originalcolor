@@ -126,16 +126,16 @@
                         "mData": "vCarColorCode"
                     },
                     {
-                        "sTitle": "國際編碼", 
+                        "sTitle": "國際編號", 
                         "bSortable": false,
                         "bSearchable": false,
                         "mData": "vCarColorNationalCode"
                     },
                     {
-                        "sTitle": "補漆筆編號", 
+                        "sTitle": "台灣編號", 
                         "bSortable": false,
                         "bSearchable": false,
-                        "mData": "iPenNumber"
+                        "mData": "vPenNumber"
                     },
                     {
                         "sTitle":"排序","mData":"iRank",
