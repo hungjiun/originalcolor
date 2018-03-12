@@ -104,7 +104,7 @@ class CarColorsController extends _WebController
         $vCarColorImg = ( Input::has( 'vCarColorImg' ) ) ? Input::get( 'vCarColorImg' ) : "";
         $vCarColorCode = ( Input::has( 'vCarColorCode' ) ) ? Input::get( 'vCarColorCode' ) : "";
         $vCarColorNationalCode = ( Input::has( 'vCarColorNationalCode' ) ) ? Input::get( 'vCarColorNationalCode' ) : "";
-        $iPenNumber = ( Input::has( 'iPenNumber' ) ) ? Input::get( 'iPenNumber' ) : "";
+        $vPenNumber = ( Input::has( 'vPenNumber' ) ) ? Input::get( 'vPenNumber' ) : "";
         $vSummary = ( Input::has( 'vSummary' ) ) ? Input::get( 'vSummary' ) : "";
         
         $DaoCarColors = new CarColors ();
@@ -113,7 +113,7 @@ class CarColorsController extends _WebController
         $DaoCarColors->vCarColorImg = $vCarColorImg;
         $DaoCarColors->vCarColorCode = $vCarColorCode;
         $DaoCarColors->vCarColorNationalCode = $vCarColorNationalCode;
-        $DaoCarColors->iPenNumber = $iPenNumber;
+        $DaoCarColors->vPenNumber = $vPenNumber;
         $DaoCarColors->vSummary = $vSummary;
         $DaoCarColors->iCreateTime = $DaoCarColors->iUpdateTime = time();
         $DaoCarColors->iRank = 1;
@@ -228,8 +228,8 @@ class CarColorsController extends _WebController
         if ( $request->exists( 'iCarBrandId' ) ) {
             $DaoCarColors->iCarBrandId = $request->input( 'iCarBrandId' );
         }
-        if ( $request->exists( 'iPenNumber' ) ) {
-            $DaoCarColors->iPenNumber = $request->input( 'iPenNumber' );
+        if ( $request->exists( 'vPenNumber' ) ) {
+            $DaoCarColors->vPenNumber = $request->input( 'vPenNumber' );
         }
         if ( $request->exists( 'iRank' ) ) {
             $DaoCarColors->iRank = $request->input( 'iRank' );
@@ -246,6 +246,45 @@ class CarColorsController extends _WebController
         } else {
             $this->rtndata ['status'] = 0;
             $this->rtndata ['message'] = trans( '_web_message.save_fail' );
+        }
+
+        return response()->json( $this->rtndata );
+    }
+
+    /*
+     *
+     */
+    public function doDel ( Request $request )
+    {
+        $iId = ( $request->exists( 'iId' ) ) ? $request->input( 'iId' ) : 0;
+        if ( !$iId) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        $map['iId'] = $iId;
+        $map['bDel'] = 0;
+        $DaoCarColors = CarColors::where( $map )->first();
+        if ( !$DaoCarColors) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        $DaoCarColors->bDel = 1;
+        
+        $DaoCarColors->iUpdateTime = time();
+        if ($DaoCarColors->save()) {
+            //Logs
+            $this->_saveLogAction( $DaoCarColors->getTable(), $DaoCarColors->iId, 'del', json_encode( $DaoCarColors ) );
+            $this->rtndata ['status'] = 1;
+            $this->rtndata ['message'] = trans( '_web_message.del_success' );
+        } else {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.del_fail' );
         }
 
         return response()->json( $this->rtndata );

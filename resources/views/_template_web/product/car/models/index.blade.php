@@ -102,6 +102,7 @@
         var ajax_source = "{{ url('web/product/car/models/getlist')}}";
         var ajax_Table = "{{ url('web/product/car/models/getlist')}}";
         var url_dosave = "{{ url('web/product/car/models/dosave')}}";
+        var url_dodel = "{{ url('web/product/car/models/dodel')}}";
         var url_add = "{{ url('web/product/car/models/add')}}";
         var url_edit = "{{ url('web/product/car/models/edit')}}";
         var url_image = "{{ url('web/product/car/models/image')}}";
@@ -188,6 +189,7 @@
                             var btn = "";
                             btn = '<button class="btn btn-xs btn-default btn-edit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></button>&nbsp;';
                             btn += '<button class="btn btn-xs btn-default btn-image" title="圖片"><i class="fa fa-picture-o" aria-hidden="true"></i></button>&nbsp;';
+                            btn += '<button class="pull-right btn btn-xs btn-default btn-del" title="刪除"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
                             return btn;
                         }
                     },
@@ -272,48 +274,37 @@
                 var idx = $(this).closest('tr').attr('id');
                 location.href = url_image + "?iCarModelId="+idx;
             });
-            /*
-            $("#dt_basic").on('click', '.btn-image', function () {
-                var id = $(this).closest('tr').attr('id');
-                var modal = $("#color-modal");
-                modal.data('id', id);
-                modal.modal();
-            });
-            $("#color-modal").on('show.bs.modal', function(e) {
-                //console.log($(this).data('id'));
-                var modal = $(this);
-                var iCarModelId = modal.data('id');
-                var data = {"iCarModelId": iCarModelId};
-                $.ajax({
-                    url: url_getmodelcolorlist,
-                    type: "GET",
-                    data: data,
-                    success: function (rtndata) {
-                        console.log(rtndata);
-                        if (rtndata.status) {
-                            var carModelColors = rtndata.carModelColors;
-                            var str = '';
-                            modal.find(".form-horizontal").empty();
-                            for (var key in carModelColors) {
-                                str += '<div class="form-group">';
-                                str += '<label class="col-sm-2 col-md-2 col-lg-2 control-label">' + carModelColors[key].vCarColorName + '</label>';
-
-                                str += '<div class="col-sm-10">';
-                                str += '<a class="btn-model-image" id="' + carModelColors[key].iId + '">';
-                                str += '<img id="Image-' + carModelColors[key].iId + '" data-id="' + carModelColors[key].iId + '" src="' + carModelColors[key].vCarModelImage + '" style="width: 15%">';
-                                str += '</a>';
-                                str += '</div>';
-
-                                str += '</div>';
-                            } 
-                            modal.find(".form-horizontal").append(str);
-                        } else {
-                            swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
+            //
+            $('#dt_basic').on('click', '.btn-del', function () {
+                var tr = $(this).closest('tr');
+                var idx = tr.attr('id');
+                swal({
+                    title: "{{trans('web.product.model.del.title')}}",
+                    text: "{{trans('web.product.model.del.note')}}",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "{{trans('web.cancel')}}",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "{{trans('web.ok')}}",
+                    closeOnConfirm: false
+                }, function () {
+                    $.ajax({
+                        url : url_dodel,
+                        data : {"iId":idx, "_token":"{{ csrf_token() }}"},
+                        type : "POST",
+                        success : function(rtndata) {
+                            if (rtndata.status) {
+                                swal("{{trans('web.notice')}}", rtndata.message, "success");
+                                setTimeout(function(){
+                                    table.api().ajax.reload(null, false);
+                                }, 500);
+                            } else {
+                                swal("{{trans('web.notice')}}", rtndata.message, "error");
+                            }
                         }
-                    }
+                    })
                 });
             });
-            */
         });
     </script>
 @endsection

@@ -163,6 +163,11 @@
 
         $('#image-form').on('show.bs.modal', function(e) {
             $('#p1-tab').tab('show');
+            $('#file-input').fileinput('enable');
+        });
+
+        $('#image-form').on('hide.bs.modal', function(e) {
+            $('#file-input').fileinput('clear');
         });
 
         $('#file-input').fileinput({
@@ -189,8 +194,10 @@
             //$('#picCrop').modal('show');
             //$('#picCrop').find('#imgArea').attr('data-name', image_name);
             //$('#picCrop').find('#imgArea').attr('data-id', image_id);
+            var modal = $("#image-form");
             $('#Image').attr('src', image_url);
             $('#Image').attr('data-id', image_id);
+            modal.modal('toggle');
         });
 
         $('#useOrigPic').click(function(){

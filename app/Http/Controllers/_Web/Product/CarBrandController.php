@@ -197,4 +197,43 @@ class CarBrandController extends _WebController
 
         return response()->json( $this->rtndata );
     }
+
+    /*
+     *
+     */
+    public function doDel ( Request $request )
+    {
+        $iId = ( $request->exists( 'iId' ) ) ? $request->input( 'iId' ) : 0;
+        if ( !$iId) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        $map['iId'] = $iId;
+        $map['bDel'] = 0;
+        $DaoCarBrand = CarBrand::where( $map )->first();
+        if ( !$DaoCarBrand) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        $DaoCarBrand->bDel = 1;
+        
+        $DaoCarBrand->iUpdateTime = time();
+        if ($DaoCarBrand->save()) {
+            //Logs
+            $this->_saveLogAction( $DaoCarBrand->getTable(), $DaoCarBrand->iId, 'del', json_encode( $DaoCarBrand ) );
+            $this->rtndata ['status'] = 1;
+            $this->rtndata ['message'] = trans( '_web_message.del_success' );
+        } else {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.del_fail' );
+        }
+
+        return response()->json( $this->rtndata );
+    }
 }

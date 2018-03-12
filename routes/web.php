@@ -223,6 +223,7 @@ Route::group(
                 Route::get( 'edit', 'DealerController@edit' );
                 Route::post( 'doadd', 'DealerController@doAdd' );
                 Route::post( 'dosave', 'DealerController@doSave' );
+                Route::post( 'dodel', 'DealerController@doDel' );
                 Route::get ( 'dodownloadqrcode', 'DealerController@doDownloadQrcode' );
                 Route::get( '{error}', function() {
                     return abort( 503 );
@@ -250,6 +251,7 @@ Route::group(
                     Route::post( 'doadd', 'CarBrandController@doAdd' );
                     Route::get( 'edit', 'CarBrandController@edit' );
                     Route::post( 'dosave', 'CarBrandController@doSave' );
+                    Route::post( 'dodel', 'CarBrandController@doDel' );
                     Route::get( '{error}', function() {
                         return abort( 503 );
                     } );
@@ -264,6 +266,7 @@ Route::group(
                     Route::post( 'doadd', 'CarModelsController@doAdd' );
                     Route::get( 'edit', 'CarModelsController@edit' );
                     Route::post( 'dosave', 'CarModelsController@doSave' );
+                    Route::post( 'dodel', 'CarModelsController@doDel' );
                     Route::get( 'image', 'CarModelsController@image' );
                     Route::post( 'doimagesave', 'CarModelsController@doImageSave' );
                     Route::get( 'getmodelcolorlist', 'CarModelsController@getModelColorList' );
@@ -281,6 +284,7 @@ Route::group(
                     Route::post( 'doadd', 'CarColorsController@doAdd' );
                     Route::get( 'edit', 'CarColorsController@edit' );
                     Route::post( 'dosave', 'CarColorsController@doSave' );
+                    Route::post( 'dodel', 'CarColorsController@doDel' );
                     Route::get( '{error}', function() {
                         return abort( 503 );
                     } );

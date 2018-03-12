@@ -4,9 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddvCarModelImageToCarModelColorsTable extends Migration
+class AddvDealerFontColorToSysDealerTable extends Migration
 {
-    protected $table = 'car_model_colors';
+    protected $table = 'sys_dealer';
     /**
      * Run the migrations.
      *
@@ -16,9 +16,9 @@ class AddvCarModelImageToCarModelColorsTable extends Migration
     {
         //
         if ( Schema::hasTable( $this->table )) {
-            if ( !Schema::hasColumn( $this->table, 'iCarModelImage' )) {
+            if ( !Schema::hasColumn( $this->table, 'vDealerFontColor' )) {
                 Schema::table( $this->table, function( $table ) {
-                    $table->string( 'vCarModelImage' )->nullable()->after( 'iCarColorId' );
+                    $table->string( 'vDealerFontColor' )->nullable()->after( 'vDealerColor' );
                 } );
             }
         }
@@ -35,7 +35,7 @@ class AddvCarModelImageToCarModelColorsTable extends Migration
         if (env( 'DB_REFRESH', false )) {
             if ( Schema::hasTable( $this->table )) {
                 Schema::table( $this->table, function( $table ) {
-                    $table->dropColumn( 'vCarModelImage' );
+                    $table->dropColumn( 'vDealerFontColor' );
                 } );
             }
         }

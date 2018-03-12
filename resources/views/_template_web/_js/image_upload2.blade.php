@@ -101,6 +101,15 @@
             var id = modal.data('id');
             $('#Image-'+id).attr('src', image_url);
             $('#Image-'+id).attr('data-imageId', image_id);
+            modal.modal('toggle');
+        });
+
+        $('#image-form').on('show.bs.modal', function(e) {
+            $('#file-input').fileinput('enable');
+        });
+
+        $('#image-form').on('hide.bs.modal', function(e) {
+            $('#file-input').fileinput('clear');
         });
 
         $('#useOrigPic').click(function(){

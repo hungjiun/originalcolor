@@ -68,6 +68,7 @@
         var ajax_source = "{{ url('web/article/dealer/getlist')}}";
         var ajax_Table = "{{ url('web/article/dealer/getlist')}}";
         var url_dosave = "{{ url('web/article/dealer/dosave')}}";
+        var url_dodel = "{{ url('web/article/dealer/dodel')}}";
         var url_add = "{{ url('web/article/dealer/add')}}";
         $(document).ready(function () {
             /* BASIC ;*/
@@ -126,7 +127,7 @@
                         "mRender": function (data, type, row) {
                             current_data[row.iId] = row;
                             var btn = "";
-                            //btn = '<button class="btn btn-xs btn-default btn-edit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                            btn += '<button class="pull-right btn btn-xs btn-default btn-del" title="刪除"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
                             return btn;
                         }
                     },
@@ -194,6 +195,37 @@
                             swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
                         }
                     }
+                });
+            });
+
+            $('#dt_basic').on('click', '.btn-del', function () {
+                var tr = $(this).closest('tr');
+                var idx = tr.attr('id');
+                swal({
+                    title: "{{trans('web.article.dealer.del.title')}}",
+                    text: "{{trans('web.article.dealer.del.note')}}",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "{{trans('web.cancel')}}",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "{{trans('web.ok')}}",
+                    closeOnConfirm: false
+                }, function () {
+                    $.ajax({
+                        url : url_dodel,
+                        data : {"iId":idx, "_token":"{{ csrf_token() }}"},
+                        type : "POST",
+                        success : function(rtndata) {
+                            if (rtndata.status) {
+                                swal("{{trans('web.notice')}}", rtndata.message, "success");
+                                setTimeout(function(){
+                                    table.api().ajax.reload(null, false);
+                                }, 500);
+                            } else {
+                                swal("{{trans('web.notice')}}", rtndata.message, "error");
+                            }
+                        }
+                    })
                 });
             });
         });

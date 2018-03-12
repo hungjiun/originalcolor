@@ -68,6 +68,7 @@
         var url_dosave = "{{ url('web/product/car/brand/dosave')}}";
         var url_add = "{{ url('web/product/car/brand/add')}}";
         var url_edit = "{{ url('web/product/car/brand/edit')}}";
+        var url_dodel = "{{ url('web/product/car/brand/dodel')}}";
         $(document).ready(function () {
             /* BASIC ;*/
             var i = 0;
@@ -144,7 +145,8 @@
                         "mRender": function (data, type, row) {
                             current_data[row.iId] = row;
                             var btn = "";
-                            btn = '<button class="btn btn-xs btn-default btn-edit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                            btn = '<button class="btn btn-xs btn-default btn-edit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></button>&nbsp;';
+                            btn += '<button class="pull-right btn btn-xs btn-default btn-del" title="刪除"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
                             return btn;
                         }
                     },
@@ -217,6 +219,37 @@
                             swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
                         }
                     }
+                });
+            });
+
+            $('#dt_basic').on('click', '.btn-del', function () {
+                var tr = $(this).closest('tr');
+                var idx = tr.attr('id');
+                swal({
+                    title: "{{trans('web.product.brand.del.title')}}",
+                    text: "{{trans('web.product.brand.del.note')}}",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "{{trans('web.cancel')}}",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "{{trans('web.ok')}}",
+                    closeOnConfirm: false
+                }, function () {
+                    $.ajax({
+                        url : url_dodel,
+                        data : {"iId":idx, "_token":"{{ csrf_token() }}"},
+                        type : "POST",
+                        success : function(rtndata) {
+                            if (rtndata.status) {
+                                swal("{{trans('web.notice')}}", rtndata.message, "success");
+                                setTimeout(function(){
+                                    table.api().ajax.reload(null, false);
+                                }, 500);
+                            } else {
+                                swal("{{trans('web.notice')}}", rtndata.message, "error");
+                            }
+                        }
+                    })
                 });
             });
         });

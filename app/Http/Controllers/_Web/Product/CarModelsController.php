@@ -252,6 +252,45 @@ class CarModelsController extends _WebController
     /*
      *
      */
+    public function doDel ( Request $request )
+    {
+        $iId = ( $request->exists( 'iId' ) ) ? $request->input( 'iId' ) : 0;
+        if ( !$iId) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        $map['iId'] = $iId;
+        $map['bDel'] = 0;
+        $DaoCarModels = CarModels::where( $map )->first();
+        if ( !$DaoCarModels) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        $DaoCarModels->bDel = 1;
+
+        $DaoCarModels->iUpdateTime = time();
+        if ($DaoCarModels->save()) {
+            //Logs
+            $this->_saveLogAction( $DaoCarModels->getTable(), $DaoCarModels->iId, 'del', json_encode( $DaoCarModels ) );
+            $this->rtndata ['status'] = 1;
+            $this->rtndata ['message'] = trans( '_web_message.del_success' );
+        } else {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.del_fail' );
+        }
+
+        return response()->json( $this->rtndata );
+    }
+
+    /*
+     *
+     */
     public function getModelColorList ( Request $request )
     {
         $iCarModelId = $request->input( 'iCarModelId', 0 );

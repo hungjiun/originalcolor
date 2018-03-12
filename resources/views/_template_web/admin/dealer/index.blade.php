@@ -114,7 +114,13 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">{{trans('web.admin.dealer.color')}}</label>
                             <div class="col-md-9">
-                                <input class="form-control vDealerColor" placeholder="{{trans('web.admin.dealer.color')}}" type="text">
+                                <input class="form-control input-color vDealerColor" placeholder="{{trans('web.admin.dealer.color')}}" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{trans('web.admin.dealer.fontcolor')}}</label>
+                            <div class="col-md-9">
+                                <input class="form-control input-color vDealerFontColor" placeholder="{{trans('web.admin.dealer.fontcolor')}}" type="text">
                             </div>
                         </div>
                     </form>
@@ -205,7 +211,13 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">{{trans('web.admin.dealer.color')}}</label>
                             <div class="col-md-9">
-                                <input class="form-control vDealerColor" placeholder="{{trans('web.admin.dealer.color')}}" type="text">
+                                <input class="form-control input-color vDealerColor" placeholder="{{trans('web.admin.dealer.color')}}" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{trans('web.admin.dealer.fontcolor')}}</label>
+                            <div class="col-md-9">
+                                <input class="form-control input-color vDealerFontColor" placeholder="{{trans('web.admin.dealer.fontcolor')}}" type="text">
                             </div>
                         </div>
                     </form>
@@ -240,8 +252,9 @@
         var ajax_Table = "{{ url('web/admin/dealer/getlist')}}";
         var url_dosave = "{{ url('web/admin/dealer/dosave')}}";
         var url_doadd = "{{ url('web/admin/dealer/doadd')}}";
+        var url_dodel = "{{ url('web/admin/dealer/dodel')}}";
         $(document).ready(function () {
-            $(".vDealerColor").ColorPickerSliders({
+            $(".input-color").ColorPickerSliders({
                 placement: 'bottom',
                 color: "rgba(255, 255, 255, 0)",
                 order: {
@@ -249,6 +262,7 @@
                   opacity: 2
                 }
             });
+
             /* BASIC ;*/
             var i = 0;
             var table = $('#dt_basic').dataTable({
@@ -299,6 +313,7 @@
                             btn = '<button class="btn btn-xs btn-default btn-edit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></button>&nbsp;';
                             btn += '<button class="btn btn-xs btn-default btn-copylink" data-type="'+ row.iType +'" data-url="'+ row.vUrlName +'" title="複製連結"><i class="fa fa-link" aria-hidden="true"></i></button>&nbsp;';
                             btn += '<button class="btn btn-xs btn-default btn-downloadqr" data-type="'+ row.iType +'" data-url="'+ row.vUrlName +'" title="QrCode下載"><i class="fa fa-qrcode" aria-hidden="true"></i></button>';
+                            btn += '<button class="pull-right btn btn-xs btn-default btn-del" title="刪除"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
                             return btn;
                         }
                     },
@@ -379,6 +394,7 @@
                 modal.find(".bLink").val(current_data[id].bLink);
                 modal.find(".vDealerLink").val(current_data[id].vDealerLink);
                 modal.find(".vDealerColor").val(current_data[id].vDealerColor);
+                modal.find(".vDealerFontColor").val(current_data[id].vDealerFontColor);
                 modal.find(".vDealerFax").val(current_data[id].vDealerFax);
                 modal.find(".vDealerCompanyUrl").val(current_data[id].vDealerCompanyUrl);
                 modal.modal();
@@ -401,6 +417,7 @@
                 data.vDealerFax = modal.find('.vDealerFax').val();
                 data.vDealerLink = modal.find('.vDealerLink').val();
                 data.vDealerColor = modal.find('.vDealerColor').val();
+                data.vDealerFontColor = modal.find('.vDealerFontColor').val();
                 data.vDealerCompanyUrl = modal.find('.vDealerCompanyUrl').val();
                 $.ajax({
                     url: url_dosave,
@@ -440,6 +457,7 @@
                 data.bLink = modal.find('.bLink').val();
                 data.vDealerLink = modal.find('.vDealerLink').val();
                 data.vDealerColor = modal.find('.vDealerColor').val();
+                data.vDealerFontColor = modal.find('.vDealerFontColor').val();
 
                 //console.log(data);
 
@@ -460,6 +478,37 @@
                             swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
                         }
                     }
+                });
+            });
+
+            $('#dt_basic').on('click', '.btn-del', function () {
+                var tr = $(this).closest('tr');
+                var idx = tr.attr('id');
+                swal({
+                    title: "{{trans('web.admin.dealer.del.title')}}",
+                    text: "{{trans('web.admin.dealer.del.note')}}",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "{{trans('web.cancel')}}",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "{{trans('web.ok')}}",
+                    closeOnConfirm: false
+                }, function () {
+                    $.ajax({
+                        url : url_dodel,
+                        data : {"iId":idx, "_token":"{{ csrf_token() }}"},
+                        type : "POST",
+                        success : function(rtndata) {
+                            if (rtndata.status) {
+                                swal("{{trans('web.notice')}}", rtndata.message, "success");
+                                setTimeout(function(){
+                                    table.api().ajax.reload(null, false);
+                                }, 500);
+                            } else {
+                                swal("{{trans('web.notice')}}", rtndata.message, "error");
+                            }
+                        }
+                    })
                 });
             });
         });

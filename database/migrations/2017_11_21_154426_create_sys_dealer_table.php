@@ -32,6 +32,7 @@ class CreateSysDealerTable extends Migration
                 $table->tinyInteger( 'bLink' )->default( 0 );
                 $table->string( 'vDealerLink' )->nullable();
                 $table->string( 'vDealerColor' )->nullable();
+                $table->string( 'vDealerFontColor' )->nullable();
                 $table->string( 'vDealerCompanyUrl' )->nullable();
                 $table->longText( 'vDealerDesp' )->nullable();
                 $table->integer( 'iCreateTime' )->default( 0 );

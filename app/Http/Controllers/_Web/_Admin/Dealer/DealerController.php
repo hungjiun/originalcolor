@@ -79,24 +79,17 @@ class DealerController extends _WebController
      */
     public function doAdd ( Request $request )
     {
-        /*
-        $vDealerName = ( $request->exists( 'vDealerName' ) ) ? $request->input( 'vDealerName' ) : "";
-        $vDealerNameE = ( $request->exists( 'vDealerNameE' ) ) ? $request->input( 'vDealerNameE' ) : "";
-        $vDealerTel = ( $request->exists( 'vDealerTel' ) ) ? $request->input( 'vDealerTel' ) : "";
-        $vDealerEmail = ( $request->exists( 'vDealerEmail' ) ) ? $request->input( 'vDealerEmail' ) : "";
-        $vDealerAddr = ( $request->exists( 'vDealerAddr' ) ) ? $request->input( 'vDealerAddr' ) : "";
-        $vDealerFax = ( $request->exists( 'vDealerFax' ) ) ? $request->input( 'vDealerFax' ) : "";
-        */
         $vDealerName = $request->input( 'vDealerName' ) ? $request->input( 'vDealerName' ) : "";
         $vDealerNameE = $request->input( 'vDealerNameE' ) ? $request->input( 'vDealerNameE' ) : "";
         $vUrlName = $request->input( 'vUrlName' ) ? $request->input( 'vUrlName' ) : "";
-        //$vDealerImg = $request->input( 'vDealerImg' ) ? $request->input( 'vDealerImg' ) : "";
+        $vDealerImg = $request->input( 'vDealerImg' ) ? $request->input( 'vDealerImg' ) : "";
         $vDealerTel = $request->input( 'vDealerTel' ) ? $request->input( 'vDealerTel' ) : "";
         $vDealerEmail = $request->input( 'vDealerEmail' ) ? $request->input( 'vDealerEmail' ) : "";
         $vDealerAddr = $request->input( 'vDealerAddr' ) ? $request->input( 'vDealerAddr' ) : "";
         $bLink = $request->input( 'bLink' ) ? $request->input( 'bLink' ) : 0;
         $vDealerLink = $request->input( 'vDealerLink' ) ? $request->input( 'vDealerLink' ) : "";
         $vDealerColor = $request->input( 'vDealerColor' ) ? $request->input( 'vDealerColor' ) : "";
+        $vDealerFontColor = $request->input( 'vDealerFontColor' ) ? $request->input( 'vDealerFontColor' ) : "";
         $vDealerFax = $request->input( 'vDealerFax' ) ? $request->input( 'vDealerFax' ) : "";
         $vDealerCompanyUrl = $request->input( 'vDealerCompanyUrl' ) ? $request->input( 'vDealerCompanyUrl' ) : "";
 
@@ -105,13 +98,14 @@ class DealerController extends _WebController
         $DaoSysDealer->vDealerName = $vDealerName;
         $DaoSysDealer->vDealerNameE = $vDealerNameE;
         $DaoSysDealer->vUrlName = $vUrlName;
-        //$DaoSysDealer->vDealerImg = $vDealerImg;
+        $DaoSysDealer->vDealerImg = $vDealerImg;
         $DaoSysDealer->vDealerTel = $vDealerTel;
         $DaoSysDealer->vDealerEmail = $vDealerEmail;
         $DaoSysDealer->vDealerAddr = $vDealerAddr;
         $DaoSysDealer->bLink = $bLink;
         $DaoSysDealer->vDealerLink = $vDealerLink;
         $DaoSysDealer->vDealerColor = $vDealerColor;
+        $DaoSysDealer->vDealerFontColor = $vDealerFontColor;
         $DaoSysDealer->vDealerFax = $vDealerFax;
         $DaoSysDealer->vDealerCompanyUrl = $vDealerCompanyUrl;
         $DaoSysDealer->iCreateTime = $DaoSysDealer->iUpdateTime = time();
@@ -216,6 +210,9 @@ class DealerController extends _WebController
         if ( $request->exists( 'vDealerColor' ) ) {
             $DaoSysDealer->vDealerColor = $request->input( 'vDealerColor' );
         }
+        if ( $request->exists( 'vDealerFontColor' ) ) {
+            $DaoSysDealer->vDealerFontColor = $request->input( 'vDealerFontColor' );
+        }
         if ( $request->exists( 'vDealerFax' ) ) {
             $DaoSysDealer->vDealerFax = $request->input( 'vDealerFax' );
         }
@@ -235,6 +232,45 @@ class DealerController extends _WebController
         } else {
             $this->rtndata ['status'] = 0;
             $this->rtndata ['message'] = trans( '_web_message.save_fail' );
+        }
+
+        return response()->json( $this->rtndata );
+    }
+
+    /*
+     *
+     */
+    public function doDel ( Request $request )
+    {
+        $iId = ( $request->exists( 'iId' ) ) ? $request->input( 'iId' ) : 0;
+        if ( !$iId) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        $map['iId'] = $iId;
+        $map['bDel'] = 0;
+        $DaoSysDealer = SysDealer::where( $map )->first();
+        if ( !$DaoSysDealer) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        $DaoSysDealer->bDel = 1;
+        
+        $DaoSysDealer->iUpdateTime = time();
+        if ($DaoSysDealer->save()) {
+            //Logs
+            $this->_saveLogAction( $DaoSysDealer->getTable(), $DaoSysDealer->iId, 'del', json_encode( $DaoSysDealer ) );
+            $this->rtndata ['status'] = 1;
+            $this->rtndata ['message'] = trans( '_web_message.del_success' );
+        } else {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.del_fail' );
         }
 
         return response()->json( $this->rtndata );

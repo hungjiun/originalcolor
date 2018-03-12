@@ -24,9 +24,9 @@ class CreateCarColorsTable extends Migration
                 $table->string( 'vCarColorNameE' )->nullable()->comment('車色名稱英文');
                 $table->string( 'vCarColorImg' )->nullable()->comment('車色圖片');
                 $table->string( 'vCarColorCode' )->nullable()->comment('色碼');
-                $table->string( 'vCarColorNationalCode' )->nullable()->comment('國際色碼');
+                $table->string( 'vCarColorNationalCode' )->nullable()->comment('國際編號');
                 $table->integer( 'iCarBrandId' )->default( 0 )->comment('車廠ID');
-                $table->integer( 'iPenNumber' )->default( 0 )->comment('對應色筆編號');
+                $table->string( 'vPenNumber' )->nullable()->comment('台灣編號');
                 $table->longText( 'vSummary' )->nullable()->comment('車色簡介');
                 $table->integer( 'iRank' )->default( 0 );
                 $table->integer( 'iCreateTime' )->default( 0 );

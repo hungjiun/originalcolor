@@ -194,4 +194,43 @@ class ArticleContentController extends _WebController
 
         return response()->json( $this->rtndata );
     }
+
+    /*
+     *
+     */
+    public function doDel ( Request $request )
+    {
+        $iId = ( $request->exists( 'iId' ) ) ? $request->input( 'iId' ) : 0;
+        if ( !$iId) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        $map['iId'] = $iId;
+        $map['bDel'] = 0;
+        $DaoArticleContent = ArticleContent::where( $map )->first();
+        if ( !$DaoArticleContent) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        $DaoArticleContent->bDel = 1;
+        
+        $DaoArticleContent->iUpdateTime = time();
+        if ($DaoArticleContent->save()) {
+            //Logs
+            $this->_saveLogAction( $DaoArticleContent->getTable(), $DaoArticleContent->iId, 'del', json_encode( $DaoArticleContent ) );
+            $this->rtndata ['status'] = 1;
+            $this->rtndata ['message'] = trans( '_web_message.del_success' );
+        } else {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.del_fail' );
+        }
+
+        return response()->json( $this->rtndata );
+    }
 }

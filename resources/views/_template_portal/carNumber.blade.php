@@ -22,7 +22,7 @@
         </div>
         <div class="col-sm-5 col-xs-12">
             <div class="title"><h2>{{$carModels->vCarModelName}}<small> {{$carColors->vCarColorName}}</small></h2></div>
-            <div class="desc">請選{{$carColors->iPenNumber}}號</div>
+            <div class="desc">請選{{$carColors->vPenNumber}}號</div>
         </div>
     </div>
 </div>

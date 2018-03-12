@@ -48,5 +48,7 @@ return [
             "success" => "已送出驗證碼",
             "fail" => "系統錯誤",
         ],
-    "dealer_empty" => "請選擇經銷商",    
+    "dealer_empty" => "請選擇經銷商",  
+    "del_success" => "刪除成功",
+    "del_fail" => "刪除失敗",  
 ];

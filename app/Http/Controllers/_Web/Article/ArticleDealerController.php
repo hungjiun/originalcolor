@@ -200,7 +200,7 @@ class ArticleDealerController extends _WebController
      */
     public function doDel ( Request $request )
     {
-        $iId = ( $request->exists( 'id' ) ) ? $request->input( 'id' ) : 0;
+        $iId = ( $request->exists( 'iId' ) ) ? $request->input( 'iId' ) : 0;
         if ( !$iId) {
             $this->rtndata ['status'] = 0;
             $this->rtndata ['message'] = trans( '_web_message.empty_id' );
@@ -218,19 +218,17 @@ class ArticleDealerController extends _WebController
             return response()->json( $this->rtndata );
         }
 
-        if ( $request->exists( 'bDel' ) ) {
-            $DaoArticleDealer->bDel = 1;
-        }
+        $DaoArticleDealer->bDel = 1;
         
         $DaoArticleDealer->iUpdateTime = time();
         if ($DaoArticleDealer->save()) {
             //Logs
             $this->_saveLogAction( $DaoArticleDealer->getTable(), $DaoArticleDealer->iId, 'del', json_encode( $DaoArticleDealer ) );
             $this->rtndata ['status'] = 1;
-            $this->rtndata ['message'] = trans( '_web_message.save_success' );
+            $this->rtndata ['message'] = trans( '_web_message.del_success' );
         } else {
             $this->rtndata ['status'] = 0;
-            $this->rtndata ['message'] = trans( '_web_message.save_fail' );
+            $this->rtndata ['message'] = trans( '_web_message.del_fail' );
         }
 
         return response()->json( $this->rtndata );

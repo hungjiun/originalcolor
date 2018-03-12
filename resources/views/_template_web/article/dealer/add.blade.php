@@ -61,6 +61,7 @@
 <!--  -->
 <!-- Page-Level Scripts -->
 <script>
+var url_index = "{{ url('web/article/dealer')}}";
 var table;
 $(document).ready(function() {
     var i=0;
@@ -141,6 +142,9 @@ $(document).ready(function() {
                 console.log(rtndata);
                 if (rtndata.status) {
                     swal("{{trans('web.notice')}}", rtndata.message, "success");
+                    setTimeout(function(){
+                        location.href = url_index;
+                    }, 500);
                 } else {
                     swal("{{trans('web.notice')}}", rtndata.message, "error");
                 }

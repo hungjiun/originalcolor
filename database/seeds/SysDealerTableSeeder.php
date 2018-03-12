@@ -28,7 +28,7 @@ class SysDealerTableSeeder extends Seeder
                 "vDealerAddr" => "",
                 "bLink" => 0,
                 "vDealerLink" => "",
-                "vDealerColor" => "rgb(0, 0, 0)",
+                "vDealerColor" => "rgb(255, 255, 255, 0)",
                 "vDealerDesp" => "",
                 "iStatus" => 1
             ],
@@ -45,7 +45,7 @@ class SysDealerTableSeeder extends Seeder
                 "vDealerAddr" => "",
                 "bLink" => 0,
                 "vDealerLink" => "",
-                "vDealerColor" => "rgb(0, 0, 0)",
+                "vDealerColor" => "rgb(255, 255, 255, 0)",
                 "vDealerDesp" => "",
                 "vUserContact" => "",
                 "iStatus" => 1
@@ -63,7 +63,7 @@ class SysDealerTableSeeder extends Seeder
                 "vDealerAddr" => "",
                 "bLink" => 0,
                 "vDealerLink" => "",
-                "vDealerColor" => "rgb(0, 0, 0)",
+                "vDealerColor" => "rgb(255, 255, 255, 0)",
                 "vDealerDesp" => "",
                 "iStatus" => 1
             ],
@@ -80,7 +80,7 @@ class SysDealerTableSeeder extends Seeder
                 "vDealerAddr" => "",
                 "bLink" => 0,
                 "vDealerLink" => "",
-                "vDealerColor" => "rgb(0, 0, 0)",
+                "vDealerColor" => "rgb(255, 255, 255, 0)",
                 "vDealerDesp" => "",
                 "iStatus" => 1
             ],
@@ -97,7 +97,7 @@ class SysDealerTableSeeder extends Seeder
                 "vDealerAddr" => "",
                 "bLink" => 0,
                 "vDealerLink" => "",
-                "vDealerColor" => "rgb(0, 0, 0)",
+                "vDealerColor" => "rgb(255, 255, 255, 0)",
                 "vDealerDesp" => "",
                 "iStatus" => 1
             ],
