@@ -18,7 +18,7 @@ class AddvCarModelImageToCarModelColorsTable extends Migration
         if ( Schema::hasTable( $this->table )) {
             if ( !Schema::hasColumn( $this->table, 'iCarModelImage' )) {
                 Schema::table( $this->table, function( $table ) {
-                    $table->string( 'vCarModelImage' )->default( 0 )->after( 'iCarColorId' );
+                    $table->string( 'vCarModelImage' )->nullable()->after( 'iCarColorId' );
                 } );
             }
         }

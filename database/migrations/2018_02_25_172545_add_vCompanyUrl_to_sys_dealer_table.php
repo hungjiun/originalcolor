@@ -18,7 +18,7 @@ class AddVCompanyUrlToSysDealerTable extends Migration
         if ( Schema::hasTable( $this->table )) {
             if ( !Schema::hasColumn( $this->table, 'vDealerCompanyUrl' )) {
                 Schema::table( $this->table, function( $table ) {
-                    $table->string( 'vDealerCompanyUrl' )->default( 0 )->after( 'vDealerColor' );
+                    $table->string( 'vDealerCompanyUrl' )->nullable()->after( 'vDealerColor' );
                 } );
             }
         }
