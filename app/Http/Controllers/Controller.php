@@ -53,7 +53,8 @@ class Controller extends BaseController
             //$Dao->iUpdateTime = time();
             //$Dao->save();
 
-            return  $Dao->vFileServer . $Dao->vFilePath . $Dao->vFileName;
+            //return  $Dao->vFileServer . $Dao->vFilePath . $Dao->vFileName;
+            return  $Dao->vFilePath . $Dao->vFileName;
         } else {
             return asset( '/img/empty-type.jpg' );
         }
