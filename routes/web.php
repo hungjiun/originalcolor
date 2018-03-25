@@ -330,6 +330,9 @@ Route::group(
                             Route::post( 'dobranddel', 'CarDealerController@doBrandDel' );
                             Route::post( 'domodelsdel', 'CarDealerController@doModelsDel' );
                             Route::post( 'docolorsdel', 'CarDealerController@doColorsDel' );
+
+                            Route::get( 'config', 'CarDealer2Controller@config' );
+                            Route::post( 'dosave', 'CarDealer2Controller@doSave' );
                             Route::get( '{error}', function() {
                                 return abort( 503 );
                             });

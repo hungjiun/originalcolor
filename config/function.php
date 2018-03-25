@@ -225,6 +225,16 @@ return [
                                                             "28"
                                                         ],
                                                 ],
+                                            "config" =>
+                                                [
+                                                    "view" => "_template_web.product.car.dealer.manage.config",
+                                                    "menu_access" => "281",
+                                                    "menu_parent" =>
+                                                        [
+                                                            "2",
+                                                            "28"
+                                                        ],
+                                                ],    
                                             "models" =>
                                                 [
                                                     "view" => "_template_web.product.car.dealer.manage.models",

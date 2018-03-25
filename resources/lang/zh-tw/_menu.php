@@ -130,7 +130,11 @@ return [
                                     'brand' => 
                                         [
                                             'title' => '經銷商車廠管理'
-                                        ],    
+                                        ],
+                                    'config' =>
+                                        [
+                                            'title' => '經銷商商品設定'
+                                        ],        
                                     'models' =>
                                         [
                                             'title' => '經銷商車款管理'

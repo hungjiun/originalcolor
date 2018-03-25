@@ -212,7 +212,7 @@ class CarSearchController extends _WebController
                 if($var['CarModelColors'][$key1]['iStatus'] == 1) {
                     array_push($data, 1);
                 } else {
-                    array_push($data, 0);
+                    array_push($data, "");
                 }
             }
 

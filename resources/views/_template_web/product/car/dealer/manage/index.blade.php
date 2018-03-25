@@ -71,6 +71,7 @@
         var url_brandadd = "{{ url('web/product/car/dealer/manage/brandadd')}}";
         var url_models = "{{ url('web/product/car/dealer/manage/models')}}";
         var url_colors = "{{ url('web/product/car/dealer/manage/colors')}}";
+        var url_config = "{{ url('web/product/car/dealer/manage/config')}}"
         var table;
         $(document).ready(function () {
             /* BASIC ;*/
@@ -124,7 +125,7 @@
                         "mRender": function (data, type, row) {
                             current_data[row.iId] = row;
                             var btn = "";
-                            btn = '<button class="btn btn-xs btn-default btn-car" title="車款設定"><i class="fa fa-car" aria-hidden="true"></i></button>&nbsp;';
+                            //btn = '<button class="btn btn-xs btn-default btn-car" title="車款設定"><i class="fa fa-car" aria-hidden="true"></i></button>&nbsp;';
                             btn += '<button class="btn btn-xs btn-default btn-pencil" title="車色設定"><i class="fa fa-pencil" aria-hidden="true"></i></button>&nbsp;';
                             btn += "<button class=\"pull-right btn-del\" title=\"刪除\"><i class=\"fa fa-trash-o\" aria-hidden=\"true\"></i></button>";
                             return btn;
@@ -163,11 +164,20 @@
                 location.href = url_models + '?iDealerId=' + iDealerId + '&iCarBrandId=' + iCarBrandId;
             });
             //
+            /*
             $("#dt_basic").on('click', '.btn-pencil', function () {
                 var id = $(this).closest('tr').attr('id');
                 var iDealerId = current_data[id].iDealerId;
                 var iCarBrandId = current_data[id].iCarBrandId;
                 location.href = url_colors + '?iDealerId=' + iDealerId + '&iCarBrandId=' + iCarBrandId;
+            });
+            */
+            $("#dt_basic").on('click', '.btn-pencil', function () {
+                var id = $(this).closest('tr').attr('id');
+                var iDealerId = current_data[id].iDealerId;
+                var iCarBrandId = current_data[id].iCarBrandId;
+                console.log(url_config);
+                location.href = url_config + '?iDealerId=' + iDealerId + '&iCarBrandId=' + iCarBrandId;
             });
 
             //
