@@ -134,7 +134,7 @@
             data.iCarColorId = iCarColorId;
             data.iStatus = "change";
 
-            console.log(data);
+            //console.log(data);
 
             $.ajax({
                 url: url_dosave,
@@ -144,8 +144,10 @@
                     if (rtndata.status) {
                         var colorStatus = rtndata.colorStatus;
                         swal("{{trans('web.notice')}}", rtndata.message, "success");
-                        if(colorStatus) {
+                        if(colorStatus == 2) {
                             modelColor.html('<i class="fa fa-circle" aria-hidden="true"><i>');
+                        }else if (colorStatus == 1) {
+                            modelColor.html('<i class="fa fa-circle-o" aria-hidden="true"><i>');
                         } else {
                             modelColor.html('');
                         }

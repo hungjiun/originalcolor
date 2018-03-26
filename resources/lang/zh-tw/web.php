@@ -193,7 +193,7 @@ return [
             'member_street' => '街道,門牌',
             'member_contact' => '員工電話'
         ],
-    'title' => '交易中心',
+    'title' => 'OriginalColor',
     'top' => '是否置頂',
     'top_false' => '否',
     'top_true' => '是',

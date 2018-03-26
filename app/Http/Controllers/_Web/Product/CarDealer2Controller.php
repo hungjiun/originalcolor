@@ -11,6 +11,7 @@ use App\CarModelColors;
 use App\DealerCarBrand;
 use App\DealerCarModels;
 use App\DealerCarColors;
+use App\DealerCarModelColors;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 
@@ -277,11 +278,7 @@ class CarDealer2Controller extends _WebController
                 $DaoDealerCarModels->save();
             }
         }
-        $mapDealerCarModels2 ['iDealerId'] = $iDealerId;
-        $mapDealerCarModels2 ['bDel'] = 0;
-        $DaoDealerCarModels = DealerCarModels::where( $mapDealerCarModels2 )->get();
         
-        $data_arr = [];
         $mapCarColors ['iCarBrandId'] = $iCarBrandId;
         $mapCarColors ['bDel'] = 0;
         $DaoCarColors = CarColors::where( $mapCarColors )->orderBy('iRank', 'asc')->get();
@@ -313,7 +310,6 @@ class CarDealer2Controller extends _WebController
             'car_colors.vCarColorNationalCode'
         )->get ();
         foreach ($DaoDealerCarColors as $key1 => $var1) {
-            //$var1->CarModels = $DaoCarModels;
             $carModels = [];
             foreach ($DaoCarModels as $key2 => $var2) {
                 $carModels[$key2]['iId'] = $var2->iId;
@@ -323,8 +319,18 @@ class CarDealer2Controller extends _WebController
                 $mapCarModelColors ['car_model_colors.iCarModelId'] = $var2->iId;
                 $mapCarModelColors ['car_model_colors.iCarColorId'] = $var1->iId;
                 $DaoCarModelColors = CarModelColors::where( $mapCarModelColors )->first();
-                if($DaoCarModelColors) {
-                    if(($DaoCarModelColors->iStatus == 1) && ($var1->iStatus == 1)) {
+                if(!$DaoCarModelColors) {
+                    $DaoCarModelColors = new CarModelColors();
+                    $DaoCarModelColors->iStatus = 0;
+                }
+
+                $mapDealerCarModelColors ['iDealerId'] = $iDealerId;
+                $mapDealerCarModelColors ['iCarBrandId'] = $iCarBrandId;
+                $mapDealerCarModelColors ['iCarModelId'] = $var2->iId;
+                $mapDealerCarModelColors ['iCarColorId'] = $var1->iId;
+                $DaoDealerCarModelColors = DealerCarModelColors::where( $mapDealerCarModelColors )->first();
+                if($DaoDealerCarModelColors) {
+                    if(($DaoDealerCarModelColors->iStatus == 1) && ($DaoCarModelColors->iStatus == 1)) {
                         $carModels[$key2]['iColorStatus'] = 2; 
                     } else if ($DaoCarModelColors->iStatus == 1) {
                         $carModels[$key2]['iColorStatus'] = 1; 
@@ -332,7 +338,21 @@ class CarDealer2Controller extends _WebController
                         $carModels[$key2]['iColorStatus'] = 0; 
                     }
                 } else {
-                    $carModels[$key2]['iColorStatus'] = 0;
+                    $DaoDealerCarModelColors = new DealerCarModelColors();
+                    $DaoDealerCarModelColors->iDealerId = $iDealerId;
+                    $DaoDealerCarModelColors->iCarBrandId = $iCarBrandId;
+                    $DaoDealerCarModelColors->iCarModelId = $var2->iId;
+                    $DaoDealerCarModelColors->iCarColorId = $var1->iId;
+                    $DaoDealerCarModelColors->iStatus = 0;
+                    $DaoDealerCarModelColors->bDel = 0;
+                    $DaoDealerCarModelColors->iCreateTime = $DaoDealerCarModelColors->iUpdateTime = time ();
+                    $DaoDealerCarModelColors->save();
+
+                    if($DaoCarModelColors->iStatus == 1) {
+                        $carModels[$key2]['iColorStatus'] = 1;
+                    } else {
+                        $carModels[$key2]['iColorStatus'] = 0;
+                    }
                 }
             }
             $var1->carModels = $carModels;
@@ -359,12 +379,25 @@ class CarDealer2Controller extends _WebController
         $iCarModelId = ( $request->exists( 'iCarModelId' ) ) ? $request->input( 'iCarModelId' ) : 0;
         $iCarColorId = ( $request->exists( 'iCarColorId' ) ) ? $request->input( 'iCarColorId' ) : 0;
 
-        $mapDealerCarColors2 ['dealer_car_colors.iDealerId'] = $iDealerId;
-        $mapDealerCarColors2 ['dealer_car_colors.iCarBrandId'] = $iCarBrandId;
-        $mapDealerCarColors2 ['dealer_car_colors.iCarColorId'] = $iCarColorId;
-        $mapDealerCarColors2 ['dealer_car_colors.bDel'] = 0;
-        $DaoDealerCarColors = DealerCarColors::where ( $mapDealerCarColors2 )->first ();
-        if ( !$DaoDealerCarColors) {
+        $mapCarModelColors ['iCarBrandId'] = $iCarBrandId;
+        $mapCarModelColors ['iCarModelId'] = $iCarModelId;
+        $mapCarModelColors ['iCarColorId'] = $iCarColorId;
+        $mapCarModelColors ['bDel'] = 0;
+        $DaoCarModelColors = CarModelColors::where ( $mapCarModelColors )->first ();
+        if ( !$DaoCarModelColors) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        $mapDealerCarModelColors ['iDealerId'] = $iDealerId;
+        $mapDealerCarModelColors ['iCarBrandId'] = $iCarBrandId;
+        $mapDealerCarModelColors ['iCarModelId'] = $iCarModelId;
+        $mapDealerCarModelColors ['iCarColorId'] = $iCarColorId;
+        $mapDealerCarModelColors ['bDel'] = 0;
+        $DaoDealerCarModelColors = DealerCarModelColors::where ( $mapDealerCarModelColors )->first ();
+        if ( !$DaoDealerCarModelColors) {
             $this->rtndata ['status'] = 0;
             $this->rtndata ['message'] = trans( '_web_message.empty_id' );
 
@@ -372,14 +405,23 @@ class CarDealer2Controller extends _WebController
         }
 
         if ( $request->exists( 'iStatus' ) ) {
-            $DaoDealerCarColors->iStatus = ( $DaoDealerCarColors->iStatus ) ? 0 : 1;
+            $DaoDealerCarModelColors->iStatus = ( $DaoDealerCarModelColors->iStatus ) ? 0 : 1;
         }
 
-        $DaoDealerCarColors->iUpdateTime = time();
-        if ($DaoDealerCarColors->save()) {
+        $DaoDealerCarModelColors->iUpdateTime = time();
+        if ($DaoDealerCarModelColors->save()) {
+            if($DaoCarModelColors->iStatus == 1 && $DaoDealerCarModelColors->iStatus == 1) {
+                $iColorStatus = 2;
+            } else if ($DaoCarModelColors->iStatus == 1) {
+                $iColorStatus = 1;
+            } else {
+                $iColorStatus = 0;
+            }
+             
             //Logs
-            $this->_saveLogAction( $DaoDealerCarColors->getTable(), $DaoDealerCarColors->iId, 'edit', json_encode( $DaoDealerCarColors ) );
+            $this->_saveLogAction( $DaoDealerCarModelColors->getTable(), $DaoDealerCarModelColors->iId, 'edit', json_encode( $DaoDealerCarModelColors ) );
             $this->rtndata ['status'] = 1;
+            $this->rtndata ['colorStatus'] = $iColorStatus;
             $this->rtndata ['message'] = trans( '_web_message.save_success' );
         } else {
             $this->rtndata ['status'] = 0;
