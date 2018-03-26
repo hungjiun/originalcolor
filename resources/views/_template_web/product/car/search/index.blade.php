@@ -127,7 +127,8 @@
                 success: function (rtndata) {
                     if (rtndata.status) {
                         var colorStatus = rtndata.colorStatus;
-                        swal("{{trans('web.notice')}}", rtndata.message, "success");
+                        //swal("{{trans('web.notice')}}", rtndata.message, "success");
+                        toastr.success(rtndata.message, "{{trans('web.notice')}}");
                         if(colorStatus) {
                             modelColor.html('<i class="fa fa-circle" aria-hidden="true"><i>');
                         } else {

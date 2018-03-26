@@ -140,7 +140,8 @@
                 success: function (rtndata) {
                     if (rtndata.status) {
                         var colorStatus = rtndata.colorStatus;
-                        swal("{{trans('web.notice')}}", rtndata.message, "success");
+                        //swal("{{trans('web.notice')}}", rtndata.message, "success");
+                        toastr.success(rtndata.message, "{{trans('web.notice')}}");
                         if(colorStatus == 2) {
                             modelColor.html('<i class="fa fa-circle" aria-hidden="true"><i>');
                         }else if (colorStatus == 1) {
@@ -171,7 +172,8 @@
                 type: "POST",
                 success: function (rtndata) {
                     if (rtndata.status) {
-                        swal("{{trans('web.notice')}}", rtndata.message, "success");
+                        //swal("{{trans('web.notice')}}", rtndata.message, "success");
+                        toastr.success(rtndata.message, "{{trans('web.notice')}}");
                     } else {
                         swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
                     }
