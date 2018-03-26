@@ -56,10 +56,8 @@
                                 <thead>
                                     <tr>
                                         <th>{{$carBrand->vCarBrandName}}</th>
-                                        <th>色碼</th>
-                                        <th>國際色碼</th>
                                         @foreach($carModels as $key => $var)
-                                        <th>{{$var->vCarModelName}}</th>
+                                        <th><input class="modelCheckBox" type="checkbox" data-model="{{$var->iId}}" @if($var->iStatus == 1) checked @endif>{{$var->vCarModelName}}</th>
                                         @endforeach
                                     </tr>
                                 </thead> 
@@ -67,8 +65,6 @@
                                     @foreach($carColors as $key => $var)
                                     <tr>
                                         <td>{{$var->vCarColorName}}</td>
-                                        <td>{{$var->vCarColorCode}}</td>
-                                        <td>{{$var->vCarColorNationalCode}}</td>
                                         @foreach($var->carModels as $key1 => $var1) 
                                         @if($var1['iColorStatus'] == 0)
                                         <td data-colorid="{{$var->iCarColorsId}}" 
@@ -118,6 +114,7 @@
     <!--  -->
     <script>
         var url_dosave = "{{ url('web/product/car/dealer/manage/dosave')}}";
+        var url_domodelsave = "{{ url('web/product/car/dealer/manage/domodelsave')}}";
         
         function setColor(modelColor) {
             var iDealerId = "{{$iDealerId}}";
@@ -158,10 +155,38 @@
             });
         }
 
+        function setModel(model) {
+            var iId = model.attr('data-model');
+            var data = {
+                "_token": "{{ csrf_token() }}"
+            };
+            data.iId = iId;
+            data.iStatus = "change";
+
+            //console.log(data);
+
+            $.ajax({
+                url: url_domodelsave,
+                data: data,
+                type: "POST",
+                success: function (rtndata) {
+                    if (rtndata.status) {
+                        swal("{{trans('web.notice')}}", rtndata.message, "success");
+                    } else {
+                        swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
+                    }
+                }
+            });
+        }
+
         $(document).ready(function () {
             /* BASIC ;*/
             $('.model-colors').click(function(){
                 setColor($(this));
+            });
+
+            $('.modelCheckBox').click(function(){
+                setModel($(this));
             });
         });
     </script>

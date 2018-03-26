@@ -7,9 +7,11 @@ use App\SysDealer;
 use App\CarBrand;
 use App\CarModels;
 use App\CarColors;
+use App\CarModelColors;
 use App\DealerCarBrand;
 use App\DealerCarModels;
 use App\DealerCarColors;
+use App\DealerCarModelColors;
 use App\ArticleContent;
 use App\ArticleDealer;
 use Illuminate\Http\Request;
@@ -387,6 +389,20 @@ class DealerController extends _PortalController
 
         $DaoSysDealer->vDealerImg = $this->_getFilePathById($DaoSysDealer->vDealerImg);
 
+        $mapDealerCarModels2 ['dealer_car_models.iDealerId'] = $sysDealer;
+        $mapDealerCarModels2 ['dealer_car_models.iStatus'] = 1;
+        $mapDealerCarModels2 ['dealer_car_models.bDel'] = 0;
+        $DaoDealerCarModels = DealerCarModels::join( 'car_models', function( $join ) {
+            $join->on( 'dealer_car_models.iCarModelsId', '=', 'car_models.iId' );
+        } )->where ( $mapDealerCarModels2 )->select(
+            'car_models.*',
+            'dealer_car_models.iStatus'
+        )->get ();
+        foreach ($DaoDealerCarModels as $key => $var) {
+            $var->vCarModelImg = $this->_getFilePathById($var->vCarModelImg);
+        }
+
+        /*
         $mapDealerCarModels['dealer_car_models.bDel'] = 0;
         $mapDealerCarModels['dealer_car_models.iDealerId'] = $DaoSysDealer->iId;
         $mapDealerCarModels['dealer_car_models.iCarBrandId'] = $iCarBrandId;
@@ -400,6 +416,7 @@ class DealerController extends _PortalController
         foreach ($DaoDealerCarModels as $key => $var) {
             $var->vCarModelImg = $this->_getFilePathById($var->vCarModelImg);
         }
+        */
 
         $this->getArticle( $sysDealer );
 
@@ -432,6 +449,27 @@ class DealerController extends _PortalController
 
         $DaoSysDealer->vDealerImg = $this->_getFilePathById($DaoSysDealer->vDealerImg);
 
+        $mapDealerCarModelColors ['dealer_car_model_colors.iDealerId'] = $sysDealer;
+        $mapDealerCarModelColors ['dealer_car_model_colors.iCarBrandId'] = $iCarBrandId;
+        $mapDealerCarModelColors ['dealer_car_model_colors.iCarModelId'] = $iCarModelId;
+        $mapDealerCarModelColors ['dealer_car_model_colors.iStatus'] = 1;
+        $DaoDealerCarModelColors = DealerCarModelColors::join( 'car_colors', function( $join ) {
+            $join->on( 'dealer_car_model_colors.iCarColorId', '=', 'car_colors.iId' );
+        } )->where( $mapDealerCarModelColors )->select( 
+            'car_colors.*'
+        )->orderBy('car_colors.iRank', 'asc')->get();
+        foreach ($DaoDealerCarModelColors as $key => $var) {
+            $var->vCarColorImg = $this->_getFilePathById($var->vCarColorImg);
+
+            $mapCarModelColors ['car_model_colors.iCarBrandId'] = $iCarBrandId;
+            $mapCarModelColors ['car_model_colors.iCarModelId'] = $iCarModelId;
+            $mapCarModelColors ['car_model_colors.iCarColorId'] = $var->iId;
+            $DaoCarModelColors = CarModelColors::where( $mapCarModelColors )->first();
+
+            $var->vImage = $this->_getFilePathById($DaoCarModelColors->vCarModelImage);
+        }
+
+        /*
         $mapDealerCarColors['dealer_car_colors.bDel'] = 0;
         $mapDealerCarColors['dealer_car_colors.iDealerId'] = $DaoSysDealer->iId;
         $mapDealerCarColors['dealer_car_colors.iCarBrandId'] = $iCarBrandId;
@@ -451,6 +489,7 @@ class DealerController extends _PortalController
             $var->vCarColorImg = $this->_getFilePathById($var->vCarColorImg);
             $var->vImage = $this->_getFilePathById($var->vCarModelImage);
         }
+        */
 
         $mapCarModels['iId'] = $iCarModelId;
         $mapCarModels['bDel'] = 0;
@@ -465,7 +504,7 @@ class DealerController extends _PortalController
 
         $this->view->with ( 'sysDealer', $DaoSysDealer );
         $this->view->with ( 'carModels', $DaoCarModels );
-        $this->view->with ( 'dealerCarColors', isset($DaoDealerCarColors) ? $DaoDealerCarColors : [] );
+        $this->view->with ( 'dealerCarColors', isset($DaoDealerCarModelColors) ? $DaoDealerCarModelColors : [] );
 
         return $this->view;
     }

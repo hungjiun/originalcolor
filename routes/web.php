@@ -333,6 +333,7 @@ Route::group(
 
                             Route::get( 'config', 'CarDealer2Controller@config' );
                             Route::post( 'dosave', 'CarDealer2Controller@doSave' );
+                            Route::post( 'domodelsave', 'CarDealer2Controller@doModelSave' );
                             Route::get( '{error}', function() {
                                 return abort( 503 );
                             });
