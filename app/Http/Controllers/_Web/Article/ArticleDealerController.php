@@ -47,6 +47,8 @@ class ArticleDealerController extends _WebController
      */
     public function getList ()
     {
+        $iDealerId = (Input::has ( 'iDealerId' )) ? Input::get ( 'iDealerId' ) : 0;
+
         $map['article_dealer.bDel'] = 0;
         $map['sys_dealer.bDel'] = 0;
         $map['article_content.bDel'] = 0;
@@ -54,6 +56,10 @@ class ArticleDealerController extends _WebController
             $join->on( 'article_dealer.iDealerId', '=', 'sys_dealer.iId' );
         } )->join( 'article_content', function( $join ) {
             $join->on( 'article_dealer.iArticleId', '=', 'article_content.iId' );
+        } )->where ( function ($query) use($iDealerId) {
+            if ($iDealerId != 0) {
+                $query->Where ( 'article_dealer.iDealerId', '=', $iDealerId );
+            }
         } )->where($map)->get();
         foreach ($data_arr as $key => $var) {
             $var->DT_RowId = $var->iId;
@@ -116,7 +122,7 @@ class ArticleDealerController extends _WebController
     public function doAdd ( Request $request )
     {
         $articles = Input::get( 'articles' );
-        $article_arr = $articles  ? explode ( ',', rtrim(Input::get( 'articles' ), ",") ) : $articles;
+        $article_arr = $articles  ? explode ( ',', rtrim(Input::get( 'articles' ), ",") ) : [];
         $iDealerId = (Input::has ( 'iDealerId' )) ? Input::get ( 'iDealerId' ) : 0;
 
         if($iDealerId == 0) {

@@ -139,7 +139,7 @@ $(document).ready(function() {
             data : {"iDealerId": iDealerId,"articles":valuelist,"_token":"{{ csrf_token() }}"},
             type : "POST",
             success : function(rtndata) {
-                console.log(rtndata);
+                //console.log(rtndata);
                 if (rtndata.status) {
                     swal("{{trans('web.notice')}}", rtndata.message, "success");
                     setTimeout(function(){

@@ -133,6 +133,9 @@
                     },
                 ],
                 "sAjaxSource": ajax_source,
+                fnServerParams: function(aoData){
+                    aoData.push( { "name": "iDealerId", "value": $("#DealerSelect").val() } );
+                },
                 "ajax": ajax_Table,
                 "sDom": "<'dt-toolbar'<'col-sm-6 col-xs-12 hidden-xs'l>r>" +
                 "t" +
@@ -143,6 +146,10 @@
             });
             /* END BASIC */
 
+            //
+            $("#DealerSelect").change(function () {
+                table.api().ajax.reload(null, false);
+            });
             //
             $(".btn-add").click(function () {
                 location.href = url_add;

@@ -58,6 +58,7 @@ class InquireController extends _WebController
 
         $iCarBrandId = ( Input::has ( 'iCarBrandId' ) ) ? Input::get ( 'iCarBrandId' ) : 0;
         $iCarModelId = ( Input::has ( 'iCarModelId' ) ) ? Input::get ( 'iCarModelId' ) : 0;
+        $vCarColorName = ( Input::has ( 'vCarColorName' ) ) ? Input::get ( 'vCarColorName' ) : "";
         $vCarColorCode = ( Input::has ( 'vCarColorCode' ) ) ? Input::get ( 'vCarColorCode' ) : "";
 
         if ( $iCarBrandId != 0 ) {
@@ -76,6 +77,11 @@ class InquireController extends _WebController
             $join->on( 'car_model_colors.iCarModelId', '=', 'car_models.iId' );
         } )->join( 'car_colors', function( $join ) {
             $join->on( 'car_model_colors.iCarColorId', '=', 'car_colors.iId' );
+        } )->where ( function ($query) use($vCarColorName) {
+            if ($vCarColorName != "") {
+                $query->Where ( 'car_colors.vCarColorName', 'like', '%' . $vCarColorName . '%' );
+                $query->orWhere ( 'car_colors.vCarColorNameE', 'like', '%' . $vCarColorName . '%' );
+            }
         } )->where ( function ($query) use($vCarColorCode) {
             if ($vCarColorCode != "") {
                 $query->Where ( 'car_colors.vCarColorCode', 'like', '%' . $vCarColorCode . '%' );
@@ -88,6 +94,11 @@ class InquireController extends _WebController
             $join->on( 'car_model_colors.iCarModelId', '=', 'car_models.iId' );
         } )->join( 'car_colors', function( $join ) {
             $join->on( 'car_model_colors.iCarColorId', '=', 'car_colors.iId' );
+        } )->where ( function ($query) use($vCarColorName) {
+            if ($vCarColorName != "") {
+                $query->Where ( 'car_colors.vCarColorName', 'like', '%' . $vCarColorName . '%' );
+                $query->orWhere ( 'car_colors.vCarColorNameE', 'like', '%' . $vCarColorName . '%' );
+            }
         } )->where ( function ($query) use($vCarColorCode) {
             if ($vCarColorCode != "") {
                 $query->Where ( 'car_colors.vCarColorCode', 'like', '%' . $vCarColorCode . '%' );
@@ -100,7 +111,7 @@ class InquireController extends _WebController
             'car_colors.vCarColorName',
             'car_colors.vCarColorCode',
             'car_colors.vCarColorNationalCode',
-            'car_colors.iPenNumber'
+            'car_colors.vPenNumber'
         )->get();
 
         foreach ($DaoCarModelColors as $key => $var) {
