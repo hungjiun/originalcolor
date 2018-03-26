@@ -280,6 +280,7 @@ class CarDealer2Controller extends _WebController
         }
 
         $mapDealerCarModels2 ['dealer_car_models.iDealerId'] = $iDealerId;
+        $mapDealerCarModels2 ['dealer_car_models.iCarBrandId'] = $iCarBrandId;
         $mapDealerCarModels2 ['dealer_car_models.bDel'] = 0;
         $DaoDealerCarModels = DealerCarModels::join( 'car_models', function( $join ) {
             $join->on( 'dealer_car_models.iCarModelsId', '=', 'car_models.iId' );
@@ -309,6 +310,7 @@ class CarDealer2Controller extends _WebController
         }
 
         $mapDealerCarColors2 ['dealer_car_colors.iDealerId'] = $iDealerId;
+        $mapDealerCarColors2 ['dealer_car_colors.iCarBrandId'] = $iCarBrandId;
         $mapDealerCarColors2 ['dealer_car_colors.bDel'] = 0;
         $DaoDealerCarColors = DealerCarColors::join( 'car_colors', function( $join ) {
             $join->on( 'dealer_car_colors.iCarColorsId', '=', 'car_colors.iId' );
