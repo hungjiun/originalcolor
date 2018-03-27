@@ -71,6 +71,13 @@ return [
                             'title' => '類別項目'
                         ]
                 ],
+            'system' => 
+                [
+                    'arealang' =>
+                        [
+                            'title' => '地區語言管理'
+                        ]
+                ]    
         ],
     'product' =>
         [
