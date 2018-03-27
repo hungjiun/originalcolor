@@ -71,7 +71,7 @@
                                     <tr>
                                         <th>車廠</th>
                                         <th>色碼</th>
-                                        <th>國際色碼</th>
+                                        <th>國際編號</th>
                                         <th></th>
                                         <th></th>
                                     </tr>
@@ -127,7 +127,8 @@
                 success: function (rtndata) {
                     if (rtndata.status) {
                         var colorStatus = rtndata.colorStatus;
-                        swal("{{trans('web.notice')}}", rtndata.message, "success");
+                        //swal("{{trans('web.notice')}}", rtndata.message, "success");
+                        toastr.success(rtndata.message, "{{trans('web.notice')}}");
                         if(colorStatus) {
                             modelColor.html('<i class="fa fa-circle" aria-hidden="true"><i>');
                         } else {
@@ -165,7 +166,7 @@
                                 html_str += '<thead><tr>';
                                 html_str += '<th>'+carBrand['vCarBrandName']+'</th>';
                                 html_str += '<th>色碼</th>';
-                                html_str += '<th>國際色碼</th>';
+                                html_str += '<th>國際編號</th>';
                                 for (var key in carModels) {
                                    html_str += '<th style="width: 100px">'+carModels[key]['vCarModelName']+'</th>'; 
                                 }
@@ -178,6 +179,15 @@
                                     html_str += '<td>'+carModelColors[key1]['vCarColorCode']+'</td>';
                                     html_str += '<td>'+carModelColors[key1]['vCarColorNationalCode']+'</td>';
 
+                                    for (var key2 in carModelColors[key1]['carModels']) {
+                                        
+                                        if(carModelColors[key1]['carModels'][key2]['iColorStatus'] == 1) {
+                                            html_str += '<td class="model-colors" style="width: 100px" data-id="'+ carModelColors[key1]['carModels'][key2]['iId'] +'"><i class="fa fa-circle" aria-hidden="true"><i></td>';
+                                        } else {
+                                            html_str += '<td class="model-colors" style="width: 100px" data-id="'+ carModelColors[key1]['carModels'][key2]['iId'] +'"></td>';
+                                        }    
+                                    }
+                                    /*
                                     for (var key2 in carModels) {
                                         result = $.map(carModelColors[key1]['CarModelColors'], function(item, index) {
                                             return item.iCarModelId;
@@ -192,8 +202,8 @@
                                         } else {
                                             html_str += '<td class="model-colors" style="width: 100px" data-id="'+ carModelColors[key1]['CarModelColors'][result]['iId'] +'"></td>';
                                         }
-                                        
                                     }
+                                    */
 
                                     html_str += '</tr>';
                                 }
@@ -209,7 +219,7 @@
                                 html_str += '<tr>';
                                 html_str += '<th>車廠</th>';
                                 html_str += '<th>色碼</th>';
-                                html_str += '<th>國際色碼</th>';
+                                html_str += '<th>國際編號</th>';
                                 html_str += '<th></th>'; 
                                 html_str += '<th></th>'; 
                                 html_str += '</tr>';

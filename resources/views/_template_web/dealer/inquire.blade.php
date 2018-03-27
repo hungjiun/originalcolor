@@ -40,6 +40,9 @@
                                 <select class="form-control car-model" id="car-model" style="display:inline-block; width: 100px">
                                     <option value="0"></option>
                                 </select>
+                                &nbsp;&nbsp;&nbsp;車色名稱：
+                                <input class="form-control car-color" type="text" id="car-color-name"
+                                    value="" style="display:inline-block; width: 150px">
                                 &nbsp;&nbsp;&nbsp;色碼：
                                 <input class="form-control car-color" type="text" id="car-color"
                                     value="" style="display:inline-block; width: 150px">
@@ -112,23 +115,23 @@
                         }
                     },
                     {
-                        "sTitle": "編碼", 
+                        "sTitle": "國際色碼", 
                         "mData": "vCarColorCode",
                         "sName": "vCarColorCode",
                         "bSortable": false,
                         "bSearchable": false
                     },
                     {
-                        "sTitle": "國際編碼", 
+                        "sTitle": "國際版編號", 
                         "mData": "vCarColorNationalCode",
                         
                         "bSortable": false,
                         "bSearchable": false
                     },
                     {
-                        "sTitle": "補漆筆編號", 
-                        "mData": "iPenNumber",
-                        "sName": "iPenNumber",
+                        "sTitle": "台灣版編號", 
+                        "mData": "vPenNumber",
+                        "sName": "vPenNumber",
                         "bSortable": false,
                         "bSearchable": false
                     },
@@ -144,6 +147,7 @@
                 fnServerParams: function(aoData){
                     aoData.push( { "name": "iCarBrandId", "value": $("#car-brand").val() } );
                     aoData.push( { "name": "iCarModelId", "value": $("#car-model").val() } );
+                    aoData.push( { "name": "vCarColorName", "value": $("#car-color-name").val() } );
                     aoData.push( { "name": "vCarColorCode", "value": $("#car-color").val() } );
                 },
                 "ajax": ajax_Table,

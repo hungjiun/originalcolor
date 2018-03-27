@@ -211,7 +211,8 @@
                     type: "POST",
                     success: function (rtndata) {
                         if (rtndata.status) {
-                            swal("{{trans('web.notice')}}", rtndata.message, "success");
+                            //swal("{{trans('web.notice')}}", rtndata.message, "success");
+                            toastr.success(rtndata.message, "{{trans('web.notice')}}");
                             setTimeout(function () {
                                 table.api().ajax.reload(null, false);
                             }, 100);
@@ -236,7 +237,8 @@
                     type: "POST",
                     success: function(rtndata) {
                         if (rtndata.status) {
-                            swal("{{trans('_web_alert.notice')}}", rtndata.message, "success");
+                            //swal("{{trans('_web_alert.notice')}}", rtndata.message, "success");
+                            toastr.success(rtndata.message, "{{trans('web.notice')}}");
                             setTimeout(function() {
                                 table.api().ajax.reload(null, false);
                             }, 100);

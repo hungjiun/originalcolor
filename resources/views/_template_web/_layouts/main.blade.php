@@ -16,6 +16,8 @@
   	<link rel="stylesheet" href="/web_assets/AdminLTE/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
   	<!-- Sweet Alert -->
     <link rel="stylesheet" href="/web_assets/AdminLTE/plugins/sweetalert/sweetalert.css">
+    <!-- Sweet Alert -->
+    <link rel="stylesheet" href="/web_assets/AdminLTE/plugins/toastr/toastr.min.css">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="/web_assets/AdminLTE/dist/css/AdminLTE.css">
 	<link rel="stylesheet" href="/css/private.css">
@@ -136,6 +138,8 @@
 	<script src="/web_assets/AdminLTE/bower_components/fastclick/lib/fastclick.js"></script>
 	<!-- Sweet alert -->
 	<script src="/web_assets/AdminLTE/plugins/sweetalert/sweetalert.min.js"></script>
+	<!-- Toastr alert -->
+	<script src="/web_assets/AdminLTE/plugins/toastr/toastr.min.js"></script>
 	<!-- AdminLTE App -->
 	<!--<script src="/web_assets/AdminLTE/dist/js/adminlte.min.js"></script>-->
 	<script src="/web_assets/AdminLTE/dist/js/adminlte.js"></script>

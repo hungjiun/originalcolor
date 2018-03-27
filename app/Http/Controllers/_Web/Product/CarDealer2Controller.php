@@ -278,6 +278,16 @@ class CarDealer2Controller extends _WebController
                 $DaoDealerCarModels->save();
             }
         }
+
+        $mapDealerCarModels2 ['dealer_car_models.iDealerId'] = $iDealerId;
+        $mapDealerCarModels2 ['dealer_car_models.iCarBrandId'] = $iCarBrandId;
+        $mapDealerCarModels2 ['dealer_car_models.bDel'] = 0;
+        $DaoDealerCarModels = DealerCarModels::join( 'car_models', function( $join ) {
+            $join->on( 'dealer_car_models.iCarModelsId', '=', 'car_models.iId' );
+        } )->where ( $mapDealerCarModels2 )->select(
+            'dealer_car_models.*',
+            'car_models.vCarModelName'
+        )->get ();
         
         $mapCarColors ['iCarBrandId'] = $iCarBrandId;
         $mapCarColors ['bDel'] = 0;
@@ -300,6 +310,7 @@ class CarDealer2Controller extends _WebController
         }
 
         $mapDealerCarColors2 ['dealer_car_colors.iDealerId'] = $iDealerId;
+        $mapDealerCarColors2 ['dealer_car_colors.iCarBrandId'] = $iCarBrandId;
         $mapDealerCarColors2 ['dealer_car_colors.bDel'] = 0;
         $DaoDealerCarColors = DealerCarColors::join( 'car_colors', function( $join ) {
             $join->on( 'dealer_car_colors.iCarColorsId', '=', 'car_colors.iId' );
@@ -363,7 +374,7 @@ class CarDealer2Controller extends _WebController
         $this->view->with ( 'iDealerId', $iDealerId );
         $this->view->with ( 'iCarBrandId', $iCarBrandId );
         $this->view->with ( 'carBrand', $DaoCarBrand );
-        $this->view->with ( 'carModels', $DaoCarModels );
+        $this->view->with ( 'carModels', $DaoDealerCarModels );
         $this->view->with ( 'carColors', $DaoDealerCarColors );
 
         return $this->view;
@@ -422,6 +433,41 @@ class CarDealer2Controller extends _WebController
             $this->_saveLogAction( $DaoDealerCarModelColors->getTable(), $DaoDealerCarModelColors->iId, 'edit', json_encode( $DaoDealerCarModelColors ) );
             $this->rtndata ['status'] = 1;
             $this->rtndata ['colorStatus'] = $iColorStatus;
+            $this->rtndata ['message'] = trans( '_web_message.save_success' );
+        } else {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.save_fail' );
+        }
+
+        return response()->json( $this->rtndata );
+    }
+
+    /*
+     *
+     */
+    public function doModelSave ( Request $request )
+    {
+        $iId = ( $request->exists( 'iId' ) ) ? $request->input( 'iId' ) : 0;
+
+        $mapDealerCarModels ['dealer_car_models.iId'] = $iId;
+        $mapDealerCarModels ['dealer_car_models.bDel'] = 0;
+        $DaoDealerCarModels = DealerCarModels::where ( $mapDealerCarModels )->first ();
+        if ( !$DaoDealerCarModels) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.empty_id' );
+
+            return response()->json( $this->rtndata );
+        }
+
+        if ( $request->exists( 'iStatus' ) ) {
+            $DaoDealerCarModels->iStatus = ( $DaoDealerCarModels->iStatus ) ? 0 : 1;
+        }
+
+        $DaoDealerCarModels->iUpdateTime = time();
+        if ($DaoDealerCarModels->save()) {
+            //Logs
+            $this->_saveLogAction( $DaoDealerCarModels->getTable(), $DaoDealerCarModels->iId, 'edit', json_encode( $DaoDealerCarModels ) );
+            $this->rtndata ['status'] = 1;
             $this->rtndata ['message'] = trans( '_web_message.save_success' );
         } else {
             $this->rtndata ['status'] = 0;
