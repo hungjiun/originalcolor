@@ -245,7 +245,7 @@
                         if (rtndata.status) {
                             toastr.success(rtndata.message, "{{trans('_web_alert.notice')}}")
                             setTimeout(function () {
-                                table.api().ajax.reload();
+                                table.api().ajax.reload(null, false);
                             }, 100);
                         } else {
                             swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
@@ -271,7 +271,7 @@
                         if (rtndata.status) {
                             toastr.success(rtndata.message, "{{trans('_web_alert.notice')}}")
                             setTimeout(function () {
-                                table.api().ajax.reload();
+                                table.api().ajax.reload(null, false);
                             }, 100);
                         } else {
                             swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
@@ -323,7 +323,7 @@
                             modal.modal('toggle');
                             swal("{{trans('_web_alert.notice')}}", rtndata.message, "success");
                             setTimeout(function () {
-                                table.api().ajax.reload();
+                                table.api().ajax.reload(null, false);
                             }, 1000)
                         } else {
                             swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");

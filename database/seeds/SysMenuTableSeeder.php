@@ -86,7 +86,17 @@ class SysMenuTableSeeder extends Seeder
                             "vAccess" => "1,2",
                             "bOpen" => 1,
                         ],
-                            
+                        [
+                            //系統設定管理
+                            "iId" => 13,
+                            "vName" => "admin.system.arealang",
+                            "vUrl" => "web/admin/system/arealang",
+                            "vCss" => "",
+                            "bSubMenu" => 0,
+                            "iParentId" => 1,
+                            "vAccess" => "1,2",
+                            "bOpen" => 1,
+                        ],    
                     ],
             ], 
             //商品管理

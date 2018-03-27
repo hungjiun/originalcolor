@@ -87,7 +87,20 @@ return [
                                     "1",
                                     "0"
                                 ],     
-                        ],    
+                        ],
+                    "system" =>
+                        [
+                            "arealang" =>
+                                [
+                                    "view" => "_template_web.admin.system.arealang.index",
+                                    "menu_access" => "131",
+                                    "menu_parent" =>
+                                        [
+                                            "1",
+                                            "13"
+                                        ]
+                                ],     
+                        ],        
                 ],
 
             "product" =>
