@@ -7,6 +7,7 @@ use App\SysDealer;
 use App\CarBrand;
 use App\CarModels;
 use App\CarColors;
+use App\CarColorsLang;
 use App\CarModelColors;
 use App\DealerCarBrand;
 use App\DealerCarModels;
@@ -467,6 +468,19 @@ class DealerController extends _PortalController
             $DaoCarModelColors = CarModelColors::where( $mapCarModelColors )->first();
 
             $var->vImage = $this->_getFilePathById($DaoCarModelColors->vCarModelImage);
+
+            //車色其他語言
+            $mapCarColorsLang['car_colors_lang.iCarColorId'] = $var->iId;
+            $mapCarColorsLang['sys_dealer.iId'] = $sysDealer;
+            $mapCarColorsLang['sys_area_lang.bDel'] = 0;
+            $DaoCarColorsLang = CarColorsLang::join( 'sys_area_lang', function( $join ) {
+                $join->on( 'car_colors_lang.iLangId', '=', 'sys_area_lang.iId' );
+            } )->join( 'sys_dealer', function( $join ) {
+                $join->on( 'car_colors_lang.iLangId', '=', 'sys_dealer.iAreaLangId' );
+            } )->where($mapCarColorsLang)->select('car_colors_lang.*')->first();
+            if($DaoCarColorsLang && $DaoCarColorsLang->vCarColorName != "") {
+               $var->vCarColorName = $DaoCarColorsLang->vCarColorName;
+            }
         }
 
         /*

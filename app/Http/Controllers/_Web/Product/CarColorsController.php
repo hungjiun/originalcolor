@@ -6,7 +6,9 @@ use App\CarBrand;
 use App\CarModels;
 use App\CarModelType;
 use App\CarColors;
+use App\CarColorsLang;
 use App\CarModelColors;
+use App\SysAreaLang;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 
@@ -248,6 +250,85 @@ class CarColorsController extends _WebController
             $this->rtndata ['message'] = trans( '_web_message.save_fail' );
         }
 
+        return response()->json( $this->rtndata );
+    }
+
+    /*
+     *
+     */
+    public function lang ( Request $request )
+    {
+        $this->breadcrumb = [
+            $this->module => "#",
+            $this->module . "." . $this->action . ".colors.lang" => url( 'web/' . $this->module . '/' . $this->action . '/colors/lang' )
+        ];
+
+        $this->title = $this->module . "." . $this->action . ".colors";
+
+        $this->func = "web." . $this->module . "." . $this->action . ".colors.lang";
+        $this->__initial();
+
+        $iId = ( $request->exists( 'id' ) ) ? $request->input( 'id' ) : 0;
+
+        $mapCarColors['iId'] = $iId;
+        $mapCarColors['bDel'] = 0;
+        $DaoCarColors = CarColors::where( $mapCarColors )->first();
+        
+        $mapSysAreaLang['bDel'] = 0;
+        $DaoSysAreaLang = SysAreaLang::where($mapSysAreaLang)->get();
+        foreach ($DaoSysAreaLang as $key => $var) {
+            $mapCarColorsLang['iCarColorId'] = $DaoCarColors->iId;
+            $mapCarColorsLang['iLangId'] = $var->iId;
+            $DaoCarColorsLang = CarColorsLang::where($mapCarColorsLang)->first();
+            if(!$DaoCarColorsLang) {
+                $DaoCarColorsLang = new CarColorsLang();
+                $DaoCarColorsLang->iCarColorId = $DaoCarColors->iId;
+                $DaoCarColorsLang->iLangId = $var->iId;
+                $DaoCarColorsLang->vCarColorName = "";
+                $DaoCarColorsLang->vSummary = "";
+                $DaoCarColorsLang->iCreateTime = $DaoCarColorsLang->iUpdateTime = time();
+                $DaoCarColorsLang->iStatus = 1;
+                $DaoCarColorsLang->save();
+            }
+        }
+
+        $mapCarColorsLang2['car_colors_lang.iCarColorId'] = $DaoCarColors->iId;
+        $mapCarColorsLang2['sys_area_lang.bDel'] = 0;
+        $DaoCarColorsLang = CarColorsLang::join( 'sys_area_lang', function( $join ) {
+            $join->on( 'car_colors_lang.iLangId', '=', 'sys_area_lang.iId' );
+        } )->where($mapCarColorsLang2)->select(
+            'car_colors_lang.*',
+            'sys_area_lang.vAreaLangName'
+        )->get();
+
+
+        $this->view->with ( 'carColors', $DaoCarColors );
+        $this->view->with ( 'carColorsLang', $DaoCarColorsLang );
+        return $this->view;
+    }
+
+    /*
+     *
+     */
+    public function doLangSave ( Request $request )
+    {
+        $carColorName = $request->exists( 'carColorName' ) ? $request->input ( 'carColorName' ) : []; 
+
+        foreach ($carColorName as $key => $var) {
+            $map['iId'] = $var['iId'];
+            $DaoCarColorsLang = CarColorsLang::where($map)->first();
+            if($DaoCarColorsLang) {
+                $DaoCarColorsLang->vCarColorName = $var['vCarColorName'];
+                $DaoCarColorsLang->iUpdateTime = time();
+                $DaoCarColorsLang->save();
+
+                $this->_saveLogAction( $DaoCarColorsLang->getTable(), $DaoCarColorsLang->iId, 'edit', json_encode( $DaoCarColorsLang ) );
+            }
+        }
+
+        $this->rtndata ['status'] = 1;
+        $this->rtndata ['message'] = trans( '_web_message.save_success' );
+        
         return response()->json( $this->rtndata );
     }
 

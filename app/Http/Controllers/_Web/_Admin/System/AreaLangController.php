@@ -29,12 +29,12 @@ class AreaLangController extends _WebController
     {
         $this->breadcrumb = [
             $this->module => "#",
-            $this->module . "." . $this->action . "arealang" => url( 'web/' . $this->module . '/' . $this->actio . '/arealang' )
+            $this->module . "." . $this->action .  "." . "arealang" => url( 'web/' . $this->module . '/' . $this->action . '/arealang' )
         ];
 
-        $this->title = $this->module . "." . $this->action . "arealang";
+        $this->title = $this->module . "." . $this->action .  "." . "arealang";
 
-        $this->func = "web." . $this->module . "." . $this->action . "arealang";
+        $this->func = "web." . $this->module . "." . $this->action .  "." . "arealang";
         $this->__initial();
 
         return $this->view;
@@ -47,6 +47,9 @@ class AreaLangController extends _WebController
     {
         $mapSysAreaLang['bDel'] = 0;
         $DaoSysAreaLang = SysAreaLang::where($mapSysAreaLang)->get();
+        foreach ($DaoSysAreaLang as $key => $var) {
+            $var->DT_RowId = $var->iId;
+        }
 
         $this->rtndata ['status'] = 1;
         $this->rtndata ['aaData'] = $DaoSysAreaLang;

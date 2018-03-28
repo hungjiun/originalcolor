@@ -82,6 +82,7 @@
         var url_dosave = "{{ url('web/product/car/colors/dosave')}}";
         var url_add = "{{ url('web/product/car/colors/add')}}";
         var url_edit = "{{ url('web/product/car/colors/edit')}}";
+        var url_lang = "{{ url('web/product/car/colors/lang')}}";
         var url_dodel = "{{ url('web/product/car/colors/dodel')}}";
         var table;
         $(document).ready(function () {
@@ -164,7 +165,9 @@
                         "mRender": function (data, type, row) {
                             current_data[row.iId] = row;
                             var btn = "";
-                            btn = '<button class="btn btn-xs btn-default btn-edit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></button>&nbsp;';
+                            btn += '<button class="btn btn-xs btn-default btn-edit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></button>&nbsp;';
+                            btn += '<button class="btn btn-xs btn-default btn-lang" title="車色語言編輯"><i class="fa fa-language" aria-hidden="true"></i></button>&nbsp;';
+
                             btn += '<button class="pull-right btn btn-xs btn-default btn-del" title="刪除"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
                             return btn;
                         }
@@ -195,6 +198,11 @@
             $("#dt_basic").on('click', '.btn-edit', function () {
                 var idx = $(this).closest('tr').attr('id');
                 location.href = url_edit + "?id="+idx;
+            });
+            //
+            $("#dt_basic").on('click', '.btn-lang', function () {
+                var idx = $(this).closest('tr').attr('id');
+                location.href = url_lang + "?id="+idx;
             });
             
             //

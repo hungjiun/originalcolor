@@ -20,6 +20,7 @@ class CreateSysDealerTable extends Migration
                 $table->increments( 'iId' );
                 $table->integer( 'iType' )->default( 0 )->comment('0:新增, 1:舊有');
                 $table->string( 'vDealerCode' )->nullable();
+                $table->integer( 'iAreaLangId' )->default( 0 );
                 $table->string( 'vDealerName' )->nullable();
                 $table->string( 'vDealerNameE' )->nullable();
                 $table->string( 'vUrlName' )->nullable();

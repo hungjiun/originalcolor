@@ -165,7 +165,17 @@ return [
                                                     "2",
                                                     "0"
                                                 ],
-                                        ]    
+                                        ],
+                                    "lang" =>
+                                        [
+                                            "view" => "_template_web.product.car.colors.lang",
+                                            "menu_access" => "22",
+                                            "menu_parent" =>
+                                                [
+                                                    "2",
+                                                    "0"
+                                                ],
+                                        ]         
                                 ],    
                             "models" =>
                                 [

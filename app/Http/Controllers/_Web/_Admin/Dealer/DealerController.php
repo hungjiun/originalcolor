@@ -3,6 +3,7 @@ namespace App\Http\Controllers\_Web\_Admin\Dealer;
 
 use App\Http\Controllers\_Web\_WebController;
 use App\SysDealer;
+use App\SysAreaLang;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
@@ -33,6 +34,10 @@ class DealerController extends _WebController
         $this->func = "web." . $this->module . "." . $this->action;
         $this->__initial();
 
+        $mapSysAreaLang['bDel'] = 0;
+        $DaoSysAreaLang = SysAreaLang::where($mapSysAreaLang)->get();
+
+        $this->view->with ( 'sysAreaLang', $DaoSysAreaLang );
         return $this->view;
     }
 
@@ -50,6 +55,7 @@ class DealerController extends _WebController
             $var->iCreateTime = date( 'Y/m/d H:i:s', $var->iCreateTime );
             $var->iUpdateTime = date( 'Y/m/d H:i:s', $var->iUpdateTime );
         }
+
         $this->rtndata ['status'] = 1;
         $this->rtndata ['aaData'] = $data_arr;
 
@@ -180,6 +186,9 @@ class DealerController extends _WebController
             return response()->json( $this->rtndata );
         }
 
+        if ( $request->exists( 'iAreaLangId' ) ) {
+            $DaoSysDealer->iAreaLangId = $request->input( 'iAreaLangId' );
+        }
         if ( $request->exists( 'vDealerName' ) ) {
             $DaoSysDealer->vDealerName = $request->input( 'vDealerName' );
         }

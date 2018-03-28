@@ -123,6 +123,17 @@
                                 <input class="form-control input-color vDealerFontColor" placeholder="{{trans('web.admin.dealer.fontcolor')}}" type="text">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{trans('web.admin.dealer.arealang')}}</label>
+                            <div class="col-md-9">
+                                <select class="form-control iAreaLang" id="iAreaLang">
+                                    <option value="0">中文</option>
+                                    @foreach($sysAreaLang as $key => $var)
+                                    <option value="{{$var->iId}}">{{$var->vAreaLangName}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -218,6 +229,17 @@
                             <label class="col-md-3 control-label">{{trans('web.admin.dealer.fontcolor')}}</label>
                             <div class="col-md-9">
                                 <input class="form-control input-color vDealerFontColor" placeholder="{{trans('web.admin.dealer.fontcolor')}}" type="text">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-3 control-label">{{trans('web.admin.dealer.arealang')}}</label>
+                            <div class="col-md-9">
+                                <select class="form-control iAreaLang" id="iAreaLang">
+                                    <option value="0">中文</option>
+                                    @foreach($sysAreaLang as $key => $var)
+                                    <option value="{{$var->iId}}">{{$var->vAreaLangName}}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                     </form>
@@ -397,6 +419,7 @@
                 modal.find(".vDealerFontColor").val(current_data[id].vDealerFontColor);
                 modal.find(".vDealerFax").val(current_data[id].vDealerFax);
                 modal.find(".vDealerCompanyUrl").val(current_data[id].vDealerCompanyUrl);
+                modal.find(".iAreaLang").val(current_data[id].iAreaLangId);
                 modal.modal();
             });
             //
@@ -419,6 +442,7 @@
                 data.vDealerColor = modal.find('.vDealerColor').val();
                 data.vDealerFontColor = modal.find('.vDealerFontColor').val();
                 data.vDealerCompanyUrl = modal.find('.vDealerCompanyUrl').val();
+                data.iAreaLangId = modal.find('.iAreaLang').val();
                 $.ajax({
                     url: url_dosave,
                     type: "POST",

@@ -109,6 +109,7 @@
         var ajax_Table = "{{ url('web/admin/system/arealang/getlist')}}";
         var url_dosave = "{{ url('web/admin/system/arealang/dosave')}}";
         var url_doadd = "{{ url('web/admin/system/arealang/doadd')}}";
+        var url_dodel = "{{ url('web/admin/system/arealang/dodel')}}";
 
         $(document).ready(function () {
             /* BASIC ;*/
@@ -122,8 +123,8 @@
                 "columnDefs": [
                     { "width": "50px","targets": i},        //ID
                     { "width": "100px","targets": ++i},     //會員編號
-                    { "width": "60px","targets": ++i},      //狀態
-                    { "width": "100px","targets": ++i}
+                    { "width": "100px","targets": ++i},      //狀態
+                    { "width": "150px","targets": ++i}
                 ],
                 "aoColumns": [
                     {"sTitle": "ID", "mData": "iId"},
@@ -148,7 +149,8 @@
                         "mRender": function (data, type, row) {
                             current_data[row.iId] = row;
                             var btn = "";
-                            btn = '<button class="btn btn-xs btn-default btn-edit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                            btn += '<button class="btn btn-xs btn-default btn-edit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></button>';
+                            btn += '<button class="pull-right btn btn-xs btn-default btn-del" title="刪除"><i class="fa fa-trash-o" aria-hidden="true"></i></button>';
                             return btn;
                         }
                     },
@@ -189,6 +191,34 @@
                 });
             });
             //
+            $(".btn-add").on('click', function () {
+                var modal = $("#add-modal");
+                modal.modal();
+            });
+            //
+            $(".btn-doadd").click(function () {
+                var modal = $("#add-modal");
+                var data = {"_token": "{{ csrf_token() }}"};
+                data.vAreaLangName = modal.find('.vAreaLangName').val();
+                $.ajax({
+                    url: url_doadd,
+                    type: "POST",
+                    data: data,
+                    resetForm: true,
+                    success: function (rtndata) {
+                        if (rtndata.status) {
+                            modal.modal('toggle');
+                            swal("{{trans('_web_alert.notice')}}", rtndata.message, "success");
+                            setTimeout(function () {
+                                table.api().ajax.reload(null, false);
+                            }, 1000)
+                        } else {
+                            swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
+                        }
+                    }
+                });
+            });
+            //
             $("#dt_basic").on('click', '.btn-edit', function () {
                 var id = $(this).closest('tr').attr('id');
                 var modal = $("#edit-modal");
@@ -221,6 +251,36 @@
                 });
             });
             //
+            $('#dt_basic').on('click', '.btn-del', function () {
+                var tr = $(this).closest('tr');
+                var idx = tr.attr('id');
+                swal({
+                    title: "{{trans('web.admin.system.arealang.del.title')}}",
+                    text: "{{trans('web.admin.system.arealang.del.note')}}",
+                    type: "warning",
+                    showCancelButton: true,
+                    cancelButtonText: "{{trans('web.cancel')}}",
+                    confirmButtonColor: "#DD6B55",
+                    confirmButtonText: "{{trans('web.ok')}}",
+                    closeOnConfirm: false
+                }, function () {
+                    $.ajax({
+                        url : url_dodel,
+                        data : {"iId":idx, "_token":"{{ csrf_token() }}"},
+                        type : "POST",
+                        success : function(rtndata) {
+                            if (rtndata.status) {
+                                swal("{{trans('web.notice')}}", rtndata.message, "success");
+                                setTimeout(function(){
+                                    table.api().ajax.reload(null, false);
+                                }, 500);
+                            } else {
+                                swal("{{trans('web.notice')}}", rtndata.message, "error");
+                            }
+                        }
+                    })
+                });
+            });
         });
     </script>
 @endsection

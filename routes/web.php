@@ -229,6 +229,28 @@ Route::group(
                     return abort( 503 );
                 } );
             } );
+            Route::group(
+                [
+                    'prefix' => 'system',
+                    'namespace' => 'System',
+                ], function() {
+                    Route::group(
+                    [
+                        'prefix' => 'arealang'
+                    ], function() {
+                    Route::get( '', 'AreaLangController@index' );
+                    Route::get( 'getlist', 'AreaLangController@getList' );
+                    Route::post( 'doadd', 'AreaLangController@doAdd' );
+                    Route::post( 'dosave', 'AreaLangController@doSave' );
+                    Route::post( 'dodel', 'AreaLangController@doDel' );
+                    Route::get( '{error}', function() {
+                        return abort( 503 );
+                    } );
+                } );
+                Route::get( '{error}', function() {
+                    return abort( 503 );
+                } );
+            } );
         } );
 
         // Product
@@ -284,6 +306,8 @@ Route::group(
                     Route::post( 'doadd', 'CarColorsController@doAdd' );
                     Route::get( 'edit', 'CarColorsController@edit' );
                     Route::post( 'dosave', 'CarColorsController@doSave' );
+                    Route::get( 'lang', 'CarColorsController@lang' );
+                    Route::post( 'dolangsave', 'CarColorsController@doLangSave' );
                     Route::post( 'dodel', 'CarColorsController@doDel' );
                     Route::get( '{error}', function() {
                         return abort( 503 );

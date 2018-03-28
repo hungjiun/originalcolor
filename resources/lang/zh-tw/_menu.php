@@ -122,7 +122,11 @@ return [
                             'edit' => 
                                 [
                                     'title' => '編輯車色'
-                                ]
+                                ],
+                            'lang' =>
+                                [
+                                    'title' => '車色語言編輯'
+                                ]    
                         ],
                     'search' =>
                         [
