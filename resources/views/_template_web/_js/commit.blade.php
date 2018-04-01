@@ -91,5 +91,17 @@
             return ((total % 10 == 0 ));
         }
     }
+
+    // write small plugin for keypress enter detection
+    $.fn.enterKey = function (fnc) {
+        return this.each(function () {
+            $(this).keypress(function (e) {
+                var keycode = (e.keyCode ? e.keyCode : e.which);
+                if (keycode == '13') {
+                    fnc.call(this, e);
+                }
+            })
+        })
+    };
 </script>
 

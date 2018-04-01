@@ -60,7 +60,11 @@ class ArticleDealerController extends _WebController
             if ($iDealerId != 0) {
                 $query->Where ( 'article_dealer.iDealerId', '=', $iDealerId );
             }
-        } )->where($map)->get();
+        } )->where($map)->select(
+            'article_dealer.*',
+            'sys_dealer.vDealerName',
+            'article_content.vTitle'
+        )->get();
         foreach ($data_arr as $key => $var) {
             $var->DT_RowId = $var->iId;
             $var->iCreateTime = date( 'Y/m/d H:i:s', $var->iCreateTime );

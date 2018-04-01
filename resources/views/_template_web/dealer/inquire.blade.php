@@ -36,15 +36,17 @@
                                     <option value="{{$var->iId}}">{{$var->vCarBrandName}}</option>
                                     @endforeach
                                 </select>
+                                <!--
                                 &nbsp;&nbsp;&nbsp;車款：
                                 <select class="form-control car-model" id="car-model" style="display:inline-block; width: 100px">
                                     <option value="0"></option>
                                 </select>
+                                -->
                                 &nbsp;&nbsp;&nbsp;車色名稱：
-                                <input class="form-control car-color" type="text" id="car-color-name"
+                                <input class="form-control car-color btn-enter" type="text" id="car-color-name"
                                     value="" style="display:inline-block; width: 150px">
                                 &nbsp;&nbsp;&nbsp;色碼：
-                                <input class="form-control car-color" type="text" id="car-color"
+                                <input class="form-control car-color btn-enter" type="text" id="car-color"
                                     value="" style="display:inline-block; width: 150px">
                                 <a href="javascript:void(0);" class="btn btn-primary btn-sm btn-search">搜尋</a>    
                             </div>
@@ -91,7 +93,7 @@
                 "columnDefs": [
                     { "width": "50px","targets": i},        //ID
                     { "width": "100px","targets": ++i},     //車廠名稱
-                    { "width": "100px","targets": ++i},     //車款名稱
+                    //{ "width": "100px","targets": ++i},     //車款名稱
                     { "width": "100px","targets": ++i},     //車色名稱
                     { "width": "100px","targets": ++i},     //車色圖片
                     { "width": "100px","targets": ++i},     //車色編碼
@@ -102,7 +104,7 @@
                 "aoColumns": [
                     {"sTitle": "ID", "mData": "iId", "sName": "iId"},
                     {"sTitle": "車廠", "mData": "vCarBrandName", "sName": "vCarBrandName"},
-                    {"sTitle": "車款", "mData": "vCarModelName", "sName": "vCarModelName"},
+                    //{"sTitle": "車款", "mData": "vCarModelName", "sName": "vCarModelName"},
                     {"sTitle": "車色", "mData": "vCarColorName", "sName": "vCarColorName"},
                     {
                         "sTitle":"圖片",
@@ -146,7 +148,7 @@
                 "sAjaxSource": ajax_source,
                 fnServerParams: function(aoData){
                     aoData.push( { "name": "iCarBrandId", "value": $("#car-brand").val() } );
-                    aoData.push( { "name": "iCarModelId", "value": $("#car-model").val() } );
+                    //aoData.push( { "name": "iCarModelId", "value": $("#car-model").val() } );
                     aoData.push( { "name": "vCarColorName", "value": $("#car-color-name").val() } );
                     aoData.push( { "name": "vCarColorCode", "value": $("#car-color").val() } );
                 },
@@ -187,6 +189,10 @@
                         }
                     }
                 });
+            });
+
+            $('.btn-enter').enterKey(function () {
+                table.api().ajax.reload();
             });
         });
     </script>

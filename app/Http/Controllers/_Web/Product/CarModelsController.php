@@ -332,7 +332,8 @@ class CarModelsController extends _WebController
 
         $iCarModelId = $request->input( 'iCarModelId', 0 );
 
-        $mapCarModelColors['iCarModelId'] = $iCarModelId;
+        $mapCarModelColors['car_model_colors.iCarModelId'] = $iCarModelId;
+        $mapCarModelColors['car_colors.bDel'] = 0;
         $DaoCarModelColors = CarModelColors::join( 'car_models', function( $join ) {
             $join->on( 'car_model_colors.iCarModelId', '=', 'car_models.iId' );
         } )->join( 'car_colors', function( $join ) {
