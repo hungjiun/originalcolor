@@ -51,15 +51,40 @@ class CarColorsController extends _WebController
      */
     public function getList ()
     {
+        $iDisplayLength = Input::get( 'iDisplayLength' );
+        $iDisplayStart = Input::get( 'iDisplayStart' );
+        $sEcho = Input::get( 'sEcho' );
+        $sort_arr = explode ( ',', Input::get( 'sColumns' ) );
+        $sort_name = $sort_arr[ Input::get( 'iSortCol_0' ) ];
+        $sort_dir = Input::get( 'sSortDir_0' );
+
         $iCarBrandId = ( Input::has ( 'iCarBrandId' ) ) ? Input::get ( 'iCarBrandId' ) : 0;
+        $vCarColorCode = ( Input::has ( 'vCarColorCode' ) ) ? Input::get ( 'vCarColorCode' ) : "";
 
         $map['car_brand.bDel'] = 0;
         $map['car_colors.bDel'] = 0;
+
+        $CarColorsCount = CarColors::join( 'car_brand', function( $join ) {
+            $join->on( 'car_colors.iCarBrandId', '=', 'car_brand.iId' );
+        } )->where ( function ($query) use($iCarBrandId) {
+            if ($iCarBrandId != 0) {
+                $query->Where ( 'car_colors.iCarBrandId', '=', $iCarBrandId );
+            }
+        } )->where ( function ($query) use($vCarColorCode) {
+            if ($vCarColorCode != "") {
+                $query->Where ( 'car_colors.vCarColorCode', 'like', '%' . $vCarColorCode . '%' );
+            }
+        } )->where($map)->select( 'car_colors.*' )->count();
+
         $data_arr = CarColors::join( 'car_brand', function( $join ) {
             $join->on( 'car_colors.iCarBrandId', '=', 'car_brand.iId' );
         } )->where ( function ($query) use($iCarBrandId) {
             if ($iCarBrandId != 0) {
-                $query->Where ( 'iCarBrandId', '=', $iCarBrandId );
+                $query->Where ( 'car_colors.iCarBrandId', '=', $iCarBrandId );
+            }
+        } )->where ( function ($query) use($vCarColorCode) {
+            if ($vCarColorCode != "") {
+                $query->Where ( 'car_colors.vCarColorCode', 'like', '%' . $vCarColorCode . '%' );
             }
         } )->where($map)->select( 'car_colors.*', 'car_brand.vCarBrandName' )->get();
         foreach ($data_arr as $key => $var) {
@@ -68,7 +93,11 @@ class CarColorsController extends _WebController
             $var->iCreateTime = date( 'Y/m/d H:i:s', $var->iCreateTime );
             $var->iUpdateTime = date( 'Y/m/d H:i:s', $var->iUpdateTime );
         }
+
         $this->rtndata ['status'] = 1;
+        $this->rtndata ['sEcho'] = $sEcho;
+        $this->rtndata ['iTotalDisplayRecords'] = $CarColorsCount;
+        $this->rtndata ['iTotalRecords'] = $CarColorsCount;
         $this->rtndata ['aaData'] = $data_arr;
 
         return response()->json( $this->rtndata );

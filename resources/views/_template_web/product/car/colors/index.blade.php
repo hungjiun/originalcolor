@@ -29,6 +29,7 @@
                     <div class="box-body">
                         <!-- select -->
                         <br>
+                        <!--
                         <div class="form-group">
                             <label class="col-sm-2 control-label">車廠選擇</label>
                             <div class="col-sm-6">
@@ -38,6 +39,22 @@
                                     <option value="{{$var->iId}}">{{$var->vCarBrandName}}</option>
                                     @endforeach
                                 </select>
+                            </div>
+                        </div>
+                        -->
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="margin-top: 10px;">
+                                車廠選擇：
+                                <select class="form-control car-brand" id="car-brand" style="display:inline-block; width: 100px">
+                                    <option value="0"></option>
+                                    @foreach ($carBrand as $key => $var)
+                                    <option value="{{$var->iId}}">{{$var->vCarBrandName}}</option>
+                                    @endforeach
+                                </select>
+                                &nbsp;&nbsp;&nbsp;色碼：
+                                <input class="form-control car-color btn-enter" type="text" id="car-color"
+                                    value="" style="display:inline-block; width: 150px">
+                                <a href="javascript:void(0);" class="btn btn-primary btn-sm btn-search">搜尋</a>    
                             </div>
                         </div>
                         <br><br>
@@ -90,7 +107,7 @@
             var i = 0;
             table = $('#dt_basic').dataTable({
                 "searching": false,
-                "bServerside": true,
+                "bServerSide": true,
                 "bStateSave": true,
                 "scrollX": true,
                 "autoWidth": true,
@@ -107,9 +124,9 @@
                     { "width": "100px","targets": ++i}
                 ],
                 "aoColumns": [
-                    {"sTitle": "ID", "mData": "iId"},
-                    {"sTitle": "車廠名稱", "mData": "vCarBrandName"},
-                    {"sTitle": "車色名稱", "mData": "vCarColorName"},
+                    {"sTitle": "ID", "mData": "iId", "sName": "iId"},
+                    {"sTitle": "車廠名稱", "mData": "vCarBrandName", "sName": "vCarBrandName"},
+                    {"sTitle": "車色名稱", "mData": "vCarColorName", "sName": "vCarColorName"},
                     {
                         "sTitle":"圖片",
                         "mData":"vCarColorImg",
@@ -124,22 +141,25 @@
                         "sTitle": "編碼", 
                         "bSortable": false,
                         "bSearchable": false,
-                        "mData": "vCarColorCode"
+                        "mData": "vCarColorCode",
+                        "sName": "vCarColorCode",
                     },
                     {
                         "sTitle": "國際編號", 
                         "bSortable": false,
                         "bSearchable": false,
-                        "mData": "vCarColorNationalCode"
+                        "mData": "vCarColorNationalCode",
+                        "sName": "vCarColorNationalCode",
                     },
                     {
                         "sTitle": "台灣編號", 
                         "bSortable": false,
                         "bSearchable": false,
-                        "mData": "vPenNumber"
+                        "mData": "vPenNumber",
+                        "sName": "vPenNumber",
                     },
                     {
-                        "sTitle":"排序","mData":"iRank",
+                        "sTitle":"排序",
                         "mData": "iRank",
                         "mRender": function(data, type, row) {
                             return "<input type=\"number\"  min=\"1\" class=\"form-control set-rank\" value=\""+ data +"\">";
@@ -162,6 +182,8 @@
                     },
                     {
                         "sTitle": "Action",
+                        "bSortable": false,
+                        "bSearchable": false,
                         "mRender": function (data, type, row) {
                             current_data[row.iId] = row;
                             var btn = "";
@@ -175,7 +197,8 @@
                 ],
                 "sAjaxSource": ajax_source,
                 fnServerParams: function(aoData){
-                    aoData.push( { "name": "iCarBrandId", "value": $("#BrandSelect").val() } );
+                    aoData.push( { "name": "iCarBrandId", "value": $("#car-brand").val() } );
+                    aoData.push( { "name": "vCarColorCode", "value": $("#car-color").val() } );
                 },
                 "ajax": ajax_Table,
                 "sDom": "<'dt-toolbar'<'col-sm-6 col-xs-12 hidden-xs'l>r>" +
@@ -186,9 +209,13 @@
                 },
             });
             /* END BASIC */
-
+            /*
             $('#BrandSelect').change(function() {
                 table.api().ajax.reload(null, false);
+            });
+            */
+            $('.btn-search').on('click', function() {
+                table.api().ajax.reload();
             });
             //
             $(".btn-add").click(function () {

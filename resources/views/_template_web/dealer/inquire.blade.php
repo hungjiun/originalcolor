@@ -139,6 +139,8 @@
                     },
                     {
                         "sTitle": "Action",
+                        "bSortable": false,
+                        "bSearchable": false,
                         "mRender": function (data, type, row) {
                             var btn = "";
                             return btn;
