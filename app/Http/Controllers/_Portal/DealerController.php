@@ -393,6 +393,7 @@ class DealerController extends _PortalController
         $mapDealerCarModels2 ['dealer_car_models.iDealerId'] = $sysDealer;
         $mapDealerCarModels2 ['dealer_car_models.iStatus'] = 1;
         $mapDealerCarModels2 ['dealer_car_models.bDel'] = 0;
+        $mapDealerCarModels2 ['car_models.bDel'] = 0;
         $DaoDealerCarModels = DealerCarModels::join( 'car_models', function( $join ) {
             $join->on( 'dealer_car_models.iCarModelsId', '=', 'car_models.iId' );
         } )->where ( $mapDealerCarModels2 )->select(
@@ -454,6 +455,7 @@ class DealerController extends _PortalController
         $mapDealerCarModelColors ['dealer_car_model_colors.iCarBrandId'] = $iCarBrandId;
         $mapDealerCarModelColors ['dealer_car_model_colors.iCarModelId'] = $iCarModelId;
         $mapDealerCarModelColors ['dealer_car_model_colors.iStatus'] = 1;
+        $mapDealerCarModelColors ['car_colors.bDel'] = 0;
         $DaoDealerCarModelColors = DealerCarModelColors::join( 'car_colors', function( $join ) {
             $join->on( 'dealer_car_model_colors.iCarColorId', '=', 'car_colors.iId' );
         } )->where( $mapDealerCarModelColors )->select( 

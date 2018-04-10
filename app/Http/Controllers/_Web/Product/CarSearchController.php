@@ -67,7 +67,6 @@ class CarSearchController extends _WebController
             $var1->vCarColorNationalCode = $var1->vCarColorNationalCode ? $var1->vCarColorNationalCode : "";
             $carModels = [];
             foreach ($DaoCarModels as $key2 => $var2) {
-                $carModels[$key2]['iId'] = $var2->iId;
                 $carModels[$key2]['vCarModelName'] = $var2->vCarModelName;
 
                 $mapCarModelColors ['car_model_colors.iCarBrandId'] = $iCarBrandId;
@@ -92,6 +91,7 @@ class CarSearchController extends _WebController
 
                     $carModels[$key2]['iColorStatus'] = 0;
                 }
+                $carModels[$key2]['iId'] = $DaoCarModelColors->iId;
             }
             $var1->carModels = $carModels;
         }
