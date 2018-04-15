@@ -53,7 +53,7 @@ class CustomerController extends _WebController
         foreach ($data_arr as $key => $var) {
             $var->DT_RowId = $var->iId;
             $var->iCreateTime = date( 'Y/m/d H:i:s', $var->iCreateTime );
-            $var->iUserBirthday = date( 'Y/m/d', $var->iUserBirthday );
+            $var->iUserBirthday = $var->iUserBirthday ? date( 'Y/m/d', $var->iUserBirthday ) : "";
         }
         $this->rtndata ['status'] = 1;
         $this->rtndata ['aaData'] = $data_arr;
@@ -87,12 +87,14 @@ class CustomerController extends _WebController
         $vUserName = ( Input::has( 'vUserName' ) ) ? Input::get( 'vUserName' ) : "";
         $vAccount = ( Input::has( 'vAccount' ) ) ? Input::get( 'vAccount' ) : "";
         $vPassword = ( Input::has( 'vPassword' ) ) ? Input::get( 'vPassword' ) : "";
+        /*
         if ( !$this->_isValidEmail( $vAccount )) {
             $this->rtndata ['status'] = 0;
             $this->rtndata ['message'] = trans( '_web_message.register.error_account' );
 
             return response()->json( $this->rtndata );
         }
+        */
         $map ['vAgentCode'] = $this->vAgentCode;
         $map ['vAccount'] = $vAccount;
         $DaoMember = SysMember::where( $map )->first();

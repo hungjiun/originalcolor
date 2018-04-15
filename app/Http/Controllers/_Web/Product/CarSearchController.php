@@ -95,53 +95,6 @@ class CarSearchController extends _WebController
             }
             $var1->carModels = $carModels;
         }
-
-        /*
-        foreach ($DaoCarColors as $key => $value) {
-
-            $value->vCarColorCode = $value->vCarColorCode ? $value->vCarColorCode : "";
-            $value->vCarColorNationalCode = $value->vCarColorNationalCode ? $value->vCarColorNationalCode : "";
-            
-            $mapCarModelColors ['car_model_colors.iCarBrandId'] = $iCarBrandId;
-            $mapCarModelColors ['car_model_colors.iCarColorId'] = $value->iId;
-            $mapCarModelColors ['car_model_colors.bDel'] = 0;
-            $mapCarModelColors ['car_models.bDel'] = 0;
-            $DaoCarModelColors = CarModelColors::join( 'car_models', function( $join ) {
-                $join->on( 'car_model_colors.iCarModelId', '=', 'car_models.iId' );
-            } )->where( $mapCarModelColors )->select(
-                'car_model_colors.*', 
-                'car_models.vCarModelName'
-            )->get();
-           
-            if(count($DaoCarModelColors) == 0) {
-                foreach ($DaoCarModels as $key1 => $value1) {
-                    $DaoCarModelColors = new CarModelColors();
-                    $DaoCarModelColors->iCarBrandId = $iCarBrandId;
-                    $DaoCarModelColors->iCarModelId = $value1->iId;
-                    $DaoCarModelColors->iCarColorId = $value->iId;
-                    $DaoCarModelColors->iRank = 1;
-                    $DaoCarModelColors->iCreateTime = $DaoCarModelColors->iUpdateTime = time();
-                    $DaoCarModelColors->iStatus = 0;
-                    $DaoCarModelColors->bDel = 0;
-                    $DaoCarModelColors->save();
-                }
-
-                $mapCarModelColors ['car_model_colors.iCarBrandId'] = $iCarBrandId;
-                $mapCarModelColors ['car_model_colors.iCarColorId'] = $value->iId;
-                $mapCarModelColors ['car_model_colors.bDel'] = 0;
-                $mapCarModelColors ['car_models.bDel'] = 0;
-                $DaoCarModelColors = CarModelColors::join( 'car_models', function( $join ) {
-                    $join->on( 'car_model_colors.iCarModelId', '=', 'car_models.iId' );
-                } )->where( $mapCarModelColors )->select(
-                    'car_model_colors.*', 
-                    'car_models.vCarModelName'
-                )->get();
-            }
-
-            $value->CarModelColors = $DaoCarModelColors;
-            $data_arr [ $key ] = $value;
-        }
-        */
         
         $this->rtndata ['status'] = 1;
         $this->rtndata ['CarBrand'] = $DaoCarBrand;
@@ -224,31 +177,23 @@ class CarSearchController extends _WebController
         $mapCarColors ['bDel'] = 0;
         $DaoCarColors = CarColors::where( $mapCarColors )->orderBy('iRank', 'asc')->get();
 
-        foreach ($DaoCarColors as $key => $value) {
-            $mapCarModelColors ['car_model_colors.iCarBrandId'] = $iCarBrandId;
-            $mapCarModelColors ['car_model_colors.iCarColorId'] = $value->iId;
-            $mapCarModelColors ['car_model_colors.bDel'] = 0;
-            
-            $DaoCarModelColors = CarModelColors::where( $mapCarModelColors )->get();
-
-            $value->CarModelColors = $DaoCarModelColors;
-            $data_arr [ $key ] = $value;
-        }
-        
-
-        foreach ($data_arr as $key => $var) {
+        foreach ($DaoCarColors as $key1 => $var1) {
             $data = [];
-            array_push($data, $var->vCarColorName);
-            //array_push($data, $var->vCarColorCode);
+            array_push($data, $var1->vCarColorName);
 
-            foreach ($DaoCarModels as $key1 => $var1) {
-                if($var['CarModelColors'][$key1]['iStatus'] == 1) {
-                    array_push($data, 1);
-                } else {
-                    array_push($data, "");
-                }
+            foreach ($DaoCarModels as $key2 => $var2) {
+                $mapCarModelColors ['car_model_colors.iCarBrandId'] = $iCarBrandId;
+                $mapCarModelColors ['car_model_colors.iCarModelId'] = $var2->iId;
+                $mapCarModelColors ['car_model_colors.iCarColorId'] = $var1->iId;
+                $DaoCarModelColors = CarModelColors::where( $mapCarModelColors )->first();
+                if($DaoCarModelColors) {
+                    if($DaoCarModelColors->iStatus == 1) {
+                        array_push($data, 1);
+                    } else {
+                        array_push($data, "");
+                    }
+                } 
             }
-
             array_push($exportData, $data);
         }
 

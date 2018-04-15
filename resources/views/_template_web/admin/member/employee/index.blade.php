@@ -56,7 +56,7 @@
                         <div class="form-group">
                             <label class="col-md-3 control-label">{{trans('web.username')}}</label>
                             <div class="col-md-9">
-                                <input class="form-control vUserName" placeholder="{{trans('web.admin.member.username')}}" type="text">
+                                <input class="form-control vUserName" placeholder="{{trans('web.username')}}" type="text">
                             </div>
                         </div>
                         <div class="form-group">
@@ -94,11 +94,12 @@
                 <div class="modal-body">
                     <form class="form-horizontal">
                         <div class="form-group">
-                            <label class="col-md-3 control-label">{{trans('web.admin.member.username')}}</label>
+                            <label class="col-md-3 control-label">{{trans('web.username')}}</label>
                             <div class="col-md-9">
-                                <input class="form-control vUserName" id="vUserName" placeholder="{{trans('web.admin.member.username')}}" type="text">
+                                <input class="form-control vUserName" id="vUserName" placeholder="{{trans('web.username')}}" type="text">
                             </div>
                         </div>
+                        <!--
                         <div class="form-group">
                             <label class="col-md-3 control-label">{{trans('web.admin.member.username_en')}}</label>
                             <div class="col-md-9">
@@ -124,6 +125,7 @@
                                        placeholder="{{trans('web.admin.member.user_birthday')}}" type="text">
                             </div>
                         </div>
+                        -->
                         <div class="form-group">
                             <label class="col-md-3 control-label">{{trans('web.admin.member.user_email')}}</label>
                             <div class="col-md-9">
@@ -136,6 +138,7 @@
                                 <input class="form-control vUserContact" id="vUserContact" placeholder="{{trans('web.admin.member.user_contact')}}" type="text">
                             </div>
                         </div>
+                        <!--
                         <div class="form-group">
                             <label class="col-md-3 control-label">{{trans('web.admin.member.user_zipcode')}}</label>
                             <div class="col-md-9">
@@ -160,6 +163,7 @@
                                 <input class="form-control vUserAddress" id="vUserAddress" placeholder="{{trans('web.admin.member.user_address')}}" type="text">
                             </div>
                         </div>
+                        -->
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -215,17 +219,17 @@
                     {"sTitle": "會員編號", "mData": "iUserId"},
                     {"sTitle": "權限等級", "mData": "iAcType"},
                     {"sTitle": "帳號", "mData": "vAccount"},
-                    {"sTitle": "建立時間", "mData": "iUpdateTime"},
+                    {"sTitle": "建立時間", "mData": "iCreateTime"},
                     {
                         "sTitle": "啟用", "mData": "bActive",
                         "mRender": function (data, type, row) {
                             var btn = "無狀態";
                             switch (data) {
                                 case 1:
-                                    btn = '<button class="btn btn-xs btn-warning btn-active">已啟用</button>';
+                                    btn = '<button class="btn btn-xs btn-success btn-active">已啟用</button>';
                                     break;
                                 default:
-                                    btn = '<button class="btn btn-xs btn-success btn-active">已停用</button>';
+                                    btn = '<button class="btn btn-xs btn-warning btn-active">已停用</button>';
                                     break;
                             }
                             return btn;
@@ -237,10 +241,10 @@
                             var btn = "無狀態";
                             switch (data) {
                                 case 1:
-                                    btn = '<button class="btn btn-xs btn-danger btn-status">正常使用</button>';
+                                    btn = '<button class="btn btn-xs btn-primary btn-status">正常使用</button>';
                                     break;
                                 default:
-                                    btn = '<button class="btn btn-xs btn-primary btn-status">停權中</button>';
+                                    btn = '<button class="btn btn-xs btn-danger btn-status">停權中</button>';
                                     break;
                             }
                             return btn;
@@ -252,7 +256,7 @@
                             current_data[row.iId] = row;
                             var btn = "無功能";
                             btn = '<button class="btn btn-xs btn-default btn-edit" title="編輯"><i class="fa fa-pencil" aria-hidden="true"></i></button>';
-                            btn += '<button class="btn btn-xs btn-default btn-access" title="權限"><i class="fa fa-key" aria-hidden="true"></i></button>';
+                            //btn += '<button class="btn btn-xs btn-default btn-access" title="權限"><i class="fa fa-key" aria-hidden="true"></i></button>';
                             return btn;
                         }
                     },
@@ -292,7 +296,7 @@
                         }
                     }
                 });
-            })
+            });
 
             //
             $("#dt_basic").on('click', '.btn-status', function () {
@@ -318,12 +322,12 @@
                         }
                     }
                 });
-            })
+            });
             //
             $(".btn-add").click(function () {
                 var modal = $("#add-modal");
                 modal.modal();
-            })
+            });
 
             //
             $("#add-modal .vAccount").blur(function () {
@@ -333,7 +337,7 @@
                 } else {
                     $(this).parent().removeClass('has-error');
                 }
-            })
+            });
             //
             $("#add-modal .vRePassword").blur(function () {
                 if ($(this).val() != $("#add-modal .vPassword").val()) {
@@ -341,7 +345,7 @@
                 } else {
                     $(this).parent().removeClass('has-error');
                 }
-            })
+            });
             //
             $(".btn-doadd").click(function () {
                 var modal = $("#add-modal");
@@ -365,7 +369,7 @@
                         }
                     }
                 });
-            })
+            });
 
             //
             $("#dt_basic").on('click', '.btn-edit', function () {
@@ -373,34 +377,34 @@
                 var modal = $("#edit-modal");
                 modal.data('id', id);
                 modal.find(".vUserName").val(current_data[id].vUserName);
-                modal.find(".vUserNameE").val(current_data[id].vUserNameE);
-                modal.find(".vUserTitle").val(current_data[id].vUserTitle);
-                modal.find(".vUserID").val(current_data[id].vUserID);
-                modal.find(".iUserBirthday").val(current_data[id].iUserBirthday);
+                //modal.find(".vUserNameE").val(current_data[id].vUserNameE);
+                //modal.find(".vUserTitle").val(current_data[id].vUserTitle);
+                //modal.find(".vUserID").val(current_data[id].vUserID);
+                //modal.find(".iUserBirthday").val(current_data[id].iUserBirthday);
                 modal.find(".vUserEmail").val(current_data[id].vUserEmail);
                 modal.find(".vUserContact").val(current_data[id].vUserContact);
-                modal.find(".vUserZipCode").val(current_data[id].vUserZipCode);
-                modal.find(".vUserCity").val(current_data[id].vUserCity);
-                modal.find(".vUserArea").val(current_data[id].vUserArea);
-                modal.find(".vUserAddress").val(current_data[id].vUserAddress);
+                //modal.find(".vUserZipCode").val(current_data[id].vUserZipCode);
+                //modal.find(".vUserCity").val(current_data[id].vUserCity);
+                //modal.find(".vUserArea").val(current_data[id].vUserArea);
+                //modal.find(".vUserAddress").val(current_data[id].vUserAddress);
                 modal.modal();
-            })
+            });
             //
             $(".btn-dosave").click(function () {
                 var modal = $("#edit-modal");
                 var data = {"_token": "{{ csrf_token() }}"};
                 data.iId = modal.data('id');
                 data.vUserName = modal.find('.vUserName').val();
-                data.vUserNameE = modal.find('.vUserNameE').val();
-                data.vUserTitle = modal.find('.vUserTitle').val();
-                data.vUserID = modal.find('.vUserID').val();
-                data.iUserBirthday = modal.find('.iUserBirthday').val();
+                //data.vUserNameE = modal.find('.vUserNameE').val();
+                //data.vUserTitle = modal.find('.vUserTitle').val();
+                //data.vUserID = modal.find('.vUserID').val();
+                //data.iUserBirthday = modal.find('.iUserBirthday').val();
                 data.vUserEmail = modal.find('.vUserEmail').val();
                 data.vUserContact = modal.find('.vUserContact').val();
-                data.vUserZipCode = modal.find('.vUserZipCode').val();
-                data.vUserCity = modal.find('.vUserCity').val();
-                data.vUserArea = modal.find('.vUserArea').val();
-                data.vUserAddress = modal.find('.vUserAddress').val();
+                //data.vUserZipCode = modal.find('.vUserZipCode').val();
+                //data.vUserCity = modal.find('.vUserCity').val();
+                //data.vUserArea = modal.find('.vUserArea').val();
+                //data.vUserAddress = modal.find('.vUserAddress').val();
                 $.ajax({
                     url: url_dosave,
                     type: "POST",
@@ -418,7 +422,7 @@
                         }
                     }
                 });
-            })
+            });
             //
             $("#dt_basic").on('click', '.btn-access', function () {
                 var id = $(this).closest('tr').attr('id');

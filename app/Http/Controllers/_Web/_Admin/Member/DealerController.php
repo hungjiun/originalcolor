@@ -9,8 +9,9 @@ use App\Http\Controllers\_Web\_WebController;
 use App\SysMember;
 use App\SysMemberInfo;
 use App\SysAgentAccess;
+use App\SysDealer;
 use Illuminate\Support\Facades\Input;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Request;
 
 class DealerController extends _WebController
 {
@@ -40,6 +41,10 @@ class DealerController extends _WebController
         $this->func = "web." . $this->module . "." . $this->action . ".dealer";
         $this->__initial();
 
+        $map['bDel'] = 0;    
+        $DaoSysDealer = SysDealer::where($map)->get();
+
+        $this->view->with ( 'dealer', $DaoSysDealer );
         return $this->view;
     }
 
@@ -54,7 +59,17 @@ class DealerController extends _WebController
         foreach ($data_arr as $key => $var) {
             $var->DT_RowId = $var->iId;
             $var->iCreateTime = date( 'Y/m/d H:i:s', $var->iCreateTime );
-            $var->iUserBirthday = date( 'Y/m/d', $var->iUserBirthday );
+            $var->iUserBirthday = $var->iUserBirthday ? date( 'Y/m/d', $var->iUserBirthday ) : "";
+
+            if($var->iDealerId) {
+                $mapDealer['iId'] = $var->iDealerId;
+                $mapDealer['bDel'] = 0;    
+                $DaoSysDealer = SysDealer::where($mapDealer)->first();
+                $var->vDealerName = $DaoSysDealer->vDealerName;
+            } else {
+                $var->vDealerName = "";
+            }
+
         }
         $this->rtndata ['status'] = 1;
         $this->rtndata ['aaData'] = $data_arr;
@@ -88,12 +103,14 @@ class DealerController extends _WebController
         $vUserName = ( Input::has( 'vUserName' ) ) ? Input::get( 'vUserName' ) : "";
         $vAccount = ( Input::has( 'vAccount' ) ) ? Input::get( 'vAccount' ) : "";
         $vPassword = ( Input::has( 'vPassword' ) ) ? Input::get( 'vPassword' ) : "";
+        /*
         if ( !$this->_isValidEmail( $vAccount )) {
             $this->rtndata ['status'] = 0;
             $this->rtndata ['message'] = trans( '_web_message.register.error_account' );
 
             return response()->json( $this->rtndata );
         }
+        */
         $map ['vAgentCode'] = $this->vAgentCode;
         $map ['vAccount'] = $vAccount;
         $DaoMember = SysMember::where( $map )->first();
@@ -166,6 +183,9 @@ class DealerController extends _WebController
             $this->rtndata ['message'] = trans( '_web_message.empty_id' );
 
             return response()->json( $this->rtndata );
+        }
+        if (Input::has( 'iDealerId' )) {
+            $Dao->iDealerId = Input::get( 'iDealerId' );
         }
         if (Input::has( 'bActive' )) {
             $Dao->bActive = ( $Dao->bActive ) ? 0 : 1;
