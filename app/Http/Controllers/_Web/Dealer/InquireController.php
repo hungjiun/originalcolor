@@ -60,12 +60,45 @@ class InquireController extends _WebController
         $vCarColorName = ( Input::has ( 'vCarColorName' ) ) ? Input::get ( 'vCarColorName' ) : "";
         $vCarColorCode = ( Input::has ( 'vCarColorCode' ) ) ? Input::get ( 'vCarColorCode' ) : "";
 
+        if($iCarBrandId == 0 && $vCarColorName == "" && $vCarColorCode == "") {
+            $this->rtndata ['status'] = 1;
+            $this->rtndata ['sEcho'] = $sEcho;
+            $this->rtndata ['iTotalDisplayRecords'] = 0;
+            $this->rtndata ['iTotalRecords'] = 0;
+            $this->rtndata ['aaData'] = [];
+            
+            return response()->json( $this->rtndata );
+        }
+
         if ( $iCarBrandId != 0 ) {
             $mapCarColors['car_colors.iCarBrandId'] = $iCarBrandId;
         }
 
         $mapCarColors ['car_colors.bDel'] = 0;
 
+        $CarColorsCount = CarColors::join( 'car_brand', function( $join ) {
+            $join->on( 'car_colors.iCarBrandId', '=', 'car_brand.iId' );
+        } )->where ( function ($query) use($vCarColorName, $vCarColorCode) {
+            if ($vCarColorName != "") {
+                $query->Where ( 'car_colors.vCarColorName', 'like', '%' . $vCarColorName . '%' );
+            }
+            if ($vCarColorCode != "") {
+                $query->Where ( 'car_colors.vCarColorCode', 'like', '%' . $vCarColorCode . '%' );
+            }
+        } )->where( $mapCarColors )->select('car_colors.*')->count();
+
+        $DaoCarColors = CarColors::join( 'car_brand', function( $join ) {
+            $join->on( 'car_colors.iCarBrandId', '=', 'car_brand.iId' );
+        } )->where ( function ($query) use($vCarColorName, $vCarColorCode) {
+            if ($vCarColorName != "") {
+                $query->Where ( 'car_colors.vCarColorName', 'like', '%' . $vCarColorName . '%' );
+            }
+            if ($vCarColorCode != "") {
+                $query->Where ( 'car_colors.vCarColorCode', 'like', '%' . $vCarColorCode . '%' );
+            }
+        } )->where( $mapCarColors )->select('car_colors.*', 'car_brand.vCarBrandName')->get();
+
+        /*
         $CarColorsCount = CarColors::join( 'car_brand', function( $join ) {
             $join->on( 'car_colors.iCarBrandId', '=', 'car_brand.iId' );
         } )->where ( function ($query) use($vCarColorName) {
@@ -89,6 +122,7 @@ class InquireController extends _WebController
                 $query->Where ( 'car_colors.vCarColorCode', 'like', '%' . $vCarColorCode . '%' );
             }
         } )->where( $mapCarColors )->select('car_colors.*', 'car_brand.vCarBrandName')->get();
+        */
         
         /*
         $mapCarModelColors ['car_model_colors.bDel'] = 0;

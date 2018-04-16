@@ -86,7 +86,10 @@ class CarColorsController extends _WebController
             if ($vCarColorCode != "") {
                 $query->Where ( 'car_colors.vCarColorCode', 'like', '%' . $vCarColorCode . '%' );
             }
-        } )->where($map)->select( 'car_colors.*', 'car_brand.vCarBrandName' )->get();
+        } )->where($map)->orderBy( $sort_name, $sort_dir )->skip( $iDisplayStart )->take( $iDisplayLength )->select( 
+            'car_colors.*', 
+            'car_brand.vCarBrandName' 
+        )->get();
         foreach ($data_arr as $key => $var) {
             $var->DT_RowId = $var->iId;
             $var->vCarColorImg = $this->_getFilePathById($var->vCarColorImg);

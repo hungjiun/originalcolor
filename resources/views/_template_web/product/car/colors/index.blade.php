@@ -217,6 +217,9 @@
             $('.btn-search').on('click', function() {
                 table.api().ajax.reload();
             });
+            $('.btn-enter').enterKey(function () {
+                table.api().ajax.reload();
+            });
             //
             $(".btn-add").click(function () {
                 location.href = url_add;

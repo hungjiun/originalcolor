@@ -112,7 +112,7 @@
                 data: data,
                 type: "POST",
                 success: function (rtndata) {
-                    console.log(rtndata)
+                    //console.log(rtndata)
                     if (rtndata.status) {
                         /*
                         if( vCarColorCode ) {
