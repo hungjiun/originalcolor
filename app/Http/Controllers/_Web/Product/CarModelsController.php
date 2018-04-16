@@ -379,6 +379,35 @@ class CarModelsController extends _WebController
     /*
      *
      */
+    public function doImageClear ( Request $request )
+    {
+        $id = $request->exists( 'id' ) ? $request->input ( 'id' ) : 0;
+
+        $map['iId'] = $id;
+        $DaoCarModelColors = CarModelColors::where($map)->first();
+        if(!$DaoCarModelColors) {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.del_fail' );
+            return response()->json( $this->rtndata );
+        }
+
+        $DaoCarModelColors->vCarModelImage = "";
+        if($DaoCarModelColors->save()) {
+            $this->_saveLogAction( $DaoCarModelColors->getTable(), $DaoCarModelColors->iId, 'clear', json_encode( $DaoCarModelColors ) );
+
+            $this->rtndata ['status'] = 1;
+            $this->rtndata ['message'] = trans( '_web_message.del_success' );
+        } else {
+            $this->rtndata ['status'] = 0;
+            $this->rtndata ['message'] = trans( '_web_message.del_fail' );
+        }
+
+        return response()->json( $this->rtndata );
+    }
+
+    /*
+     *
+     */
     public function doColorSave ( Request $request )
     {
         

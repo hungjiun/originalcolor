@@ -3,6 +3,13 @@
 <!-- ================== page-css ================== -->
 @section('page-css')
     <!--  -->
+    <style>
+        .fa-2 {
+            margin-right: .07142857em;
+            font-size: 1.5em;
+        }
+    </style>
+    
 @endsection
 <!-- ================== /page-css ================== -->
 
@@ -33,6 +40,7 @@
                                             <a class="btn-model-image" id="{{$var->iId}}">
                                                 <img class="model-image" id="Image-{{$var->iId}}" data-id="{{$var->iId}}" data-imageId="{{$var->vCarModelImage}}" src="{{$var->vImage}}" style="width: 15%">
                                             </a>
+                                            <a class="btn-clear" data-id="{{$var->iId}}"><i class="fa fa-times-circle-o fa-2" aria-hidden="true"></i></a>
                                         </div>
                                     </div>
                                     @endforeach
@@ -70,6 +78,7 @@
     <!--  -->
     <script>
         var url_doimagesave = "{{ url('web/product/car/models/doimagesave')}}";
+        var url_doclear = "{{ url('web/product/car/models/doclear')}}";
         
         $(document).ready(function () {
             //
@@ -97,6 +106,30 @@
                             swal("{{trans('_web_alert.notice')}}", rtndata.message, "success");
                             setTimeout(function(){
                                 location.href="{{url('web/product/car/models')}}";
+                            }, 500);
+                        } else {
+                            swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");
+                        }
+                    }
+                });
+            });
+
+            $(".btn-clear").click(function () {
+                var id = $(this).attr("data-id");
+                var data = {"_token": "{{ csrf_token() }}"};
+                
+                data.id = id;
+                
+                $.ajax({
+                    url: url_doclear,
+                    type: "POST",
+                    data: data,
+                    resetForm: true,
+                    success: function (rtndata) {
+                        if (rtndata.status) {
+                            swal("{{trans('_web_alert.notice')}}", rtndata.message, "success");
+                            setTimeout(function(){
+                                location.reload();
                             }, 500);
                         } else {
                             swal("{{trans('_web_alert.notice')}}", rtndata.message, "error");

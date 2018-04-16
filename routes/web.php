@@ -291,6 +291,7 @@ Route::group(
                     Route::post( 'dodel', 'CarModelsController@doDel' );
                     Route::get( 'image', 'CarModelsController@image' );
                     Route::post( 'doimagesave', 'CarModelsController@doImageSave' );
+                    Route::post( 'doclear', 'CarModelsController@doImageClear' );
                     Route::get( 'getmodelcolorlist', 'CarModelsController@getModelColorList' );
                     Route::get( '{error}', function() {
                         return abort( 503 );
